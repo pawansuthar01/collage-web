@@ -83,7 +83,7 @@ const CoursesPage = () => {
                   setSelectedCourse(course.name);
                   setShowForm(true);
                 }}
-                className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-white px-4 py-2 rounded-md  transition-colors"
+                className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
               >
                 Apply Now
               </button>
@@ -108,7 +108,7 @@ const CoursesPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
                   />
                 </div>
                 <div>
@@ -117,7 +117,7 @@ const CoursesPage = () => {
                   </label>
                   <input
                     type="email"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
                   />
                 </div>
                 <div>
@@ -126,7 +126,7 @@ const CoursesPage = () => {
                   </label>
                   <input
                     type="tel"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
                   />
                 </div>
                 <div>
@@ -135,7 +135,7 @@ const CoursesPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
                   />
                 </div>
                 <div className="flex justify-end space-x-3">
@@ -148,7 +148,7 @@ const CoursesPage = () => {
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    className="px-4 py-2 bg-[var(--btn-color)] custom-hover  text-[var(--text-color)]  rounded-md "
                   >
                     Submit Application
                   </button>

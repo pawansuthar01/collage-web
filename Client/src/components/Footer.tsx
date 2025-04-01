@@ -1,6 +1,9 @@
 import { BookOpen } from "lucide-react";
 
 const Footer = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+
   return (
     <footer className="bg-[var(--bg-color)] text-[var(--text-color)] ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -94,7 +97,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-blue-800 text-center text-gray-300">
-          <p>&copy; 2024 Mata Gujri Khalsa College. All rights reserved.</p>
+          <p>&copy; {year} Mata Gujri Khalsa College. All rights reserved.</p>
         </div>
       </div>
     </footer>

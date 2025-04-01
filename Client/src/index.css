@@ -14,8 +14,8 @@
   --course-year-color: #c32525; /*course year text  color*/
   --course-fees-color: #241f1f; /*course year text  color*/
   --course-seat-color: red; /*course seats text  color*/
-  --notice-bg-color: #e7f489;
-  --notice-text-color: #b04d3e;
+  --notice-bg-color: #e7f489; /*notice section notice type bg  color*/
+  --notice-text-color: #b04d3e; /*notice section notice type   text  color*/
 }
 .custom-hover:hover {
   background-color: #d52d07; /*hover background    color*/
