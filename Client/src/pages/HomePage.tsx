@@ -89,7 +89,7 @@ const HomePage = () => {
     >
       <Hero />
       <div
-        className={`fixed right-0 top-1/2 -translate-y-1/2 z-50 transition-transform duration-300 ${
+        className={`fixed   right-0 top-1/2 -translate-y-1/2 z-50 transition-transform duration-300 ${
           isFormOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -183,7 +183,7 @@ const HomePage = () => {
         )}
       </div>
       {/* Stats Section */}
-      <section className=" py-6 max-[650px]:pt-36  text-[var(--text-color)]">
+      <section className=" py-8   max-[650px]:pt-40 text-[var(--text-color)]">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
