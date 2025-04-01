@@ -31,7 +31,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <div className="ml-10 flex items-center space-x-4">
               {navItems.map((item) => (
                 <Link
@@ -46,10 +46,10 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md hover:bg-blue-800"
+              className="inline-flex items-center justify-center p-2 rounded-md custom-hover"
             >
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -66,14 +66,14 @@ const Navbar = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden"
+          className="lg:hidden"
         >
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.to}
-                className="flex items-center px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-800"
+                className="flex items-center px-3 py-2 rounded-md text-sm font-medium custom-hover"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <item.icon className="h-4 w-4 mr-2" />
