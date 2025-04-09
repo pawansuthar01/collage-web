@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Bell } from "lucide-react";
+import Layout from "../layout/layout";
 
 const NoticesPage = () => {
   const notices = [
@@ -31,45 +32,47 @@ const NoticesPage = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      className="pt-20 pb-16"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center mb-8">
-          <Bell className="h-8 w-8 text-[var(--icon-color)]" />
-          <h2 className="ml-3 text-3xl font-bold text-[var(--heading-color)]">
-            Latest Updates
-          </h2>
-        </div>
+    <Layout>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        className="pt-20 pb-16"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center mb-8">
+            <Bell className="h-8 w-8 text-[var(--icon-color)]" />
+            <h2 className="ml-3 text-3xl font-bold text-[var(--heading-color)]">
+              Latest Updates
+            </h2>
+          </div>
 
-        <div className="grid gap-6">
-          {notices.map((notice) => (
-            <motion.div
-              key={notice.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="bg-[var(--cardBg-color)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              <div className="flex justify-between items-start">
-                <div>
-                  <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-[var(--notice-bg-color)] text-[var(--notice-text-color)]">
-                    {notice.category}
-                  </span>
-                  <h3 className="mt-2 text-xl font-semibold text-[var(--heading-color)]">
-                    {notice.title}
-                  </h3>
-                  <p className="mt-2 text-gray-600">{notice.content}</p>
+          <div className="grid gap-6">
+            {notices.map((notice) => (
+              <motion.div
+                key={notice.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-[var(--cardBg-color)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-[var(--notice-bg-color)] text-[var(--notice-text-color)]">
+                      {notice.category}
+                    </span>
+                    <h3 className="mt-2 text-xl font-semibold text-[var(--heading-color)]">
+                      {notice.title}
+                    </h3>
+                    <p className="mt-2 text-gray-600">{notice.content}</p>
+                  </div>
+                  <div className="text-sm text-gray-500">{notice.date}</div>
                 </div>
-                <div className="text-sm text-gray-500">{notice.date}</div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Layout>
   );
 };
 

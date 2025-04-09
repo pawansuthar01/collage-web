@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import About from "../components/About";
+import Layout from "../layout/layout";
 
 const AboutPage = () => {
   const teachers = [
@@ -30,43 +31,45 @@ const AboutPage = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="pt-20 pb-16"
-    >
-      <About />
+    <Layout>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="pt-20 pb-16"
+      >
+        <About />
 
-      <div className="mt-16 p-8">
-        <h3 className="text-2xl font-semibold text-[var(--heading-color)] mb-8">
-          Our Faculty
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {teachers.map((teacher, index) => (
-            <motion.div
-              key={teacher.name}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-[var(--cardBg-color)] cursor-pointer rounded-lg hover:shadow-lg shadow-md overflow-hidden"
-            >
-              <img
-                src={teacher.image}
-                alt={teacher.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h4 className="text-lg font-semibold text-[var(--heading-color)]">
-                  {teacher.name}
-                </h4>
-                <p className="text-gray-600">{teacher.position}</p>
-              </div>
-            </motion.div>
-          ))}
+        <div className="mt-16 p-8">
+          <h3 className="text-2xl font-semibold text-[var(--heading-color)] mb-8">
+            Our Faculty
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {teachers.map((teacher, index) => (
+              <motion.div
+                key={teacher.name}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-[var(--cardBg-color)] cursor-pointer rounded-lg hover:shadow-lg shadow-md overflow-hidden"
+              >
+                <img
+                  src={teacher.image}
+                  alt={teacher.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h4 className="text-lg font-semibold text-[var(--heading-color)]">
+                    {teacher.name}
+                  </h4>
+                  <p className="text-gray-600">{teacher.position}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Layout>
   );
 };
 
