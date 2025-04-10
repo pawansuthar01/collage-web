@@ -1,111 +1,125 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  changePassword,
-  checkPasswordReset,
-} from "../../../src/Redux/Slice/Admin";
+// import {
+//   changePassword,
+//   checkPasswordReset,
+// } from "../../../src/Redux/Slice/Admin";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-const UpdatePassword = () => {
-  const dispatch = useDispatch();
-  const [error, setError] = useState(false);
-  const [resetToken, setResetToken] = useState("");
-  const [checkLoading, setCheckLoading] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passwordData, setPasswordData] = useState({
+import { AppDispatch } from "../../Redux/Store";
+import { changePassword, checkPasswordReset } from "../../Redux/Slice/Admin";
+
+interface PasswordData {
+  newPassword: string;
+  confirmPassword: string;
+}
+
+const UpdatePassword: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [error, setError] = useState<string>("");
+  const [resetToken, setResetToken] = useState<string>("");
+  const [checkLoading, setCheckLoading] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
+  const [passwordData, setPasswordData] = useState<PasswordData>({
     newPassword: "",
     confirmPassword: "",
   });
-  const [successMessage, setSuccessMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { token } = useParams();
+  const [successMessage, setSuccessMessage] = useState<string>("gsaoshahashhl");
+  const [loading, setLoading] = useState<boolean>(false);
+  const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
       navigate("/");
+    } else {
+      setResetToken(token);
     }
-    setResetToken(token);
-  }, [token]);
+  }, [token, navigate]);
 
-  const handelUserInput = (e) => {
-    e.preventDefault();
+  const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setPasswordData({ ...passwordData, [name]: value });
-    document.getElementById(name).style.borderColor = "";
+    setPasswordData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    const input = document.getElementById(name);
+    if (input) input.style.borderColor = "";
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(false);
-    // Validate the passwords
-    if (!passwordData.newPassword) {
-      document.getElementById("newPassword").style.borderColor = "red";
+    setError("");
+
+    const { newPassword, confirmPassword } = passwordData;
+
+    if (!newPassword) {
+      document.getElementById("newPassword")!.style.borderColor = "red";
       return;
     }
-    if (!passwordData.confirmPassword) {
-      document.getElementById("confirmPassword").style.borderColor = "red";
+
+    if (!confirmPassword) {
+      document.getElementById("confirmPassword")!.style.borderColor = "red";
       return;
     }
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      document.getElementById("newPassword").style.borderColor = "red";
-      document.getElementById("confirmPassword").style.borderColor = "red";
+
+    if (newPassword !== confirmPassword) {
+      document.getElementById("newPassword")!.style.borderColor = "red";
+      document.getElementById("confirmPassword")!.style.borderColor = "red";
       return;
     }
 
     setLoading(true);
-    const newPassword = passwordData.newPassword;
     const res = await dispatch(changePassword({ resetToken, newPassword }));
 
     if (res?.payload?.success) {
-      setSuccessMessage("password Successfully changed..");
-      setPasswordData({
-        newPassword: "",
-        confirmPassword: "",
-      });
-    }
-    if (!res?.payload?.success) {
-      setError("Error Token does not exit or expiry, please try again");
+      setSuccessMessage("Password successfully changed. Redirecting...");
+      setPasswordData({ newPassword: "", confirmPassword: "" });
+
+      setTimeout(() => {
+        navigate("/admin/login"); // or another route
+      }, 3000);
+    } else {
+      setError("Token expired or invalid, please try again.");
     }
 
     setLoading(false);
   };
+
   useEffect(() => {
-    async function passwordTokenCheck() {
+    const passwordTokenCheck = async () => {
       if (!resetToken) return;
+
       const res = await dispatch(checkPasswordReset(resetToken));
 
-      if (res?.payload == undefined) return;
       if (res?.payload?.success) {
-        setCheckLoading(false);
-        setError(false);
-        return;
+        setError("");
+      } else {
+        setError("Token expired or invalid, please try again.");
       }
-      if (!res?.payload?.success) {
-        setCheckLoading(false);
 
-        setError("Error Token does not exit or expiry, please try again");
-        return;
-      }
       setCheckLoading(false);
-    }
+    };
+
     if (checkLoading) {
       passwordTokenCheck();
     }
-  }, [resetToken]);
-  if (checkLoading) {
+  }, [resetToken, checkLoading, dispatch]);
+
+  if (!checkLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[#242424]">
-        <div className="loader border-t-4 border-blue-500 rounded-full w-12 h-12 animate-spin">
-          {" "}
-        </div>
-        Loading...
+        <div className="loader border-t-4 border-blue-500 rounded-full w-12 h-12 animate-spin"></div>
+        <p className="text-white mt-2 bg-red-500">Loading...</p>
       </div>
     );
   }
+
   return (
-    <div className=" flex h-screen bg-[#242424]">
-      <div className=" my-auto m-auto sm:w-[60%] w-[90%] max-w-md p-6 bg-[#2a2828]  border-cyan-200 border-1 rounded-md shadow-[0_0_5px_0_cyan]">
+    <div className="flex h-screen bg-[#242424]">
+      <div className="my-auto m-auto sm:w-[60%] w-[90%] max-w-md p-6 bg-[#2a2828] border-cyan-200 border-1 rounded-md shadow-[0_0_5px_0_cyan]">
         <h2 className="text-xl text-white font-semibold text-center mb-6">
           Reset Your Password
         </h2>
@@ -122,7 +136,7 @@ const UpdatePassword = () => {
               name="newPassword"
               id="newPassword"
               value={passwordData.newPassword}
-              onChange={handelUserInput}
+              onChange={handleUserInput}
               placeholder="Password"
               className="w-full p-3 border max-w-xs:text-sm outline-none border-cyan-300 rounded text-white"
             />
@@ -143,9 +157,9 @@ const UpdatePassword = () => {
               name="confirmPassword"
               id="confirmPassword"
               value={passwordData.confirmPassword}
-              onChange={handelUserInput}
+              onChange={handleUserInput}
               placeholder="Confirm Password"
-              className="w-full p-3 border max-w-xs:text-sm  pr-10 outline-none border-cyan-300 rounded text-white"
+              className="w-full p-3 border max-w-xs:text-sm pr-10 outline-none border-cyan-300 rounded text-white"
             />
             <div
               className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -163,7 +177,7 @@ const UpdatePassword = () => {
             <button
               type="submit"
               className="w-full bg-blue-500 text-white p-2 rounded-md disabled:bg-gray-400"
-              disabled={error || loading}
+              disabled={!!error || loading}
             >
               {loading ? "Updating..." : "Update Password"}
             </button>
