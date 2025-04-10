@@ -30,7 +30,7 @@ const formatMongoDateToIndian = (messageSubmitDate: string | Date): string => {
 
 function ContactList() {
   const dispatch = useDispatch<AppDispatch>();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [filteredMessages, setFilteredMessages] = useState<MessageType[]>([]);
   const [filterRead, setFilterRead] = useState<"true" | "false" | "all" | null>(
     null

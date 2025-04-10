@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   GraduationCap,
   CheckCircle,
@@ -59,7 +58,6 @@ const initialApplications: Application[] = [
 ];
 
 const CourseApplications: React.FC = () => {
-  const navigate = useNavigate();
   const [applications, setApplications] =
     useState<Application[]>(initialApplications);
 

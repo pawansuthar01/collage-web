@@ -18,6 +18,8 @@ import AddCourse from "./Auth/Course/AddCourse";
 import CourseApplications from "./Auth/Course/CourseApplyList";
 import ChangePassword from "./Auth/Password/changePassword";
 import Dashboard from "./Auth/Dashborad/Dashbord";
+import AdminBannerUpdate from "./Auth/bannerupdate";
+import AdminAboutUpdate from "./Auth/AboutUpdate";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/Admin" element={<AdminLogin />} />
           <Route path="/Admin/Dashboard" element={<Dashboard />} />
+          <Route path="/Admin/update-banner" element={<AdminBannerUpdate />} />
+          <Route path="/Admin/update-About" element={<AdminAboutUpdate />} />
           <Route path="/Admin/password-update" element={<ChangePassword />} />
           <Route path="/Admin/password-resat" element={<ChangePassword />} />
           <Route path="/Admin/course" element={<CourseList />} />

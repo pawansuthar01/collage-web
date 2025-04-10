@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
   X,
@@ -178,8 +178,6 @@ type LayoutProps = {
 
 const LayoutAdmin = ({ children }: LayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-gray-100">

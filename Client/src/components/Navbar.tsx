@@ -33,7 +33,7 @@ const Navbar = () => {
 
           <div className="hidden lg:block">
             <div className="ml-10 flex items-center space-x-4">
-              {navItems.map((item) =>  (
+              {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.to}
