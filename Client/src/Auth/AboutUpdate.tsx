@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../Redux/Store";
 import { AboutUpdate } from "../Redux/Slice/Admin";
+import LayoutAdmin from "../layout/AdminLayout";
 
 interface AboutInfo {
   photo: string;
@@ -19,6 +20,7 @@ export default function AdminAboutUpdate() {
   const [photo, setPhoto] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
   useEffect(() => {
     if (Data) {
       setAboutInfo({
@@ -52,7 +54,6 @@ export default function AdminAboutUpdate() {
       }
       formData.append("description", aboutInfo.description);
 
-      // Send form data to backend API
       const response = await dispatch(AboutUpdate(formData));
 
       if (response.payload?.success) {
@@ -71,69 +72,106 @@ export default function AdminAboutUpdate() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Update About Page</h1>
+    <LayoutAdmin>
+      <div className="max-w-2xl mx-auto p-6">
+        <h1 className="text-2xl font-bold mb-6">Update About Page</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Description
-            </label>
-            <textarea
-              value={aboutInfo.description}
-              onChange={(e) =>
-                setAboutInfo({ ...aboutInfo, description: e.target.value })
-              }
-              className="w-full p-2 border rounded min-h-[200px]"
-              required
-              placeholder="Enter the about page description..."
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Description
+              </label>
+              <textarea
+                value={aboutInfo.description}
+                onChange={(e) =>
+                  setAboutInfo({ ...aboutInfo, description: e.target.value })
+                }
+                className="w-full p-2 border rounded min-h-[200px]"
+                required
+                placeholder="Enter the about page description..."
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Photo</label>
-            <input
-              type="file"
-              onChange={handlePhotoUpload}
-              accept="image/*"
-              className="w-full p-2 border rounded"
-            />
-            {aboutInfo.photo && (
-              <div className="mt-2">
-                <p className="text-sm text-gray-600 mb-2">Current photo:</p>
-                <img
-                  src={aboutInfo.photo}
-                  alt="Current about photo"
-                  className="max-h-40 object-cover rounded"
-                />
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Upload Photo
+              </label>
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+                <div className="space-y-1 text-center">
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <div className="flex text-sm text-gray-600">
+                    <label
+                      htmlFor="file-upload"
+                      className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        id="file-upload"
+                        name="file-upload"
+                        type="file"
+                        className="sr-only"
+                        accept="image/*"
+                        onChange={handlePhotoUpload}
+                      />
+                    </label>
+                    <label htmlFor="file-upload" className="pl-1">
+                      or drag and drop
+                    </label>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    PNG, JPG, JPEG up to 5MB
+                  </p>
+                </div>
               </div>
-            )}
+              {(photo || aboutInfo.photo) && (
+                <div className="mt-2 flex justify-center">
+                  <img
+                    src={photo ? URL.createObjectURL(photo) : aboutInfo.photo}
+                    alt="Preview"
+                    className="h-32 object-cover rounded"
+                  />
+                </div>
+              )}
+            </div>
           </div>
-        </div>
 
-        {message && (
-          <div
-            className={`p-3 rounded ${
-              message.includes("success")
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
+          {message && (
+            <div
+              className={`p-3 rounded ${
+                message.includes("success")
+                  ? "bg-green-100 text-green-700"
+                  : "bg-red-100 text-red-700"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full py-2 px-4 rounded font-medium text-white ${
+              loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
             }`}
           >
-            {message}
-          </div>
-        )}
-
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full py-2 px-4 rounded font-medium text-white ${
-            loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
-          }`}
-        >
-          {loading ? "Updating..." : "Update About Page"}
-        </button>
-      </form>
-    </div>
+            {loading ? "Updating..." : "Update About Page"}
+          </button>
+        </form>
+      </div>
+    </LayoutAdmin>
   );
 }

@@ -100,7 +100,7 @@ const ChangePassword: React.FC = () => {
 
   return (
     <LayoutAdmin>
-      <div className="flex h-screen">
+      <div className="flex mt-20">
         <div className="my-auto m-auto sm:w-[60%] w-[90%] max-w-md p-6 border-cyan-200 border rounded-md shadow-[0_0_5px_0_cyan]">
           <h2 className="text-xl font-semibold text-center mb-6">
             Reset Your Password

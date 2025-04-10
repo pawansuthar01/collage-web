@@ -20,6 +20,9 @@ import ChangePassword from "./Auth/Password/changePassword";
 import Dashboard from "./Auth/Dashborad/Dashbord";
 import AdminBannerUpdate from "./Auth/bannerupdate";
 import AdminAboutUpdate from "./Auth/AboutUpdate";
+import FeedbackList from "./Auth/feedback";
+import ContactList from "./Auth/ContactList";
+import CallList from "./Auth/CalllistPage";
 
 function App() {
   return (
@@ -33,23 +36,26 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/Admin" element={<AdminLogin />} />
           <Route path="/Admin/Dashboard" element={<Dashboard />} />
+          <Route path="/Admin/call-requests" element={<CallList />} />
+          <Route path="/Admin/feedback" element={<FeedbackList />} />
+          <Route path="/Admin/contacts" element={<ContactList />} />
           <Route path="/Admin/update-banner" element={<AdminBannerUpdate />} />
           <Route path="/Admin/update-About" element={<AdminAboutUpdate />} />
           <Route path="/Admin/password-update" element={<ChangePassword />} />
           <Route path="/Admin/password-resat" element={<ChangePassword />} />
-          <Route path="/Admin/course" element={<CourseList />} />
+          <Route path="/Admin/courses" element={<CourseList />} />
           <Route
             path="/admin/courses-Applications"
             element={<CourseApplications />}
           />
           <Route path="/Admin/course/edit" element={<EditCourse />} />
-          <Route path="/Admin/course/add" element={<AddCourse />} />
+          <Route path="/Admin/courses/add" element={<AddCourse />} />
           <Route path="/Admin/event" element={<EventList />} />
           <Route path="/Admin/Event/edit" element={<EditEvent />} />
           <Route path="/Admin/events/add" element={<AddEvent />} />
-          <Route path="/Admin/notice" element={<NoticeList />} />
-          <Route path="/Admin/notice/edit" element={<EditNotice />} />
-          <Route path="/Admin/notice/add" element={<AddNotice />} />
+          <Route path="/Admin/notices" element={<NoticeList />} />
+          <Route path="/Admin/notices/edit" element={<EditNotice />} />
+          <Route path="/Admin/notices/add" element={<AddNotice />} />
         </Routes>
       </AnimatePresence>
     </div>

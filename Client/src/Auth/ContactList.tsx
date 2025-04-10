@@ -72,9 +72,9 @@ function ContactList() {
 
   return (
     <LayoutAdmin>
-      <div className="p-8 min-h-screen max-sm:p-0 mt-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-[#2a2a2a] p-8 rounded-lg mb-8">
+      <div className="p-5 min-h-screen max-sm:p-0 mt-5">
+        <div className="w-full">
+          <div className=" p-8 rounded-lg mb-8">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <MessageSquare className="text-blue-400" />
               Messages ({messages.length})
@@ -84,7 +84,7 @@ function ContactList() {
                 Filter by Read Status:
               </label>
               <select
-                className="border bg-[#242424] border-gray-300 rounded-lg p-3 max-sm:p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="border  border-gray-300 rounded-lg p-3 max-sm:p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 value={filterRead || "all"}
                 onChange={handleFilterChange}
               >

@@ -81,12 +81,12 @@ const Sidebar = ({
       icon: <Users className="w-5 h-5" />,
     },
     {
-      path: "/Admin/banners",
+      path: "/Admin/update-banner",
       title: "Banners",
       icon: <Image className="w-5 h-5" />,
     },
     {
-      path: "/Admin/about",
+      path: "/Admin/update-about",
       title: "About",
       icon: <Info className="w-5 h-5" />,
     },
