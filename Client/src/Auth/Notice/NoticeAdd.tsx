@@ -58,7 +58,7 @@ function AddNotice() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
             <button
-              onClick={() => navigate("/notices")}
+              onClick={() => navigate("/Admin/notices")}
               className="flex items-center text-gray-600 hover:text-gray-900"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
@@ -179,16 +179,22 @@ function AddNotice() {
               <div className="flex justify-end space-x-4">
                 <button
                   type="button"
+                  disabled={loading}
                   onClick={() => navigate("/Admin/notices")}
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={` ${
+                    !loading ? "cursor-pointer" : "cursor-not-allowed"
+                  }  px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 >
                   Cancel
                 </button>
                 <button
+                  disabled={loading}
                   type="submit"
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={` ${
+                    !loading ? "cursor-pointer" : "cursor-not-allowed"
+                  }  px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 >
-                  Add Notice
+                  {!loading ? "Add Notice" : "Loading..."}
                 </button>
               </div>
             </form>

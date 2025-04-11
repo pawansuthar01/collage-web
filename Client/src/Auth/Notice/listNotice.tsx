@@ -54,7 +54,10 @@ function NoticeList() {
               <Bell className="h-8 w-8 text-blue-600" />
               Notices
             </h1>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            <button
+              onClick={() => navigate("/Admin/notices/add")}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
               Add Notice
             </button>
           </div>

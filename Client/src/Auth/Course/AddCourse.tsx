@@ -83,7 +83,7 @@ function AddCourse() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
             <button
-              onClick={() => navigate("/courses")}
+              onClick={() => navigate("/Admin/courses")}
               className="flex items-center text-gray-600 hover:text-gray-900"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />

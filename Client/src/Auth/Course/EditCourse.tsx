@@ -268,6 +268,7 @@ function EditCourse() {
               <div className="flex justify-end space-x-4">
                 <button
                   type="button"
+                  disabled={loading}
                   onClick={() => navigate("/Admin/courses")}
                   className={` ${
                     !loading ? "cursor-pointer" : "cursor-not-allowed"
