@@ -6,11 +6,8 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import NoticesPage from "./pages/NoticesPage";
 import AdminLogin from "./Auth/AdminLogin";
-import EventList from "./Auth/Event/ListEvent";
 import NoticeList from "./Auth/Notice/listNotice";
-import EditEvent from "./Auth/Event/EditEvent";
 import EditNotice from "./Auth/Notice/updateNotice";
-import AddEvent from "./Auth/Event/Eventadd";
 import AddNotice from "./Auth/Notice/NoticeAdd";
 import CourseList from "./Auth/Course/ListCourse";
 import EditCourse from "./Auth/Course/EditCourse";
@@ -50,9 +47,6 @@ function App() {
           />
           <Route path="/Admin/courses/edit/:id" element={<EditCourse />} />
           <Route path="/Admin/courses/add" element={<AddCourse />} />
-          <Route path="/Admin/event" element={<EventList />} />
-          <Route path="/Admin/Events/edit/:id" element={<EditEvent />} />
-          <Route path="/Admin/events/add" element={<AddEvent />} />
           <Route path="/Admin/notices" element={<NoticeList />} />
           <Route path="/Admin/notices/edit/:id" element={<EditNotice />} />
           <Route path="/Admin/notices/add" element={<AddNotice />} />

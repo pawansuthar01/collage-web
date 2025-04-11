@@ -44,30 +44,6 @@ const HomePage = () => {
     },
   ];
 
-  const events = [
-    {
-      id: 1,
-      title: "Tech Innovation Summit",
-      date: "March 25, 2024",
-      time: "10:00 AM",
-      location: "Main Auditorium",
-    },
-    {
-      id: 2,
-      title: "Career Fair 2024",
-      date: "April 5, 2024",
-      time: "9:00 AM",
-      location: "University Campus",
-    },
-    {
-      id: 3,
-      title: "Cultural Festival",
-      date: "April 15, 2024",
-      time: "11:00 AM",
-      location: "University Ground",
-    },
-  ];
-
   const stats = [
     { id: 1, icon: Users, label: "Students", value: "5000+" },
     { id: 2, icon: BookOpen, label: "Courses", value: "50+" },
@@ -268,43 +244,6 @@ const HomePage = () => {
                     </h3>
                     <p className="text-gray-600">{program.description}</p>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Upcoming Events */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-[var(--heading-color)]">
-                Upcoming Events
-              </h2>
-              <p className="mt-4 text-lg text-gray-600">
-                Join us for these exciting events
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {events.map((event, index) => (
-                <motion.div
-                  key={event.id}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white p-6 rounded-lg shadow-md"
-                >
-                  <Calendar className="h-8 w-8 text-[var(--icon-color)] mb-4" />
-                  <h3 className="text-xl font-semibold text-[var(--heading-color)] mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-gray-600 mb-1">{event.date}</p>
-                  <p className="text-gray-600 mb-1">{event.time}</p>
-                  <p className="text-gray-600">{event.location}</p>
                 </motion.div>
               ))}
             </div>

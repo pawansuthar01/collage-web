@@ -19,11 +19,7 @@ import {
   DeleteNoticeById,
   updatedNoticeById,
 } from "../Controllers/NoticesController.js";
-import {
-  AddEvent,
-  DeleteEventById,
-  updatedEventById,
-} from "../Controllers/EventController.js";
+
 import {
   BannerDetailsCreate,
   UpdatedMainSectionData,
@@ -67,8 +63,7 @@ Admin.route("/Banner")
 
 Admin.route("/notice").post(AddNotice);
 Admin.route("/notice/:id").put(updatedNoticeById).delete(DeleteNoticeById);
-Admin.route("/event").post(AddEvent);
-Admin.route("/event/:id").put(updatedEventById).delete(DeleteEventById);
+
 Admin.route("/feedback").get(getAllFeedback).delete(deleteFeedbackById);
 Admin.route("/call").get(getAllCalls).put(markToReadCallRequired);
 Admin.route("/message").put(markToReadMessage).get(getAllMessage);
