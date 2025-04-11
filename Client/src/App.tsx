@@ -48,13 +48,13 @@ function App() {
             path="/admin/courses-Applications"
             element={<CourseApplications />}
           />
-          <Route path="/Admin/course/edit" element={<EditCourse />} />
+          <Route path="/Admin/courses/edit/:id" element={<EditCourse />} />
           <Route path="/Admin/courses/add" element={<AddCourse />} />
           <Route path="/Admin/event" element={<EventList />} />
-          <Route path="/Admin/Event/edit" element={<EditEvent />} />
+          <Route path="/Admin/Events/edit/:id" element={<EditEvent />} />
           <Route path="/Admin/events/add" element={<AddEvent />} />
           <Route path="/Admin/notices" element={<NoticeList />} />
-          <Route path="/Admin/notices/edit" element={<EditNotice />} />
+          <Route path="/Admin/notices/edit/:id" element={<EditNotice />} />
           <Route path="/Admin/notices/add" element={<AddNotice />} />
         </Routes>
       </AnimatePresence>

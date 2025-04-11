@@ -57,6 +57,8 @@ export const AddCourse = async (req, res, next) => {
 export const updatedCourseById = async (req, res, next) => {
   try {
     const { id } = req.params;
+    console.log(req.body);
+    console.log(req.file);
     const { name, year, seats, fees, description } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return next(new AppError("Invalid Course ID", 400));
@@ -65,11 +67,12 @@ export const updatedCourseById = async (req, res, next) => {
     let photo =
       "https://res.cloudinary.com/du9jzqlpt/image/upload/v1674647316/avatar_drzgxv.jpg";
     if (req.file) {
+      console.log(req.file);
       try {
         const uploadedPhoto = await cloudinary.v2.uploader.upload(
           req.file.path,
           {
-            folder: "AboutPhoto",
+            folder: "CourseImage",
           }
         );
         if (uploadedPhoto) {

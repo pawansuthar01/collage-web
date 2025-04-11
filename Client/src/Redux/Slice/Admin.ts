@@ -6,7 +6,6 @@ interface AdminState {
   Feedback: any;
   password: string | null;
 }
-
 const initialState: AdminState = {
   Message:
     localStorage.getItem("Message") !== null
@@ -72,8 +71,12 @@ export const newCourse = createAsyncThunk("/new/course", async (data: any) => {
 export const UpdateCourse = createAsyncThunk(
   "/update/About",
   async (data: any) => {
+    if (!data) return;
     try {
-      const response = await axiosInstance.put("/app/admin/v3/About", data);
+      const response = await axiosInstance.put(
+        `/collage/v5/admin/course/${data.id}`,
+        data.data
+      );
       return response?.data;
     } catch (error: any) {
       return (
@@ -88,7 +91,7 @@ export const DeleteCourse = createAsyncThunk(
   async (id: string) => {
     try {
       const response = await axiosInstance.delete(
-        `/app/admin/v3/project/${id}`
+        `/collage/v5/admin/course/${id}`
       );
       return response?.data;
     } catch (error: any) {
@@ -151,7 +154,7 @@ export const DeleteNotice = createAsyncThunk(
   async (id: string) => {
     try {
       const response = await axiosInstance.delete(
-        `/app/admin/v3/education/${id}`
+        `/collage/v5/admin/notice/${id}`
       );
       return response?.data;
     } catch (error: any) {
@@ -228,6 +231,7 @@ export const CallMarkAsRead = createAsyncThunk(
     }
   }
 );
+
 //feedback//
 
 export const GetAllFeedback = createAsyncThunk("/get/feedback", async () => {

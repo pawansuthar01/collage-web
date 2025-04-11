@@ -7,7 +7,16 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "uploads",
-    allowed_formats: ["jpg", "jpeg", "png", "webp", "mp4", "svg", "pdf"],
+    allowed_formats: [
+      "jpg",
+      "jpeg",
+      "png",
+      "avif",
+      "webp",
+      "mp4",
+      "svg",
+      "pdf",
+    ],
   },
 });
 
@@ -19,10 +28,12 @@ const upload = multer({
       "image/jpeg",
       "image/png",
       "image/webp",
-      "video/mp4",
+      "image/avif",
+
       "image/svg+xml",
       "application/pdf",
     ];
+    console.log(file);
     // Validate file type
     if (!allowedExts.includes(file.mimetype)) {
       return cb(

@@ -3,14 +3,16 @@ import AppError from "../Utils/AppErrors.js";
 
 export const AddNotice = async (req, res, next) => {
   try {
-    const { NoticeType, title, message } = req.body;
+    const { notice_type, title, publish_date, expiry_date, message } = req.body;
 
-    if (!title || !NoticeType || !message) {
+    if (!title || !notice_type || !message || !publish_date || !expiry_date) {
       return next(new AppError("All filed is required to Add Education", 400));
     }
 
     const NewNotice = new Notice({
-      NoticeType,
+      notice_type,
+      publish_date,
+      expiry_date,
       title,
       message,
     });

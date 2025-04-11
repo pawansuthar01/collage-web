@@ -99,7 +99,7 @@ const Sidebar = ({
 
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 text-white transform ${
+      className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 text-white transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out lg:translate-x-0`}
     >
@@ -186,8 +186,8 @@ const LayoutAdmin = ({ children }: LayoutProps) => {
         toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
       />
 
-      <div className="lg:pl-64 flex flex-col min-h-screen">
-        <header className="bg-white shadow-sm">
+      <div className="lg:pl-64 flex   flex-col min-h-screen">
+        <header className="bg-white w-full  fixed z-30 shadow-sm">
           <div className="flex items-center justify-between h-16 px-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -201,7 +201,7 @@ const LayoutAdmin = ({ children }: LayoutProps) => {
           </div>
         </header>
 
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1  mt-12">{children}</main>
 
         <footer className="bg-white shadow-sm mt-auto">
           <div className="text-center py-4 text-sm text-gray-600">

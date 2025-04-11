@@ -2,24 +2,45 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Bell, Calendar } from "lucide-react";
 import LayoutAdmin from "../../layout/AdminLayout";
+import { newNotice } from "../../Redux/Slice/Admin";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../Redux/Store";
+import toast from "react-hot-toast";
 
 function AddNotice() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const [formData, setNoticeData] = useState({
     title: "",
     notice_type: "",
-    description: "",
-    priority: "",
+    message: "",
+
     publish_date: "",
     expiry_date: "",
-    department: "",
-    attachments: [],
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    navigate("/notices");
+    setLoading(true);
+
+    const res = await dispatch(newNotice(formData));
+    console.log(res);
+    if (res?.payload?.success) {
+      toast.success(res?.payload?.message);
+      setNoticeData({
+        title: "",
+        notice_type: "",
+        message: "",
+
+        publish_date: "",
+        expiry_date: "",
+      });
+    }
+    if (!res?.payload?.success) {
+      toast.error(res?.payload?.message);
+    }
+    setLoading(false);
   };
 
   const handleChange = (
@@ -28,7 +49,7 @@ function AddNotice() {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setNoticeData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -81,61 +102,15 @@ function AddNotice() {
                   >
                     Notice Type
                   </label>
-                  <select
-                    id="notice_type"
+                  <input
+                    type="text"
                     name="notice_type"
+                    id="notice_type"
                     required
                     value={formData.notice_type}
                     onChange={handleChange}
                     className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  >
-                    <option value="">Select a type</option>
-                    <option value="Academic">Academic</option>
-                    <option value="Administrative">Administrative</option>
-                    <option value="General">General</option>
-                    <option value="Emergency">Emergency</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="priority"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Priority Level
-                  </label>
-                  <select
-                    id="priority"
-                    name="priority"
-                    required
-                    value={formData.priority}
-                    onChange={handleChange}
-                    className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                  >
-                    <option value="">Select priority</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                    <option value="Urgent">Urgent</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="department"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Department
-                  </label>
-                  <input
-                    type="text"
-                    id="department"
-                    name="department"
-                    required
-                    value={formData.department}
-                    onChange={handleChange}
-                    className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Enter department name"
+                    placeholder="Enter type name"
                   />
                 </div>
 
@@ -183,17 +158,17 @@ function AddNotice() {
 
                 <div className="sm:col-span-2">
                   <label
-                    htmlFor="description"
+                    htmlFor="message"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
                     Description
                   </label>
                   <textarea
-                    id="description"
-                    name="description"
+                    id="message"
+                    name="message"
                     rows={4}
                     required
-                    value={formData.description}
+                    value={formData.message}
                     onChange={handleChange}
                     className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     placeholder="Enter notice description..."
@@ -204,7 +179,7 @@ function AddNotice() {
               <div className="flex justify-end space-x-4">
                 <button
                   type="button"
-                  onClick={() => navigate("/notices")}
+                  onClick={() => navigate("/Admin/notices")}
                   className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Cancel

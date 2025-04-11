@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 const NoticesModule = new Schema({
-  NoticeType: {
+  notice_type: {
     type: String,
     required: true,
   },
@@ -8,6 +8,8 @@ const NoticesModule = new Schema({
 
   message: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  publish_date: { type: String, required: true },
+  expiry_date: { type: String, required: true },
 });
 
 const Notice = model("Notice", NoticesModule);

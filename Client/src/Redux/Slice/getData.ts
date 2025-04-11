@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../../Helper/axiosInstance";
 
-// Define storage keys
+// Define all keys
 const storageKeys = [
   "SocialLinkData",
   "bannerData",
   "aboutData",
-  "projectData",
-  "educationData",
+  "courseData",
+  "NoticeData",
   "skillsData",
   "feedbackData",
 ] as const;
@@ -15,23 +15,13 @@ const storageKeys = [
 type StorageKey = (typeof storageKeys)[number];
 
 interface DataState {
-  [key: string]: any[]; // Optionally: define exact types for each key
-}
-
-// Separate fetched data from thunk payload
-interface ThunkSuccessPayload {
-  success: true;
-  data: Partial<DataState>;
+  [key: string]: any[];
 }
 
 // Function to get stored data
 const getStoredData = (key: StorageKey): any[] => {
   try {
-    const startTime = performance.now();
     const data = localStorage.getItem(key);
-    const endTime = performance.now();
-
-    console.log(`${key} loaded in ${(endTime - startTime).toFixed(2)}ms`);
     return data && data !== "undefined" && data !== "null"
       ? JSON.parse(data)
       : [];
@@ -41,71 +31,69 @@ const getStoredData = (key: StorageKey): any[] => {
   }
 };
 
-// Initial State
+// Initial state
 const initialState: DataState = Object.fromEntries(
   storageKeys.map((key) => [key, getStoredData(key)])
 ) as DataState;
 
-// ✅ Async thunk with correctly structured return value
-export const getAllData = createAsyncThunk<
-  ThunkSuccessPayload, // ✅ Return type
-  void, // Argument type
-  { rejectValue: string } // Config type
->("Get/All/Data", async (_, { rejectWithValue }) => {
-  try {
-    const startTime = performance.now();
+// ----------------------------
+// 🔁 Utility to create thunk
+// ----------------------------
+const createFetchThunk = (key: StorageKey) => {
+  return createAsyncThunk<any[], void, { rejectValue: string }>(
+    `get/${key}`,
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await axiosInstance.get(
+          `/collage/v3/user/${key.replace("Data", "").toLowerCase()}`
+        );
+        const data = response?.data?.data || [];
+        localStorage.setItem(key, JSON.stringify(data));
+        return data;
+      } catch (error: any) {
+        return rejectWithValue(
+          error?.response?.data?.message ||
+            error?.message ||
+            "Something went wrong"
+        );
+      }
+    }
+  );
+};
 
-    const responses = await Promise.all(
-      storageKeys.map((key) =>
-        axiosInstance.get(
-          `/app/user/v3/Data/${key.replace("Data", "").toLowerCase()}`
-        )
-      )
-    );
+// 🔁 Create individual thunks
+export const getSocialLinkData = createFetchThunk("SocialLinkData");
+export const getBannerData = createFetchThunk("bannerData");
+export const getAboutData = createFetchThunk("aboutData");
+export const getCourseData = createFetchThunk("courseData");
+export const getNoticeData = createFetchThunk("NoticeData");
+export const getSkillsData = createFetchThunk("skillsData");
+export const getFeedbackData = createFetchThunk("feedbackData");
 
-    const fetchedData: Partial<DataState> = {};
-    responses.forEach((res, index) => {
-      const key = storageKeys[index];
-      fetchedData[key] = res.data?.data || [];
-    });
-
-    const endTime = performance.now();
-    console.log("⏱️ Fetch duration:", (endTime - startTime).toFixed(2), "ms");
-
-    return {
-      success: true,
-      data: fetchedData,
-    };
-  } catch (error: any) {
-    return rejectWithValue(
-      error?.response?.data?.message ||
-        error?.message ||
-        "Something went wrong..."
-    );
-  }
-});
-
-// ✅ Slice setup
+// ----------------------------
+// ✅ Slice
+// ----------------------------
 const DataRedux = createSlice({
   name: "DataStore",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(
-      getAllData.fulfilled,
-      (state, action: PayloadAction<ThunkSuccessPayload>) => {
-        if (action.payload.success) {
-          const fetched = action.payload.data;
-
-          storageKeys.forEach((key) => {
-            if (Array.isArray(fetched[key])) {
-              localStorage.setItem(key, JSON.stringify(fetched[key]));
-              state[key] = fetched[key]!;
-            }
-          });
+    const handleData = (key: StorageKey, thunk: any) => {
+      builder.addCase(
+        thunk.fulfilled,
+        (state, action: PayloadAction<any[]>) => {
+          state[key] = action.payload;
         }
-      }
-    );
+      );
+    };
+
+    handleData("SocialLinkData", getSocialLinkData);
+    handleData("bannerData", getBannerData);
+    handleData("aboutData", getAboutData);
+    handleData("courseData", getCourseData);
+    handleData("NoticeData", getNoticeData);
+    handleData("skillsData", getSkillsData);
+    handleData("feedbackData", getFeedbackData);
   },
 });
 
