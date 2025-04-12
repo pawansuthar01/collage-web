@@ -19,11 +19,15 @@ const StatCard = ({
   icon: any;
   color: string;
 }) => (
-  <div className="bg-white p-6 rounded-lg shadow-sm">
+  <div className="bg-[Var(--admin-bg-card-color)] border m-2  border-[var(--admin-border-color)] p-6 rounded-lg shadow-sm">
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-gray-500 text-sm">{title}</p>
-        <h3 className="text-2xl font-semibold mt-1">{value}</h3>
+        <p className="text-[Var(--admin-text-Primary-color)] text-sm">
+          {title}
+        </p>
+        <h3 className="text-2xl font-semibold text-[Var(--admin-text-Secondary-color)]  mt-1">
+          {value}
+        </h3>
       </div>
       <div className={`p-3 rounded-full ${color}`}>
         <Icon className="w-6 h-6 text-white" />
@@ -59,8 +63,10 @@ const Dashboard = () => {
 
   return (
     <LayoutAdmin>
-      <div>
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">Dashboard</h1>
+      <div className="bg-[Var(--admin-bg-color)] pt-12">
+        <h1 className="text-2xl font-semibold text-[Var(--admin-text-Primary-color)] mb-6">
+          Dashboard
+        </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {stats.map((stat, index) => (
@@ -69,15 +75,15 @@ const Dashboard = () => {
         </div>
 
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          <div className="bg-[Var(--admin-bg-card-color)] border m-2  border-[var(--admin-border-color)] p-6 rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold text-[Var(--admin-text-Primary-color)] mb-4">
               Recent Activities
             </h2>
             <div className="space-y-4">{/* Add recent activities here */}</div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          <div className="bg-[Var(--admin-bg-card-color)] border m-2  border-[var(--admin-border-color)] p-6 rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold text-[Var(--admin-text-Primary-color)] mb-4">
               Quick Actions
             </h2>
             <div className="grid grid-cols-2 gap-4">

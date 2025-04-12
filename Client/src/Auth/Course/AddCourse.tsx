@@ -79,34 +79,34 @@ function AddCourse() {
 
   return (
     <LayoutAdmin>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[var(--admin-bg-color)]  ">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
             <button
               onClick={() => navigate("/Admin/courses")}
-              className="flex items-center text-gray-600 hover:text-gray-900"
+              className="flex items-center text-[Var(--admin-text-Primary-color)] Admin_custom-text "
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Courses
             </button>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-6 sm:p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <div className="bg-[var(--admin-bg-card-color)] border-[var(--admin-border-color)]   rounded-xl border  shadow-md p-6 sm:p-8">
+            <h2 className="text-2xl font-bold text-[Var(--admin-text-Primary-color)] mb-6">
               Add New Course
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2">
                   Course Image
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                  <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <div className="flex  justify-center  text-sm text-gray-600">
+                <div className="border-2 border-dashed border-[Var(--input-border-color)] rounded-lg p-6 text-center">
+                  <Upload className="h-12 w-12 text-[Var(--admin-text-Secondary-color)] mx-auto mb-4" />
+                  <div className="flex  justify-center  text-sm  text-[Var(--admin-text-Secondary-color)]">
                     <label
                       htmlFor="image-upload"
-                      className="relative  cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                      className="relative  cursor-pointer  rounded-md font-medium  text-indigo-500"
                     >
                       <span>Upload a file</span>
                       <input
@@ -139,7 +139,7 @@ function AddCourse() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Course Name
                   </label>
@@ -150,14 +150,14 @@ function AddCourse() {
                     required
                     value={newCourseData.name}
                     onChange={handleChange}
-                    className="block w-full rounded-lg p-2  outline-none border-2  border-gray-900  sm:text-sm"
+                    className="block w-full text-[Var(--input-text-color)]  rounded-lg p-2  outline-none border-2  border-[Var(--input-border-color)] bg-[Var(--input-bg-color)] sm:text-sm"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="duration"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm  font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Duration
                   </label>
@@ -169,16 +169,16 @@ function AddCourse() {
                     value={newCourseData.duration}
                     onChange={handleChange}
                     placeholder="e.g., 6 months"
-                    className="block w-full rounded-lg border-2 p-2 outline-none  border-gray-900 sm:text-sm"
+                    className="block w-full bg-[Var(--input-bg-color)] text-[Var(--input-text-color)] rounded-lg border-2 p-2 outline-none  border-[Var(--input-border-color)] sm:text-sm"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="fees"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm  font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
-                    Course Fees ($)
+                    Course Fees
                   </label>
                   <input
                     type="number"
@@ -187,14 +187,14 @@ function AddCourse() {
                     required
                     value={newCourseData.fees}
                     onChange={handleChange}
-                    className="block w-full rounded-lg  border-2 p-2 outline-none  border-gray-900 sm:text-sm"
+                    className="block w-full rounded-lg text-[Var(--input-text-color)]  bg-[Var(--input-bg-color)] border-2 p-2 outline-none  border-[Var(--input-border-color)] sm:text-sm"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="totalSeats"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm   font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Total Seats
                   </label>
@@ -205,7 +205,7 @@ function AddCourse() {
                     required
                     value={newCourseData.totalSeats}
                     onChange={handleChange}
-                    className="block w-full rounded-lg  border-2 p-2 outline-none  border-gray-900 sm:text-sm"
+                    className="block w-full bg-[Var(--input-bg-color)] rounded-lg  text-[Var(--input-text-color)]  border-2 p-2 outline-none  border-[Var(--input-border-color)] sm:text-sm"
                   />
                 </div>
               </div>
@@ -213,7 +213,7 @@ function AddCourse() {
               <div>
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                 >
                   Course Description
                 </label>
@@ -223,7 +223,7 @@ function AddCourse() {
                   required
                   value={newCourseData.description}
                   onChange={handleChange}
-                  className="block w-full rounded-lg min-h-10 border-2 p-2 outline-none  border-gray-900 sm:text-sm"
+                  className="block w-full bg-[Var(--input-bg-color)] text-[Var(--input-text-color)] rounded-lg min-h-10 border-2 p-2 outline-none  border-[Var(--input-border-color)] sm:text-sm"
                 />
               </div>
 
@@ -231,7 +231,7 @@ function AddCourse() {
                 <button
                   type="button"
                   onClick={() => navigate("/Admin/courses")}
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="px-4 py-2 border  rounded-lg  border-[Var(--dark-btnBorder-color)] text-white  Admin_custom-hover Admin_custom-text"
                 >
                   Cancel
                 </button>
@@ -240,7 +240,7 @@ function AddCourse() {
                   type="submit"
                   className={` ${
                     !loading ? "cursor-pointer" : "cursor-not-allowed"
-                  } px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  } px-4 py-2 bg-[Var(--dark-btnBg-color)] border border-[Var(--dark-btnBorder-color)] text-white rounded-lg Admin_custom-hover Admin_custom-text`}
                 >
                   {loading ? "Uploading..." : "Add Course"}
                 </button>

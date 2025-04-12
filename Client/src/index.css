@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Remove the spinner arrows from number input */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 :root {
   --bg-color: rgb(255, 255, 0); /*main background color*/
@@ -16,6 +22,24 @@
   --course-seat-color: red; /*course seats text  color*/
   --notice-bg-color: #e7f489; /*notice section notice type bg  color*/
   --notice-text-color: #b04d3e; /*notice section notice type   text  color*/
+  --input-bg-color: #1e293b; /*notice section notice type   text  color*/
+  --input-text-color: white; /*notice section notice type   text  color*/
+  --input-border-color: #475569; /*notice section notice type   text  color*/
+  --admin-text-Primary-color: #f1f5f9; /*admin   text  color*/
+  --admin-text-Secondary-color: #cbd5e1; /* admin text-Secondary     color*/
+  --admin-text-Highlight-color: #0ea5e9; /*admin text Highlight color*/
+  --admin-bg-color: #0f172a; /*admin bg-color  */
+  --admin-sbg-color: #1e293b; /*admin  Secondary bg-color:  color*/
+  --admin-bg-card-color: #1e293b; /*admin bg-card  color*/
+  --admin-border-color: #475569; /*admin border    color*/
+  --dark-btnBg-color: #1f60d0; /*dark button bg color     */
+  --dark-btnBorder-color: #7489b1; /*dark button border color        color*/
+}
+.Admin_custom-hover:hover {
+  background-color: #334155; /* admin bg hover color slate-700 */
+}
+.Admin_custom-text:hover {
+  color: #8f8f90; /* admin text hover color text-slate-100 */
 }
 .custom-hover:hover {
   background-color: #d52d07; /*hover background    color*/
