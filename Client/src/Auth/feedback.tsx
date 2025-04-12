@@ -1,13 +1,13 @@
-import { Mail, MessageSquare, User } from "lucide-react";
+import { MessageSquare, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { GetAllMessage, messageMarkAsRead } from "../Redux/Slice/Admin";
+import { DeleteFeedback, GetAllFeedback } from "../Redux/Slice/Admin";
 import { AppDispatch } from "../Redux/Store";
 import LayoutAdmin from "../layout/AdminLayout";
 
 type MessageType = {
   _id: string;
-  fullName: string;
+  name: string;
   email: string;
   subject: string;
   message: string;
@@ -31,43 +31,21 @@ const formatMongoDateToIndian = (messageSubmitDate: string | Date): string => {
 function FeedbackList() {
   const dispatch = useDispatch<AppDispatch>();
   // const [loading, setLoading] = useState(false);
-  const [filteredMessages, setFilteredMessages] = useState<MessageType[]>([]);
-  const [filterRead, setFilterRead] = useState<"true" | "false" | "all" | null>(
-    null
-  );
-  const [messages, setMessages] = useState<MessageType[]>([]);
+  const [feedback, setFeedback] = useState<MessageType[]>([]);
 
   const handelLoadMessage = async () => {
-    const res = await dispatch(GetAllMessage());
+    const res = await dispatch(GetAllFeedback());
     const fetchedMessages = res?.payload?.data || [];
-    setMessages(fetchedMessages);
-    setFilteredMessages(fetchedMessages);
+    setFeedback(fetchedMessages);
   };
 
   useEffect(() => {
     handelLoadMessage();
   }, []);
 
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value as "true" | "false" | "all";
-    setFilterRead(value);
-
-    if (value === "all") {
-      setFilteredMessages(messages);
-    } else {
-      setFilteredMessages(
-        messages.filter((msg) => msg.read.toString() === value)
-      );
-    }
-  };
-
-  const handelMarkRead = async (id: string) => {
-    setFilteredMessages((prev) =>
-      prev.map((message) =>
-        message._id === id ? { ...message, read: true } : message
-      )
-    );
-    await dispatch(messageMarkAsRead(id));
+  const handelDelete = async (id: string) => {
+    console.log(id);
+    await dispatch(DeleteFeedback(id));
   };
 
   return (
@@ -77,42 +55,20 @@ function FeedbackList() {
           <div className=" p-3 rounded-lg mb-8">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <MessageSquare className="text-blue-400" />
-              Messages ({messages.length})
+              Feedback ({feedback.length})
             </h2>
-            <div className="mb-6 flex items-center space-x-4">
-              <label className="text-lg max-sm:text-sm text-gray-700">
-                Filter by Read Status:
-              </label>
-              <select
-                className="border  border-gray-300 rounded-lg p-3 max-sm:p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                value={filterRead || "all"}
-                onChange={handleFilterChange}
-              >
-                <option value="all">All</option>
-                <option value="true">Read</option>
-                <option value="false">Unread</option>
-              </select>
-            </div>
-            {filteredMessages.length > 0 ? (
+
+            {feedback.length > 0 ? (
               <div className="space-y-6">
-                {filteredMessages.map((msg) => (
+                {feedback.map((msg) => (
                   <div
                     key={msg._id}
-                    className="bg-[#333] rounded-lg p-6 border-l-4 border-blue-500"
+                    className="bg-gray-60/50 rounded-lg p-6 border-l-4 border-blue-500"
                   >
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                       <div className="flex items-center gap-3 mb-2 md:mb-0">
                         <User className="text-blue-400" size={20} />
-                        <span className="font-semibold">{msg.fullName}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Mail className="text-blue-400" size={20} />
-                        <a
-                          className="text-gray-400 max-sm:text-sm"
-                          href={`mailto:${msg.email}`}
-                        >
-                          {msg.email}
-                        </a>
+                        <span className="font-semibold">{msg.name}</span>
                       </div>
                     </div>
                     <h3 className="text-xl font-semibold mb-2 text-blue-400">
@@ -128,13 +84,12 @@ function FeedbackList() {
                     )}
                     <div className="flex justify-end">
                       <button
-                        disabled={msg.read}
-                        onClick={() => handelMarkRead(msg._id)}
-                        className={`px-4 py-2 max-sm:py-1 max-sm:px-2 rounded-full ${
-                          msg.read ? "bg-green-400" : "bg-red-400"
-                        } text-white font-semibold text-sm`}
+                        onClick={() => handelDelete(msg._id)}
+                        className={`px-4 py-2 max-sm:py-1 max-sm:px-2 rounded-full 
+                         bg-red-400
+                         text-white font-semibold text-sm`}
                       >
-                        {msg.read ? "UnRead" : "Read"}
+                        Delete
                       </button>
                     </div>
                   </div>

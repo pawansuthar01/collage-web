@@ -8,7 +8,7 @@ interface AdminState {
 }
 const initialState: AdminState = {
   Message:
-    localStorage.getItem("Message") !== null
+    localStorage.getItem("Message") == undefined
       ? JSON.parse(localStorage.getItem("Message") as string)
       : {},
   Feedback:
@@ -239,7 +239,7 @@ export const CallMarkAsRead = createAsyncThunk(
 
 export const GetAllFeedback = createAsyncThunk("/get/feedback", async () => {
   try {
-    const response = await axiosInstance.get("/");
+    const response = await axiosInstance.get("/collage/v5/admin/feedback");
     return response?.data;
   } catch (error: any) {
     return error?.response?.data || error?.message || "Something went wrong...";
@@ -250,7 +250,9 @@ export const DeleteFeedback = createAsyncThunk(
   "/delete/SkillInEducationCart",
   async (id: string) => {
     try {
-      const response = await axiosInstance.delete(`/app/admin/v3/skill/${id}`);
+      const response = await axiosInstance.delete(
+        `/collage/v5/admin/feedback/${id}`
+      );
       return response?.data;
     } catch (error: any) {
       return (
@@ -263,7 +265,7 @@ export const DeleteFeedback = createAsyncThunk(
 //get All//
 export const GetAllMessage = createAsyncThunk("/get/message", async () => {
   try {
-    const response = await axiosInstance.get("/app/user/v3/Message");
+    const response = await axiosInstance.get("/collage/v5/admin/message");
     return response?.data;
   } catch (error: any) {
     return error?.response?.data || error?.message || "Something went wrong...";
@@ -274,7 +276,9 @@ export const messageMarkAsRead = createAsyncThunk(
   "/put/message",
   async (id: string) => {
     try {
-      const response = await axiosInstance.put(`/app/user/v3/Message/${id}`);
+      const response = await axiosInstance.put(
+        `/collage/v5/admin/message/${id}`
+      );
       return response?.data;
     } catch (error: any) {
       return (

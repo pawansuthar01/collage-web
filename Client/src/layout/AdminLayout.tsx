@@ -27,7 +27,6 @@ const Sidebar = ({
   const location = useLocation();
   const [courseMenuOpen, setCourseMenuOpen] = useState(false);
   const [noticeMenuOpen, setNoticeMenuOpen] = useState(false);
-  const [eventMenuOpen, setEventMenuOpen] = useState(false);
 
   const menuItems = [
     {
@@ -41,6 +40,10 @@ const Sidebar = ({
       submenu: [
         { path: "/Admin/courses", label: "Course List" },
         { path: "/Admin/courses/add", label: "Add Course" },
+        {
+          path: "/Admin/courses-Applications",
+          label: "Course Apply App",
+        },
       ],
       isOpen: courseMenuOpen,
       setOpen: setCourseMenuOpen,
@@ -55,16 +58,7 @@ const Sidebar = ({
       isOpen: noticeMenuOpen,
       setOpen: setNoticeMenuOpen,
     },
-    {
-      title: "Events",
-      icon: <Calendar className="w-5 h-5" />,
-      submenu: [
-        { path: "/Admin/events", label: "Event List" },
-        { path: "/Admin/events/add", label: "Add Event" },
-      ],
-      isOpen: eventMenuOpen,
-      setOpen: setEventMenuOpen,
-    },
+
     {
       path: "/Admin/feedback",
       title: "Feedback",

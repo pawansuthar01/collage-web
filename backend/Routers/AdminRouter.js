@@ -64,9 +64,12 @@ Admin.route("/Banner")
 Admin.route("/notice").post(AddNotice);
 Admin.route("/notice/:id").put(updatedNoticeById).delete(DeleteNoticeById);
 
-Admin.route("/feedback").get(getAllFeedback).delete(deleteFeedbackById);
-Admin.route("/call").get(getAllCalls).put(markToReadCallRequired);
-Admin.route("/message").put(markToReadMessage).get(getAllMessage);
+Admin.route("/feedback").get(getAllFeedback);
+Admin.route("/feedback/:id").delete(deleteFeedbackById);
+Admin.route("/call").get(getAllCalls);
+Admin.route("/call/:id").put(markToReadCallRequired);
+Admin.route("/message").get(getAllMessage);
+Admin.route("/message/:id").put(markToReadMessage);
 Admin.route("/Sociol")
   .put(updateSociolLink)
   .post(SubmitSociolLink)
