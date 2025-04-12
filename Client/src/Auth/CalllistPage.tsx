@@ -52,31 +52,37 @@ function CallList() {
 
   return (
     <LayoutAdmin>
-      <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-[Var(--admin-bg-color)] py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Call Requests</h1>
-            <Phone className="text-blue-600 w-8 h-8" />
+            <h1 className="text-3xl font-bold text-[Var(--admin-text-Primary-color)]">
+              Call Requests
+            </h1>
+            <Phone className="text-[Var(--dark-icon-color)] w-8 h-8" />
           </div>
 
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="bg-[Var(--admin-bg-color)] shadow-md rounded-lg overflow-hidden">
             {callRequests.map((request) => (
               <div
                 key={request.id}
-                className={`border-b border-gray-200 p-6 ${
-                  request.isRead ? "bg-gray-50" : "bg-white"
+                className={`border border-[Var(--admin-border-color)]  rounded-lg m-1 p-6 ${
+                  request.isRead
+                    ? "bg-[Var(--read-message-bg-color)]"
+                    : "bg-[Var(--unread-message-bg-color)]"
                 }`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-[Var(--admin-text-Secondary-color)]">
                       {request.fullName}
                     </h3>
-                    <p className="mt-1 text-sm font-medium text-blue-600">
+                    <p className="mt-1 text-sm font-medium text-[Var(--dark-icon-color)]">
                       {request.courseName}
                     </p>
-                    <p className="mt-2 text-gray-600">{request.message}</p>
-                    <p className="mt-2 text-sm text-gray-500 flex items-center">
+                    <p className="mt-2 text-[Var(--admin-text-Secondary-color)]">
+                      {request.message}
+                    </p>
+                    <p className="mt-2 text-sm text-[Var(--admin-text-Secondary-color)] flex items-center">
                       <Phone className="w-4 h-4 mr-2" />
                       {request.phoneNumber}
                     </p>

@@ -96,29 +96,29 @@ function EditCourse() {
 
   return (
     <LayoutAdmin>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[Var(--admin-bg-color)]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
             <button
               onClick={() => navigate("/Admin/courses")}
-              className="flex items-center text-gray-600 hover:text-gray-900"
+              className="flex items-center text-[Var(--admin-text-Primary-color)] Admin_custom-text"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Courses
             </button>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-6 sm:p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <div className="bg-[Var(--admin-bg-card-color)] border border-[Var(--admin-border-color)] rounded-xl shadow-md p-6 sm:p-8">
+            <h2 className="text-2xl font-bold text-[Var(--admin-text-Primary-color)]  mb-6">
               Edit Course
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2">
                   Course Image
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                <div className="border-2 border-dashed border-[Var(--input-border-color)] rounded-lg p-6 text-center">
                   {UpdateCourseData.image ? (
                     <div className="relative">
                       <img
@@ -176,7 +176,7 @@ function EditCourse() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Course Name
                   </label>
@@ -187,14 +187,14 @@ function EditCourse() {
                     required
                     value={UpdateCourseData.name}
                     onChange={handleChange}
-                    className="block w-full  rounded-lg p-2  outline-none border-2  border-gray-900 sm:text-sm"
+                    className="block w-full bg-[Var(--input-bg-color)] text-[Var(--input-text-color)]   rounded-lg p-2  outline-none border-2  border-[Var(--input-border-color)] sm:text-sm"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="duration"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Duration
                   </label>
@@ -206,14 +206,14 @@ function EditCourse() {
                     value={UpdateCourseData.duration}
                     onChange={handleChange}
                     placeholder="e.g., 6 months"
-                    className="block w-full  rounded-lg p-2  outline-none border-2  border-gray-900 sm:text-sm"
+                    className="block w-full bg-[Var(--input-bg-color)] text-[Var(--input-text-color)]   rounded-lg p-2  outline-none border-2  border-[Var(--input-border-color)] sm:text-sm"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="fees"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Course Fees
                   </label>
@@ -224,14 +224,14 @@ function EditCourse() {
                     required
                     value={UpdateCourseData.fees}
                     onChange={handleChange}
-                    className="block w-full  rounded-lg p-2  outline-none border-2  border-gray-900 sm:text-sm"
+                    className="block w-full  bg-[Var(--input-bg-color)] text-[Var(--input-text-color)]  rounded-lg p-2  outline-none border-2  border-[Var(--input-border-color)] sm:text-sm"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="totalSeats"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Total Seats
                   </label>
@@ -242,7 +242,7 @@ function EditCourse() {
                     required
                     value={UpdateCourseData.totalSeats}
                     onChange={handleChange}
-                    className="block w-full rounded-lg p-2  outline-none border-2  border-gray-900 sm:text-sm"
+                    className="block w-full bg-[Var(--input-bg-color)] text-[Var(--input-text-color)]  rounded-lg p-2  outline-none border-2  border-[Var(--input-border-color)] sm:text-sm"
                   />
                 </div>
               </div>
@@ -250,7 +250,7 @@ function EditCourse() {
               <div>
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium   text-[Var(--admin-text-Secondary-color)] mb-2"
                 >
                   Course Description
                 </label>
@@ -261,7 +261,7 @@ function EditCourse() {
                   required
                   value={UpdateCourseData.description}
                   onChange={handleChange}
-                  className="block w-full  rounded-lg p-2  outline-none border-2  border-gray-900 sm:text-sm"
+                  className="block w-full bg-[Var(--input-bg-color)] text-[Var(--input-text-color)]  rounded-lg p-2  outline-none border-2  border-[Var(--input-border-color)] sm:text-sm"
                 />
               </div>
 
@@ -272,7 +272,7 @@ function EditCourse() {
                   onClick={() => navigate("/Admin/courses")}
                   className={` ${
                     !loading ? "cursor-pointer" : "cursor-not-allowed"
-                  } px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  } px-4 py-2 border border-gray-300 rounded-lg text-[Var(--admin-text-Secondary-color)] hover:bg-[Var(--admin-bg-color)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                 >
                   Cancel
                 </button>

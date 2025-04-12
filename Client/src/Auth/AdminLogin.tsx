@@ -12,16 +12,16 @@ function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+    <div className="min-h-screen bg-[Var(--admin-bg-color)] flex items-center justify-center p-4">
+      <div className="max-w-md w-full space-y-8 bg-[Var(--admin-bg-card-color)] border border-[Var(--admin-border-color)] rounded-2xl shadow-xl p-6 sm:p-8">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 bg-indigo-100 rounded-full flex items-center justify-center">
-            <LogIn className="h-6 w-6 text-indigo-600" />
+          <div className="mx-auto h-12 w-12 bg-indigo-200 rounded-full flex items-center justify-center">
+            <LogIn className="h-6 w-6 text-[Var(--dark-icon-color)]" />
           </div>
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-3xl font-extrabold text-[Var(--admin-text-Primary-color)]">
             Admin Login
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm  text-[Var(--admin-text-Secondary-color)]">
             Enter your credentials to access the admin panel
           </p>
         </div>
@@ -33,8 +33,8 @@ function AdminLogin() {
                 Email address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                <div className="absolute inset-y-0 z-20 left-0 pl-3 flex items-center  ">
+                  <Mail className="h-5 w-5 text-[Var(--dark-icon-color)]" />
                 </div>
                 <input
                   id="email"
@@ -44,7 +44,7 @@ function AdminLogin() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none relative block w-full px-3 py-3 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none relative block w-full outline-none px-3 py-3 pl-10 border border-gray-300 placeholder-gray-500 text-[Var(--input-text-color)] border-[Var(--input-border-color)]  bg-[Var(--input-bg-color)] rounded-lg  sm:text-sm"
                   placeholder="Email address"
                 />
               </div>
@@ -55,8 +55,8 @@ function AdminLogin() {
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+                <div className="absolute inset-y-0 z-20 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-[Var(--dark-icon-color)]" />
                 </div>
                 <input
                   id="password"
@@ -66,7 +66,7 @@ function AdminLogin() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none relative block w-full px-3 py-3 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none relative block w-full px-3 py-3 pl-10  outline-none  border border-gray-300 placeholder-gray-500 text-[Var(--input-text-color)] border-[Var(--input-border-color)]  bg-[Var(--input-bg-color)] sm:text-sm rounded-lg"
                   placeholder="Password"
                 />
               </div>
@@ -76,7 +76,7 @@ function AdminLogin() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-[Var(--admin-text-Primary-color)] bg-[Var(--dark-btnBg-color)] Admin_custom-hover  transition-colors duration-200"
             >
               Sign in
             </button>

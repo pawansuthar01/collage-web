@@ -8,6 +8,26 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
+/* For WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a; /* Very dark background */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #334155; /* Dark slate thumb */
+  border-radius: 10px;
+  border: 2px solid #0f172a; /* Matches track for padding effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #475569; /* Slightly lighter on hover */
+}
+
 :root {
   --bg-color: rgb(255, 255, 0); /*main background color*/
   --icon-color: #f22c00; /*icon text color*/
@@ -29,11 +49,16 @@ input[type="number"]::-webkit-inner-spin-button {
   --admin-text-Secondary-color: #cbd5e1; /* admin text-Secondary     color*/
   --admin-text-Highlight-color: #0ea5e9; /*admin text Highlight color*/
   --admin-bg-color: #0f172a; /*admin bg-color  */
+  --admin-nav-bg-color: #111827; /*admin bg-color  */
   --admin-sbg-color: #1e293b; /*admin  Secondary bg-color:  color*/
   --admin-bg-card-color: #1e293b; /*admin bg-card  color*/
   --admin-border-color: #475569; /*admin border    color*/
   --dark-btnBg-color: #1f60d0; /*dark button bg color     */
-  --dark-btnBorder-color: #7489b1; /*dark button border color        color*/
+  --dark-btnBorder-color: #7489b1;
+  --read-message-bg-color: #1e293b; /* Tailwind's bg-slate-800 */
+  --unread-message-bg-color: #0f172a; /* Tailwind's bg-slate-900 */
+
+  --dark-icon-color: blue; /*dark icon  color        color*/
 }
 .Admin_custom-hover:hover {
   background-color: #334155; /* admin bg hover color slate-700 */

@@ -72,19 +72,19 @@ function ContactList() {
 
   return (
     <LayoutAdmin>
-      <div className="p-5 min-h-screen max-sm:p-0 mt-5">
+      <div className="p-5 bg-[Var(--admin-bg-color)] min-h-screen max-sm:p-0 mt-5">
         <div className="w-full">
           <div className=" p-8 rounded-lg mb-8">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <MessageSquare className="text-blue-400" />
+            <h2 className="text-2xl font-bold mb-6 flex text-[Var(--dark-text-Primary-color)] items-center gap-2">
+              <MessageSquare className="text-[Var(--dark-icon-color)]" />
               Messages ({messages.length})
             </h2>
             <div className="mb-6 flex items-center space-x-4">
-              <label className="text-lg max-sm:text-sm text-gray-700">
+              <label className="text-lg max-sm:text-sm text-[Var(--admin-text-Secondary-color)]">
                 Filter by Read Status:
               </label>
               <select
-                className="border  border-gray-300 rounded-lg p-3 max-sm:p-2 mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="border  border-gray-300 bg-[Var(--input-bg-color)] rounded-lg p-3 max-sm:p-2 mt-2 "
                 value={filterRead || "all"}
                 onChange={handleFilterChange}
               >
@@ -98,31 +98,37 @@ function ContactList() {
                 {filteredMessages.map((msg) => (
                   <div
                     key={msg._id}
-                    className="bg-[#333] rounded-lg p-6 border-l-4 border-blue-500"
+                    className="bg-[Var(--admin-bg-card-color)] border-[Var(--admin-border-color)] border rounded-lg p-6 border-l-4 "
                   >
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                       <div className="flex items-center gap-3 mb-2 md:mb-0">
-                        <User className="text-blue-400" size={20} />
+                        <User
+                          className="text-[Var(--dark-icon-color)]"
+                          size={20}
+                        />
                         <span className="font-semibold">{msg.fullName}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <Mail className="text-blue-400" size={20} />
+                        <Mail
+                          className="text-[Var(--dark-icon-color)]"
+                          size={20}
+                        />
                         <a
-                          className="text-gray-400 max-sm:text-sm"
+                          className="text-[Var(--admin-text-Secondary-color)] max-sm:text-sm"
                           href={`mailto:${msg.email}`}
                         >
                           {msg.email}
                         </a>
                       </div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-blue-400">
+                    <h3 className="text-xl font-semibold mb-2 text-[Var(--admin-text-Secondary-color)]">
                       {msg.subject}
                     </h3>
-                    <p className="text-gray-300 mb-4 whitespace-pre-wrap">
+                    <p className="text-[Var(--admin-text-Secondary-color)] mb-4 whitespace-pre-wrap">
                       {msg.message}
                     </p>
                     {msg.createdAt && (
-                      <p className="text-sm text-gray-500 mt-2">
+                      <p className="text-sm text-[Var(--admin-text-Secondary-color)] mt-2">
                         Sent on: {formatMongoDateToIndian(msg.createdAt)}
                       </p>
                     )}

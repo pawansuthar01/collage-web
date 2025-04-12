@@ -54,22 +54,22 @@ function AddNotice() {
 
   return (
     <LayoutAdmin>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[Var(--admin-bg-color)]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
             <button
               onClick={() => navigate("/Admin/notices")}
-              className="flex items-center text-gray-600 hover:text-gray-900"
+              className="flex items-center text-[Var(--admin-text-Primary-color)] Admin_custom-text"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Notices
             </button>
           </div>
 
-          <div className="bg-white rounded-xl shadow-md p-6 sm:p-8">
+          <div className="bg-[Var(--admin-bg-card-color)] rounded-xl shadow-md p-6 sm:p-8">
             <div className="flex items-center mb-6">
-              <Bell className="h-8 w-8 text-indigo-600 mr-3" />
-              <h2 className="text-2xl font-bold text-gray-900">
+              <Bell className="h-8 w-8 text-[var(--dark-icon-color)] mr-3" />
+              <h2 className="text-2xl font-bold text-[Var(--admin-text-Primary-color)]">
                 Add New Notice
               </h2>
             </div>
@@ -79,7 +79,7 @@ function AddNotice() {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="title"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Notice Title
                   </label>
@@ -90,7 +90,7 @@ function AddNotice() {
                     required
                     value={formData.title}
                     onChange={handleChange}
-                    className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full rounded-lg shadow-sm border p-2 outline-none  text-[Var(--input-text-color)] border-[Var(--input-border-color)] bg-[Var(--input-bg-color)] sm:text-sm"
                     placeholder="Enter notice title"
                   />
                 </div>
@@ -98,7 +98,7 @@ function AddNotice() {
                 <div>
                   <label
                     htmlFor="notice_type"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Notice Type
                   </label>
@@ -109,7 +109,7 @@ function AddNotice() {
                     required
                     value={formData.notice_type}
                     onChange={handleChange}
-                    className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full rounded-lg border p-2 outline-none  text-[Var(--input-text-color)] border-[Var(--input-border-color)] bg-[Var(--input-bg-color)] shadow-sm  sm:text-sm"
                     placeholder="Enter type name"
                   />
                 </div>
@@ -117,12 +117,12 @@ function AddNotice() {
                 <div>
                   <label
                     htmlFor="publish_date"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Publish Date
                   </label>
                   <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[Var(--admin-text-Secondary-color)]" />
                     <input
                       type="date"
                       id="publish_date"
@@ -130,7 +130,7 @@ function AddNotice() {
                       required
                       value={formData.publish_date}
                       onChange={handleChange}
-                      className="block w-full pl-10 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full pl-10 rounded-lg border p-2 outline-none  text-[Var(--input-text-color)] border-[Var(--input-border-color)] bg-[Var(--input-bg-color)] shadow-sm  sm:text-sm"
                     />
                   </div>
                 </div>
@@ -138,12 +138,12 @@ function AddNotice() {
                 <div>
                   <label
                     htmlFor="expiry_date"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Expiry Date
                   </label>
                   <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[Var(--admin-text-Secondary-color)]" />
                     <input
                       type="date"
                       id="expiry_date"
@@ -151,7 +151,7 @@ function AddNotice() {
                       required
                       value={formData.expiry_date}
                       onChange={handleChange}
-                      className="block w-full pl-10 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full pl-10 rounded-lg border p-2 outline-none  text-[Var(--input-text-color)] border-[Var(--input-border-color)] bg-[Var(--input-bg-color)] shadow-sm  sm:text-sm"
                     />
                   </div>
                 </div>
@@ -159,7 +159,7 @@ function AddNotice() {
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2"
                   >
                     Description
                   </label>
@@ -170,7 +170,7 @@ function AddNotice() {
                     required
                     value={formData.message}
                     onChange={handleChange}
-                    className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full rounded-lg border p-2 outline-none  text-[Var(--input-text-color)] border-[Var(--input-border-color)] bg-[Var(--input-bg-color)] shadow-sm  sm:text-sm"
                     placeholder="Enter notice description..."
                   />
                 </div>
@@ -183,7 +183,7 @@ function AddNotice() {
                   onClick={() => navigate("/Admin/notices")}
                   className={` ${
                     !loading ? "cursor-pointer" : "cursor-not-allowed"
-                  }  px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  }  px-4 py-2 border      rounded-lg text-[Var(--admin-text-Secondary-color)] Admin_custom-hover Admin_custom-text`}
                 >
                   Cancel
                 </button>
@@ -192,7 +192,7 @@ function AddNotice() {
                   type="submit"
                   className={` ${
                     !loading ? "cursor-pointer" : "cursor-not-allowed"
-                  }  px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  }  px-4 py-2 border  border-[Var(--dark-btnBorder-color)] bg-[Var(--dark-btnBg-color)] text-[Var(--admin-text-Primary-color)] rounded-lg Admin_custom-hover Admin_custom-text`}
                 >
                   {!loading ? "Add Notice" : "Loading..."}
                 </button>

@@ -47,16 +47,16 @@ function NoticeList() {
   };
   return (
     <LayoutAdmin>
-      <div className="min-h-screen bg-gray-50 p-6">
+      <div className="min-h-screen bg-[Var(--admin-bg-color)] p-6">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+            <h1 className="text-3xl font-bold text-[Var(--admin-text-Primary-color)] flex items-center gap-2">
               <Bell className="h-8 w-8 text-blue-600" />
               Notices
             </h1>
             <button
               onClick={() => navigate("/Admin/notices/add")}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-[Var(--dark-btnBg-color)] text-[var(--admin-text-Primary-color)] px-4 py-2 rounded-lg Admin_custom-hover transition-colors"
             >
               Add Notice
             </button>
@@ -72,7 +72,7 @@ function NoticeList() {
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="w-full max-w-3xl bg-white dark:bg-[var(--cardBg-color)] rounded-2xl shadow-md hover:shadow-xl transition-shadow p-6 border border-gray-200 dark:border-gray-700"
+                    className="w-full max-w-3xl bg-[var(--admin-bg-card-color)]  rounded-2xl shadow-md hover:shadow-xl transition-shadow p-6 border border-[Var(--admin-border-color)]"
                   >
                     <div className="flex justify-between items-start mb-4">
                       <div>
@@ -81,18 +81,20 @@ function NoticeList() {
                             {notice?.notice_type}
                           </span>
                         </div>
-                        <h2 className="text-2xl font-bold text-[var(--heading-color)]">
+                        <h2 className="text-2xl font-bold text-[var(--admin-text-Primary-color)]">
                           {notice?.title}
                         </h2>
-                        <p className="mt-2 text-gray-600 ">{notice?.message}</p>
+                        <p className="mt-2 text-[var(--admin-text-Secondary-color)] ">
+                          {notice?.message}
+                        </p>
                       </div>
-                      <div className="text-right text-sm text-gray-600  ">
+                      <div className="text-right text-sm text-[var(--admin-text-Secondary-color)]  ">
                         Post Time: <br />
                         {formatMongoDateToIndian(notice?.createdAt)}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-gray-600 mb-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-[var(--admin-text-Secondary-color)] mb-4">
                       <p>
                         <span className="font-medium">Start Date:</span>{" "}
                         {formatMongoDateToIndian(notice?.publish_date)}
@@ -110,14 +112,14 @@ function NoticeList() {
                             state: notice,
                           })
                         }
-                        className="flex items-center gap-1 px-4 py-2 text-sm text-blue-600 hover:text-white border border-blue-600 rounded-lg hover:bg-blue-600 transition-all"
+                        className="flex items-center gap-1 px-4 py-2 text-sm text-blue-600 hover:text-[var(--admin-text-Primary-color)] border border-blue-600 rounded-lg hover:bg-blue-600 transition-all"
                       >
                         <Pencil className="h-4 w-4" />
                         Edit
                       </button>
                       <button
                         onClick={() => handleDelete(notice._id)}
-                        className="flex items-center gap-1 px-4 py-2 text-sm text-red-600 hover:text-white border border-red-600 rounded-lg hover:bg-red-600 transition-all"
+                        className="flex items-center gap-1 px-4 py-2 text-sm text-red-600 hover:text-[var(--admin-text-Primary-color)] border border-red-600 rounded-lg hover:bg-red-600 transition-all"
                       >
                         <Trash2 className="h-4 w-4" />
                         Delete
@@ -127,9 +129,9 @@ function NoticeList() {
                 </div>
               ))
             ) : (
-              <div className="bg-white rounded-lg shadow-md">
+              <div className="bg-[var(--admin-bg-color)] rounded-lg shadow-md">
                 <div className="p-6 space-y-4">
-                  <p className="text-gray-600 text-center">
+                  <p className="text-[var(--admin-text-Secondary-color)] text-center">
                     No notices available
                   </p>
                 </div>

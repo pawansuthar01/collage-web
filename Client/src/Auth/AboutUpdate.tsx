@@ -73,13 +73,15 @@ export default function AdminAboutUpdate() {
 
   return (
     <LayoutAdmin>
-      <div className="max-w-2xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Update About Page</h1>
+      <div className="max-w-2xl bg-[Var(--admin-bg-color)] mx-auto p-6">
+        <h1 className="text-2xl font-bold mb-6 text-[Var(--admin-text-Primary-color)]">
+          Update About Page
+        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-[Var(--admin-text-Secondary-color)] text-sm font-medium mb-1">
                 Description
               </label>
               <textarea
@@ -87,20 +89,20 @@ export default function AdminAboutUpdate() {
                 onChange={(e) =>
                   setAboutInfo({ ...aboutInfo, description: e.target.value })
                 }
-                className="w-full p-2 border rounded min-h-[200px]"
+                className="w-full p-2 border border-[Var(--input-border-color)]  text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] rounded min-h-[150px]"
                 required
                 placeholder="Enter the about page description..."
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2">
                 Upload Photo
               </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2  border-[Var(--input-border-color)] border-dashed rounded-lg">
                 <div className="space-y-1 text-center">
                   <svg
-                    className="mx-auto h-12 w-12 text-gray-400"
+                    className="mx-auto h-12 w-12 text-[Var(--admin-text-Secondary-color)]"
                     stroke="currentColor"
                     fill="none"
                     viewBox="0 0 48 48"
@@ -113,10 +115,10 @@ export default function AdminAboutUpdate() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <div className="flex text-sm text-gray-600">
+                  <div className="flex text-sm text-[Var(--admin-text-Secondary-color)]">
                     <label
                       htmlFor="file-upload"
-                      className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500"
+                      className="relative cursor-pointer  rounded-md font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       <span>Upload a file</span>
                       <input
@@ -132,7 +134,7 @@ export default function AdminAboutUpdate() {
                       or drag and drop
                     </label>
                   </div>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-[Var(--admin-text-Secondary-color)]">
                     PNG, JPG, JPEG up to 5MB
                   </p>
                 </div>
@@ -164,9 +166,10 @@ export default function AdminAboutUpdate() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-2 px-4 rounded font-medium text-white ${
-              loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
-            }`}
+            className={`w-full py-2 px-4 rounded font-medium text-[Var(--admin-text-Primary-color)] ${
+              !loading ? " cursor-pointer" : " cursor-not-allowed "
+            }  Admin_custom-hover Admin_custom-text bg-[Var(--dark-btnBg-color)]
+              `}
           >
             {loading ? "Updating..." : "Update About Page"}
           </button>

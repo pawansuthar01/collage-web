@@ -77,7 +77,7 @@ export default function AdminBannerUpdate() {
 
   return (
     <LayoutAdmin>
-      <div className="max-w-2xl mx-auto p-6">
+      <div className="max-w-2xl bg-[Var(--admin-bg-color)] mx-auto p-6">
         <h1 className="text-2xl font-bold mb-6">Update Banner Statistics</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -95,7 +95,7 @@ export default function AdminBannerUpdate() {
                     totalStudentCount: parseInt(e.target.value),
                   })
                 }
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)]  border rounded"
                 min="0"
                 required
               />
@@ -114,14 +114,14 @@ export default function AdminBannerUpdate() {
                     totalCourseCount: parseInt(e.target.value),
                   })
                 }
-                className="w-full p-2 border rounded"
+                className="w-full p-2  border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] border rounded"
                 min="0"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm text-[Var(--admin-text-Secondary-color)] font-medium mb-1">
                 Total Awards Count
               </label>
               <input
@@ -133,14 +133,14 @@ export default function AdminBannerUpdate() {
                     totalAwardsCount: parseInt(e.target.value),
                   })
                 }
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] rounded"
                 min="0"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-[Var(--admin-text-Secondary-color)] text-sm font-medium mb-1">
                 Years of Excellence
               </label>
               <input
@@ -152,7 +152,7 @@ export default function AdminBannerUpdate() {
                     yearsOfExcellence: parseInt(e.target.value),
                   })
                 }
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] rounded"
                 min="0"
                 required
               />
@@ -160,13 +160,13 @@ export default function AdminBannerUpdate() {
 
             {/* File Upload Section */}
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] mb-2">
                 Banner Image
               </label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-[Var(--input-border-color)]   border-dashed rounded-lg">
                 <div className="space-y-1 text-center">
                   <svg
-                    className="mx-auto h-12 w-12 text-gray-400"
+                    className="mx-auto h-12 w-12 text-[Var(--admin-text-Secondary-color)]"
                     stroke="currentColor"
                     fill="none"
                     viewBox="0 0 48 48"
@@ -179,10 +179,10 @@ export default function AdminBannerUpdate() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <div className="flex text-sm text-gray-600">
+                  <div className="flex text-sm text-[Var(--admin-text-Secondary-color)]">
                     <label
                       htmlFor="file-upload"
-                      className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500"
+                      className="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       <span>Upload a file</span>
                       <input
@@ -214,8 +214,8 @@ export default function AdminBannerUpdate() {
             <div
               className={`p-3 rounded ${
                 message.includes("success")
-                  ? "bg-green-100 text-green-700"
-                  : "bg-red-100 text-red-700"
+                  ? "bg-green-200 text-green-700"
+                  : "bg-red-200 text-red-700"
               }`}
             >
               {message}
@@ -225,9 +225,10 @@ export default function AdminBannerUpdate() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-2 px-4 rounded font-medium text-white ${
-              loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
-            }`}
+            className={`w-full py-2 px-4 rounded font-medium text-[Var(--admin-text-Primary-color)] ${
+              !loading ? " cursor-pointer" : " cursor-not-allowed "
+            }  Admin_custom-hover Admin_custom-text bg-[Var(--dark-btnBg-color)]
+            `}
           >
             {loading ? "Updating..." : "Update Banner"}
           </button>

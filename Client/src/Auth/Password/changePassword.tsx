@@ -100,8 +100,8 @@ const ChangePassword: React.FC = () => {
 
   return (
     <LayoutAdmin>
-      <div className="flex mt-20">
-        <div className="my-auto m-auto sm:w-[60%] w-[90%] max-w-md p-6 border-cyan-200 border rounded-md shadow-[0_0_5px_0_cyan]">
+      <div className="flex bg-[Var(--admin-bg-color)] mt-20">
+        <div className="my-auto bg-[Var(--admin-bg-card-color)] m-auto  sm:w-[60%] w-[90%] max-w-md p-6 border-[Var(--admin-border-color)] border rounded-md ">
           <h2 className="text-xl font-semibold text-center mb-6">
             Reset Your Password
           </h2>
@@ -120,7 +120,7 @@ const ChangePassword: React.FC = () => {
                 value={passwordData.oldPassword}
                 onChange={handleUserInput}
                 placeholder="Old Password"
-                className="w-full p-3 border max-w-xs:text-sm outline-none border-cyan-300 rounded text-white"
+                className="w-full p-3 border max-w-xs:text-sm outline-none border-[Var(--input-border-color)] bg-[Var(--input-bg-color)]  rounded text-[Var(--input-text-color)]"
               />
               <div
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -142,7 +142,7 @@ const ChangePassword: React.FC = () => {
                 value={passwordData.newPassword}
                 onChange={handleUserInput}
                 placeholder="New Password"
-                className="w-full p-3 border max-w-xs:text-sm outline-none border-cyan-300 rounded text-white"
+                className="w-full p-3 border max-w-xs:text-sm outline-none border-[Var(--input-border-color)] bg-[Var(--input-bg-color)]  rounded text-[Var(--input-text-color)]"
               />
               <div
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -164,7 +164,7 @@ const ChangePassword: React.FC = () => {
                 value={passwordData.confirmPassword}
                 onChange={handleUserInput}
                 placeholder="Confirm Password"
-                className="w-full p-3 border max-w-xs:text-sm pr-10 outline-none border-cyan-300 rounded text-white"
+                className="w-full p-3 border max-w-xs:text-sm pr-10 outline-none border-[Var(--input-border-color)] bg-[Var(--input-bg-color)]  rounded text-[Var(--input-text-color)]"
               />
               <div
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -181,7 +181,7 @@ const ChangePassword: React.FC = () => {
             <div className="mb-6">
               <button
                 type="submit"
-                className="w-full bg-blue-500 text-white p-2 rounded-md disabled:bg-gray-400"
+                className="w-full  bg-[Var(--dark-btnBg-color)]  text-[Var(--admin-text-Primary-color)] p-2 rounded-md disabled:bg-gray-400 Admin_custom-hover"
                 disabled={loading}
               >
                 {loading ? "Updating..." : "Update Password"}

@@ -45,18 +45,18 @@ function CourseList() {
 
   return (
     <LayoutAdmin>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[Var(--admin-bg-color)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex justify-between items-center mb-8">
             <div className="flex items-center">
               <GraduationCap className="h-8 max-[600px]:w-5 w-8 text-indigo-600" />
-              <h1 className="ml-3 text-2xl font-bold text-gray-900 max-[600px]:text-lg">
+              <h1 className="ml-3 text-2xl font-bold text-[Var(--admin-text-Primary-color)] max-[600px]:text-lg">
                 Course Management
               </h1>
             </div>
             <button
               onClick={() => navigate("/Admin/courses/add")}
-              className="flex items-center px-4 py-2 max-[600px]:text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+              className="flex items-center px-4 py-2 max-[600px]:text-sm bg-[Var(--dark-btnBg-color)] Admin_custom-hover Admin_custom-text  text-[Var(--admin-text-Primary-color)] rounded-lg  transition-colors"
             >
               <PlusCircle className="h-5 w-5 mr-2" />
               Add New Course
@@ -72,7 +72,7 @@ function CourseList() {
               data.map((course) => (
                 <div
                   key={course._id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden"
+                  className="bg-[Var(--admin-bg-card-color)] border border-[Var(--admin-border-color)]  rounded-xl shadow-md overflow-hidden"
                 >
                   <img
                     src={course.photo}
@@ -80,20 +80,20 @@ function CourseList() {
                     className="h-48 w-full object-cover"
                   />
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-900">
+                    <h3 className="text-xl font-semibold text-[Var(--admin-text-Primary-color)]">
                       {course.name_course}
                     </h3>
                     <div className="mt-2 space-y-2">
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[Var(--admin-text-Primary-color)]">
                         Duration: {course.course_dur}
                       </p>
-                      <p className="text-sm text-gray-600">
-                        Fees: ${course.course_fees}
+                      <p className="text-sm text-[Var(--admin-text-Primary-color)]">
+                        Fees: {course.course_fees}/-
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-[Var(--admin-text-Primary-color)]">
                         Total Seats: {course.course_seats}
                       </p>
-                      <p className="text-sm text-gray-600 line-clamp-2">
+                      <p className="text-sm text-[Var(--admin-text-Primary-color)] line-clamp-2">
                         {course.course_description}
                       </p>
                     </div>
@@ -104,13 +104,13 @@ function CourseList() {
                             state: course,
                           })
                         }
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-blue-600 Admin_custom-hover rounded-lg transition-colors"
                       >
                         <Pencil className="h-5 w-5" />
                       </button>
                       <button
                         onClick={() => handleDelete(course._id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-red-600 Admin_custom-hover rounded-lg transition-colors"
                       >
                         <Trash2 className="h-5 w-5" />
                       </button>

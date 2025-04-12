@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { DeleteFeedback, GetAllFeedback } from "../Redux/Slice/Admin";
 import { AppDispatch } from "../Redux/Store";
 import LayoutAdmin from "../layout/AdminLayout";
+import formatMongoDateToIndian from "../../Helper/DateFormat";
 
 type MessageType = {
   _id: string;
@@ -13,19 +14,6 @@ type MessageType = {
   message: string;
   createdAt?: string;
   read: boolean;
-};
-
-const formatMongoDateToIndian = (messageSubmitDate: string | Date): string => {
-  const date = new Date(messageSubmitDate);
-  return date.toLocaleString("en-IN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
 };
 
 function FeedbackList() {
@@ -53,8 +41,8 @@ function FeedbackList() {
       <div className="p-3 min-h-screen max-sm:p-0 mt-3">
         <div className="w-full ">
           <div className=" p-3 rounded-lg mb-8">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <MessageSquare className="text-blue-400" />
+            <h2 className="text-2xl  text-[Var(--admin-text-Primary-color)] font-bold mb-6 flex items-center gap-2">
+              <MessageSquare className="text-(--dark-icon-color)]" />
               Feedback ({feedback.length})
             </h2>
 
@@ -63,22 +51,25 @@ function FeedbackList() {
                 {feedback.map((msg) => (
                   <div
                     key={msg._id}
-                    className="bg-gray-60/50 rounded-lg p-6 border-l-4 border-blue-500"
+                    className="bg-[Var(--admin-bg-card-color)] border border-[Var(--admin-border-color)] rounded-lg p-6 border-l-4 border-blue-500"
                   >
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                       <div className="flex items-center gap-3 mb-2 md:mb-0">
-                        <User className="text-blue-400" size={20} />
+                        <User
+                          className="text-[Var(--dark-icon-color)]"
+                          size={20}
+                        />
                         <span className="font-semibold">{msg.name}</span>
                       </div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-blue-400">
+                    <h3 className="text-xl font-semibold mb-2  text-[Var(--admin-text-Secondary-color)] ">
                       {msg.subject}
                     </h3>
-                    <p className="text-gray-300 mb-4 whitespace-pre-wrap">
+                    <p className=" text-[Var(--admin-text-Secondary-color)] mb-4 whitespace-pre-wrap">
                       {msg.message}
                     </p>
                     {msg.createdAt && (
-                      <p className="text-sm text-gray-500 mt-2">
+                      <p className="text-sm  text-[Var(--admin-text-Secondary-color)] mt-2">
                         Sent on: {formatMongoDateToIndian(msg.createdAt)}
                       </p>
                     )}
@@ -87,7 +78,7 @@ function FeedbackList() {
                         onClick={() => handelDelete(msg._id)}
                         className={`px-4 py-2 max-sm:py-1 max-sm:px-2 rounded-full 
                          bg-red-400
-                         text-white font-semibold text-sm`}
+                          text-[Var(--admin-text-Primary-color)] font-semibold text-sm`}
                       >
                         Delete
                       </button>

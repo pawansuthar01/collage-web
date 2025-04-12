@@ -20,6 +20,7 @@ import AdminAboutUpdate from "./Auth/AboutUpdate";
 import FeedbackList from "./Auth/feedback";
 import ContactList from "./Auth/ContactList";
 import CallList from "./Auth/CalllistPage";
+import SocialUpdate from "./Auth/SociolLink";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/Admin/update-banner" element={<AdminBannerUpdate />} />
           <Route path="/Admin/update-About" element={<AdminAboutUpdate />} />
           <Route path="/Admin/password-update" element={<ChangePassword />} />
+          <Route path="/Admin/SociolLink-update" element={<SocialUpdate />} />
           <Route path="/Admin/password-resat" element={<ChangePassword />} />
           <Route path="/Admin/courses" element={<CourseList />} />
           <Route

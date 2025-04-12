@@ -15,6 +15,7 @@ import {
   Lock,
   ChevronDown,
 } from "lucide-react";
+import { BiSolidColorFill } from "react-icons/bi";
 
 const Sidebar = ({
   isOpen,
@@ -88,18 +89,25 @@ const Sidebar = ({
       title: "Change Password",
       icon: <Lock className="w-5 h-5" />,
     },
+    {
+      path: "/Admin/SociolLink-update",
+      title: "Sociol Link",
+      icon: <BiSolidColorFill className="w-5 h-5" />,
+    },
   ];
 
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 text-white transform ${
+      className={`fixed inset-y-0 left-0 z-50 w-64 bg-[Var(--admin-nav-bg-color)]   transform ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out lg:translate-x-0`}
     >
-      <div className="flex items-center justify-between h-16 px-4 bg-gray-800">
-        <Link to="/" className="flex items-center space-x-2">
+      <div className="flex items-center justify-between h-16 px-4  bg-[Var(--admin-nav-bg-color)]">
+        <Link to="/Admin" className="flex items-center space-x-2">
           <LayoutDashboard className="w-8 h-8" />
-          <span className="text-xl font-bold">Admin Panel</span>
+          <span className="text-xl font-bold    text-[Var(--admin-text-Primary-color)]">
+            Admin Panel
+          </span>
         </Link>
         <button onClick={toggleSidebar} className="lg:hidden">
           <X className="w-6 h-6" />
@@ -113,7 +121,7 @@ const Sidebar = ({
                 <div>
                   <button
                     onClick={() => item.setOpen(!item.isOpen)}
-                    className="flex items-center justify-between w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded"
+                    className="flex items-center justify-between  w-full px-4 py-2 Admin_custom-text Admin_custom-hover rounded"
                   >
                     <div className="flex items-center space-x-2">
                       {item.icon}
@@ -133,8 +141,8 @@ const Sidebar = ({
                             to={subItem.path}
                             className={`block px-4 py-2 text-sm ${
                               location.pathname === subItem.path
-                                ? "text-white bg-gray-800"
-                                : "text-gray-400 hover:text-white hover:bg-gray-800"
+                                ? "text-[Var(--admin-text-Primary-color)] bg-[Var(--admin-bg-color)] "
+                                : "text-gray-400 Admin_custom-text Admin_custom-hover"
                             } rounded`}
                           >
                             {subItem.label}
@@ -149,8 +157,8 @@ const Sidebar = ({
                   to={item.path || "/"}
                   className={`flex items-center space-x-2 px-4 py-2 ${
                     location.pathname === item.path
-                      ? "text-white bg-gray-800"
-                      : "text-gray-300 hover:text-white hover:bg-gray-800"
+                      ? "text-[Var(--admin-text-Primary-color)] bg-gray-800"
+                      : "text-gray-300 Admin_custom-text Admin_custom-hover "
                   } rounded`}
                 >
                   {item.icon}
@@ -173,14 +181,14 @@ const LayoutAdmin = ({ children }: LayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen  text-[Var(--admin-text-Primary-color)] bg-[Var(--admin-bg-color)] ">
       <Sidebar
         isOpen={sidebarOpen}
         toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
       />
 
       <div className="lg:pl-64 flex   flex-col min-h-screen">
-        <header className="bg-white w-full  fixed z-30 shadow-sm">
+        <header className="bg-[Var(--admin-nav-bg-color)] w-full  fixed z-30 shadow-sm">
           <div className="flex items-center justify-between h-16 px-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -189,15 +197,17 @@ const LayoutAdmin = ({ children }: LayoutProps) => {
               <Menu className="w-6 h-6" />
             </button>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Admin Name</span>
+              <span className="text-[Var(--admin-text-Primary-color)]">
+                Admin Name
+              </span>
             </div>
           </div>
         </header>
 
         <main className="flex-1  mt-12">{children}</main>
 
-        <footer className="bg-white shadow-sm mt-auto">
-          <div className="text-center py-4 text-sm text-gray-600">
+        <footer className="bg-[var(--admin-nav-bg-color)] shadow-sm mt-auto">
+          <div className="text-center py-4 text-sm text-[Var(--admin-text-Primary-color)]">
             © {new Date().getFullYear()} Admin Dashboard. All rights reserved.
           </div>
         </footer>

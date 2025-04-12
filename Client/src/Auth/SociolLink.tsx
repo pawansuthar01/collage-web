@@ -84,27 +84,24 @@ const SocialUpdate: React.FC = () => {
 
   return (
     <LayoutAdmin>
-      <div className="max-w-lg mx-auto min-h-screen lg:p-8 p-2 mt-20 mb-2 bg-[#242424]">
-        <h2 className="text-2xl font-bold mb-4 text-center text-gray-700 dark:text-white">
+      <div className="max-w-lg mx-auto min-h-screen lg:p-8 p-2  mt-5 bg-[Var(--admin-bg-color)]">
+        <h2 className="text-2xl font-bold mb-4 text-center text-[Var(--admin-text-Primary-color)] ">
           Social Data Update
         </h2>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-[#333] border-cyan-200 border-1 rounded-md shadow-[0_0_5px_0_cyan] p-2 m-2"
+          className="bg-[Var(--admin-bg-card-color)] border-[Var(--admin-border-color)] border rounded-md  p-2 m-2"
         >
           {[
-            { label: "CV Link", name: "cv" },
             { label: "Instagram Link", name: "instagram" },
+            { label: "Youtube Link", name: "Youtube" },
             { label: "Facebook Link", name: "facebook" },
-            { label: "X Link", name: "x" },
-            { label: "LinkedIn Link", name: "linkedin" },
-            { label: "Git Account Link", name: "git" },
           ].map(({ label, name }) => (
             <div className="mb-4" key={name}>
               <label
                 htmlFor={name}
-                className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                className="block text-sm font-medium text-[Var(--admin-text-Secondary-color)] "
               >
                 {label}
               </label>
@@ -114,7 +111,7 @@ const SocialUpdate: React.FC = () => {
                 name={name}
                 value={(formData as any)[name]}
                 onChange={handleChange}
-                className="w-full mt-1 p-2 border rounded text-white"
+                className="w-full mt-1 p-2 border rounded text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] border-[Var(--input-border-color)]"
                 placeholder={`Enter ${label.toLowerCase()}`}
               />
             </div>
@@ -123,7 +120,7 @@ const SocialUpdate: React.FC = () => {
           <button
             disabled={loading}
             type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full py-2 px-4 bg-[Var(--dark-btnBg-color)] text-[Var(--admin-text-Primary-color)] font-medium rounded Admin_custom-hover "
           >
             {loading ? "Updating..." : "Submit"}
           </button>

@@ -64,7 +64,7 @@ const Dashboard = () => {
   return (
     <LayoutAdmin>
       <div className="bg-[Var(--admin-bg-color)] pt-12">
-        <h1 className="text-2xl font-semibold text-[Var(--admin-text-Primary-color)] mb-6">
+        <h1 className="text-2xl pl-2 font-semibold text-[Var(--admin-text-Primary-color)] mb-6">
           Dashboard
         </h1>
 
