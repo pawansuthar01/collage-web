@@ -31,6 +31,23 @@ export const Subscribe = createAsyncThunk(
   }
 );
 
+// course Apply Submit
+export const CourseApplySubmit = createAsyncThunk(
+  "user/submitMessage",
+  async (data: any, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(
+        "/collage/v3/user/course_apply",
+        data
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
 // Message Submit
 export const submitMessage = createAsyncThunk(
   "user/submitMessage",

@@ -7,7 +7,6 @@ import {
   LayoutDashboard,
   BookOpen,
   Bell,
-  Calendar,
   MessageSquare,
   Phone,
   Users,

@@ -4,15 +4,24 @@ import sendEmail from "../Utils/EmailSender.js";
 
 export const ApplyCourse = async (req, res, next) => {
   try {
-    const { fullName, courseName, message, Previous_Education, number, email } =
-      req.body;
+    const {
+      name,
+      courseName,
+      courseFees,
+      message,
+      previousEducation,
+      phone,
+      email,
+    } = req.body;
 
     if (
-      !fullName ||
+      !name ||
       !courseName ||
+      !email ||
       !message ||
-      !Previous_Education ||
-      !number
+      !courseFees ||
+      !previousEducation ||
+      !phone
     ) {
       return next(
         new AppError("All fields are required to apply for the course.", 400)
@@ -20,11 +29,13 @@ export const ApplyCourse = async (req, res, next) => {
     }
 
     const CourseApply = new courseApply({
-      fullName,
-      number,
+      name,
+      phone,
+      email,
+      courseFees,
       message,
       courseName,
-      Previous_Education,
+      previousEducation,
     });
 
     await CourseApply.save();

@@ -102,20 +102,27 @@ export const DeleteCourse = createAsyncThunk(
   }
 );
 //get All courseApply req//
-export const GetAllCourseApply = createAsyncThunk("/get/feedback", async () => {
-  try {
-    const response = await axiosInstance.get("/");
-    return response?.data;
-  } catch (error: any) {
-    return error?.response?.data || error?.message || "Something went wrong...";
+export const GetAllCourseApply = createAsyncThunk(
+  "/get/course_apply",
+  async () => {
+    try {
+      const response = await axiosInstance.get("/collage/v5/admin/courseApply");
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
   }
-});
+);
 //course Apply message read mark//
 export const CourseApplyMarkAsRead = createAsyncThunk(
   "/put/message",
   async (id: string) => {
     try {
-      const response = await axiosInstance.put(`/app/user/v3/Message/${id}`);
+      const response = await axiosInstance.put(
+        `/collage/v5/admin/courseApply/${id}`
+      );
       return response?.data;
     } catch (error: any) {
       return (

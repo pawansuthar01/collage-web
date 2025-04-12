@@ -2,11 +2,24 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 import Layout from "../layout/layout";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
+import { CourseApplySubmit } from "../Redux/Slice/UserSlice";
 
 const CoursesPage = () => {
   const [showForm, setShowForm] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState("");
-
+  const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState(false);
+  const [courseApplyData, setCourseApplyData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    courseName: "",
+    courseFees: "",
+    previousEducation: "",
+    message: "",
+  });
   const courses = [
     {
       id: 1,
@@ -41,7 +54,55 @@ const CoursesPage = () => {
       seats: 180,
     },
   ];
+  function handelFromOpen({ name, fees }: { name: string; fees: string }) {
+    if (!name || !fees) {
+      toast.error("Something went wrong...");
+      return;
+    }
 
+    setCourseApplyData((prev) => ({
+      ...prev,
+      courseName: name,
+      courseFees: fees,
+    }));
+
+    setShowForm(true);
+  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setCourseApplyData((prev) => ({ ...prev, [name]: value }));
+    const element = document.getElementById(name);
+    if (element) {
+      element.style.borderColor = "";
+    }
+  };
+
+  const handelCourseApplySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    if (
+      courseApplyData.name &&
+      courseApplyData.email &&
+      courseApplyData.message &&
+      courseApplyData.phone &&
+      courseApplyData.courseFees &&
+      courseApplyData.courseName &&
+      courseApplyData.previousEducation
+    ) {
+      const res = await dispatch(CourseApplySubmit(courseApplyData));
+      console.log(res);
+    } else {
+      Object.entries(courseApplyData).forEach(([key, value]) => {
+        const element = document.getElementById(key);
+        if (element) {
+          element.style.borderColor = value == "" ? "red" : "";
+        }
+      });
+    }
+    setLoading(false);
+  };
   return (
     <Layout>
       <motion.div
@@ -81,10 +142,9 @@ const CoursesPage = () => {
                   </span>
                 </div>
                 <button
-                  onClick={() => {
-                    setSelectedCourse(course.name);
-                    setShowForm(true);
-                  }}
+                  onClick={() =>
+                    handelFromOpen({ name: course.name, fees: course.fees })
+                  }
                   className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
                 >
                   Apply Now
@@ -97,62 +157,107 @@ const CoursesPage = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-8"
             >
               <div className="bg-white rounded-lg p-8 max-w-md w-full">
                 <h3 className="text-2xl font-bold mb-4">
-                  Apply for {selectedCourse}
+                  Apply for {courseApplyData.courseName}
                 </h3>
-                <form className="space-y-4">
+                <form onSubmit={handelCourseApplySubmit} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Full Name
                     </label>
                     <input
                       type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
+                      id="name"
+                      name="name"
+                      onChange={handleChange}
+                      className="mt-1 block  w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Email
                     </label>
                     <input
                       type="email"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
+                      id="email"
+                      name="email"
+                      onChange={handleChange}
+                      className="mt-1 block  w-full  rounded-lg p-1 outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Phone
                     </label>
                     <input
                       type="tel"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
+                      id="phone"
+                      name="phone"
+                      onChange={handleChange}
+                      className="mt-1 block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="previousEducation"
+                      className="block text-sm font-medium text-gray-700"
+                    >
                       Previous Education
                     </label>
                     <input
                       type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
+                      id="previousEducation"
+                      name="previousEducation"
+                      onChange={handleChange}
+                      className="mt-1 block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      message
+                    </label>
+                    <textarea
+                      rows={4}
+                      id="message"
+                      name="message"
+                      onChange={handleChange}
+                      className="mt-1 block   w-full  rounded-lg   outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div className="flex justify-end space-x-3">
                     <button
                       type="button"
+                      disabled={loading}
                       onClick={() => setShowForm(false)}
-                      className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                      className={` ${
+                        !loading ? " cursor-pointer" : "cursor-not-allowed"
+                      } px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50`}
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-2 bg-[var(--btn-color)] custom-hover  text-[var(--text-color)]  rounded-md "
+                      disabled={loading}
+                      className={` ${
+                        !loading ? " cursor-pointer" : "cursor-not-allowed"
+                      } px-4 py-2 bg-[var(--btn-color)] custom-hover  text-[var(--text-color)]  rounded-md `}
                     >
-                      Submit Application
+                      {!loading ? "Submit Application" : "Loading.."}
                     </button>
                   </div>
                 </form>

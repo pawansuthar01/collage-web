@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   GraduationCap,
   CheckCircle,
-  XCircle,
   User,
   BookOpen,
   Mail,
@@ -10,64 +9,54 @@ import {
   School,
 } from "lucide-react";
 import LayoutAdmin from "../../layout/AdminLayout";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../Redux/Store";
+import {
+  CourseApplyMarkAsRead,
+  GetAllCourseApply,
+} from "../../Redux/Slice/Admin";
+import formatMongoDateToIndian from "../../../Helper/DateFormat";
+import { CourseApplySkeleton } from "../../components/loadingPage/Skeleton";
 
 // Define a type for the application data
-type ApplicationStatus = "read" | "unread";
 
 interface Application {
-  id: number;
-  studentName: string;
+  _id: string;
+  name: string;
   email: string;
   phone: string;
   courseName: string;
   courseFees: number;
   previousEducation: string;
   message: string;
-  status: ApplicationStatus;
-  appliedDate: string;
+  read: boolean;
+  createdAt: string;
 }
 
-// Initial data
-const initialApplications: Application[] = [
-  {
-    id: 1,
-    studentName: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1234567890",
-    courseName: "Web Development Bootcamp",
-    courseFees: 599,
-    previousEducation: "Bachelor in Computer Science",
-    message:
-      "I am very interested in learning web development and would love to join this course.",
-    status: "unread",
-    appliedDate: "2024-03-15",
-  },
-  {
-    id: 2,
-    studentName: "Jane Smith",
-    email: "jane.smith@example.com",
-    phone: "+1987654321",
-    courseName: "Data Science Fundamentals",
-    courseFees: 499,
-    previousEducation: "Bachelor in Mathematics",
-    message:
-      "Looking forward to learning data science and pursuing a career in this field.",
-    status: "read",
-    appliedDate: "2024-03-14",
-  },
-];
-
 const CourseApplications: React.FC = () => {
-  const [applications, setApplications] =
-    useState<Application[]>(initialApplications);
+  const [applications, setApplications] = useState<Application[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState(false);
 
-  const handleStatusChange = (id: number, newStatus: ApplicationStatus) => {
+  const handleStatusChange = async (id: string) => {
+    await dispatch(CourseApplyMarkAsRead(id));
+
     setApplications((prevApplications) =>
       prevApplications.map((app) =>
-        app.id === id ? { ...app, status: newStatus } : app
+        app._id === id ? { ...app, read: true } : app
       )
     );
   };
+  const handelLoadApplication = async () => {
+    setLoading(true);
+    const res = await dispatch(GetAllCourseApply());
+    setLoading(false);
+    const data = res?.payload?.data;
+    setApplications(data);
+  };
+  useEffect(() => {
+    handelLoadApplication();
+  }, []);
 
   return (
     <LayoutAdmin>
@@ -83,7 +72,7 @@ const CourseApplications: React.FC = () => {
           </div>
 
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="overflow-x-auto">
+            <div className=" overflow-x-scroll p-2">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
@@ -108,102 +97,108 @@ const CourseApplications: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {applications.map((application) => (
-                    <tr
-                      key={application.id}
-                      className={
-                        application.status === "unread" ? "bg-blue-50" : ""
-                      }
-                    >
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col">
+                  {loading ? (
+                    <CourseApplySkeleton />
+                  ) : applications.length > 0 ? (
+                    applications.map((application) => (
+                      <tr
+                        key={application._id}
+                        className={
+                          application.read === true ? "bg-blue-50" : ""
+                        }
+                      >
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col">
+                            <div className="flex items-center">
+                              <User className="h-4 w-4 text-gray-500 mr-2" />
+                              <span className="font-medium text-gray-900">
+                                {application.name}
+                              </span>
+                            </div>
+                            <div className="flex items-center mt-1">
+                              <Mail className="h-4 w-4 text-gray-500 mr-2" />
+                              <span className="text-sm text-gray-500">
+                                {application.email}
+                              </span>
+                            </div>
+                            <div className="flex items-center mt-1">
+                              <Phone className="h-4 w-4 text-gray-500 mr-2" />
+                              <span className="text-sm text-gray-500">
+                                {application.phone}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6  whitespace-nowrap max-w-xs overflow-hidden text-ellipsis   py-4">
+                          <div className="flex flex-col">
+                            <div className="flex items-center">
+                              <BookOpen className="h-4 w-4 text-gray-500 mr-2" />
+                              <span className="font-medium text-gray-900">
+                                {application.courseName}
+                              </span>
+                            </div>
+                            <div className="mt-1 text-sm text-gray-500">
+                              Fees: {application.courseFees}
+                            </div>
+                            <div className="mt-1 text-sm text-gray-500">
+                              Applied:{" "}
+                              {formatMongoDateToIndian(application.createdAt)}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 ">
                           <div className="flex items-center">
-                            <User className="h-4 w-4 text-gray-500 mr-2" />
-                            <span className="font-medium text-gray-900">
-                              {application.studentName}
+                            <School className="h-4 w-4 text-gray-500 mr-2" />
+                            <span className="text-sm text-gray-900">
+                              {application.previousEducation}
                             </span>
                           </div>
-                          <div className="flex items-center mt-1">
-                            <Mail className="h-4 w-4 text-gray-500 mr-2" />
-                            <span className="text-sm text-gray-500">
-                              {application.email}
-                            </span>
-                          </div>
-                          <div className="flex items-center mt-1">
-                            <Phone className="h-4 w-4 text-gray-500 mr-2" />
-                            <span className="text-sm text-gray-500">
-                              {application.phone}
-                            </span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col">
-                          <div className="flex items-center">
-                            <BookOpen className="h-4 w-4 text-gray-500 mr-2" />
-                            <span className="font-medium text-gray-900">
-                              {application.courseName}
-                            </span>
-                          </div>
-                          <div className="mt-1 text-sm text-gray-500">
-                            Fees: ${application.courseFees}
-                          </div>
-                          <div className="mt-1 text-sm text-gray-500">
-                            Applied: {application.appliedDate}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <School className="h-4 w-4 text-gray-500 mr-2" />
-                          <span className="text-sm text-gray-900">
-                            {application.previousEducation}
+                        </td>
+                        <td className="px-6 py-4">
+                          <p className="text-sm text-gray-500 max-w-xs truncate">
+                            {application.message}
+                          </p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              application.read === false
+                                ? "bg-blue-100 text-blue-800"
+                                : "bg-green-100 text-green-800"
+                            }`}
+                          >
+                            {application.read === false ? "Unread" : "Read"}
                           </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <p className="text-sm text-gray-500 max-w-xs truncate">
-                          {application.message}
-                        </p>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            application.status === "unread"
-                              ? "bg-blue-100 text-blue-800"
-                              : "bg-green-100 text-green-800"
-                          }`}
-                        >
-                          {application.status === "unread" ? "Unread" : "Read"}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex space-x-2">
-                          {application.status === "unread" ? (
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex space-x-2">
                             <button
+                              disabled={application.read}
                               onClick={() =>
-                                handleStatusChange(application.id, "read")
+                                handleStatusChange(application._id)
                               }
-                              className="text-green-600 hover:text-green-900"
-                              title="Mark as Read"
+                              className={`${
+                                application.read === true
+                                  ? "opacity-50 cursor-not-allowed"
+                                  : ""
+                              } text-green-600 hover:text-green-900`}
                             >
                               <CheckCircle className="h-5 w-5" />
                             </button>
-                          ) : (
-                            <button
-                              onClick={() =>
-                                handleStatusChange(application.id, "unread")
-                              }
-                              className="text-blue-600 hover:text-blue-900"
-                              title="Mark as Unread"
-                            >
-                              <XCircle className="h-5 w-5" />
-                            </button>
-                          )}
-                        </div>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={6}
+                        className="px-6 py-4 text-center text-gray-500"
+                      >
+                        No course applications found.
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

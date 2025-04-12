@@ -37,3 +37,33 @@ export const NoticeSkeleton = () => {
     </motion.div>
   );
 };
+export const CourseApplySkeleton = () => {
+  return (
+    <>
+      {Array.from({ length: 3 }).map((_, index) => (
+        <tr key={index} className="animate-pulse">
+          <td className="px-6 py-4">
+            <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+          </td>
+          <td className="px-6 py-4">
+            <div className="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+            <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+          </td>
+          <td className="px-6 py-4">
+            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+          </td>
+          <td className="px-6 py-4">
+            <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+          </td>
+          <td className="px-6 py-4">
+            <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+          </td>
+          <td className="px-6 py-4">
+            <div className="h-5 w-5 bg-gray-200 rounded-full"></div>
+          </td>
+        </tr>
+      ))}
+    </>
+  );
+};
