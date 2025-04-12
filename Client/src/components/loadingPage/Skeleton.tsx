@@ -67,3 +67,6 @@ export const CourseApplySkeleton = () => {
     </>
   );
 };
+export const SkeletonBox = ({ className }: { className?: string }) => (
+  <div className={`bg-gray-300 animate-pulse rounded-md ${className}`} />
+);

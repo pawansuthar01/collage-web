@@ -23,7 +23,7 @@ export const updateBanner = createAsyncThunk(
   async (data: any) => {
     try {
       const response = await axiosInstance.put(
-        "/app/admin/v5/mainSection",
+        "/collage/v5/admin/Banner",
         data
       );
       return response?.data;

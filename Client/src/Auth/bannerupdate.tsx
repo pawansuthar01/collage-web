@@ -1,44 +1,52 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../Redux/Store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
 import { updateBanner } from "../Redux/Slice/Admin";
 import LayoutAdmin from "../layout/AdminLayout";
-
+import { getBannerData } from "../Redux/Slice/getData";
 interface BannerStats {
-  totalStudentCount: number;
-  totalCourseCount: number;
-  totalAwardsCount: number;
-  yearsOfExcellence: number;
+  totalStudentCount: string;
+  totalCourseCount: string;
+  totalAwardsCount: string;
+  Years_of_Excellence_count: string;
   photo: string;
 }
 
 export default function AdminBannerUpdate() {
   const dispatch = useDispatch<AppDispatch>();
-  const { bannerData } = useSelector((state: RootState) => state?.storeData);
-  const [Data, setData] = useState<BannerStats>(bannerData[0]);
+
   const [stats, setStats] = useState<BannerStats>({
-    totalStudentCount: 0,
-    totalCourseCount: 0,
-    totalAwardsCount: 0,
-    yearsOfExcellence: 0,
+    totalStudentCount: "",
+    totalCourseCount: "",
+    totalAwardsCount: "",
+    Years_of_Excellence_count: "",
     photo: "",
   });
 
   const [photo, setPhoto] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [DataLoad, setDataLoad] = useState(false);
   const [message, setMessage] = useState("");
+  const handelDataLoad = async () => {
+    setDataLoad(true);
+    const res = await dispatch(getBannerData());
+    if (res && res.payload) {
+      const data = res.payload[0] as BannerStats;
 
-  useEffect(() => {
-    if (Data) {
       setStats({
-        totalStudentCount: Data.totalStudentCount || 0,
-        totalCourseCount: Data.totalCourseCount || 0,
-        totalAwardsCount: Data.totalAwardsCount || 0,
-        yearsOfExcellence: Data.yearsOfExcellence || 0,
-        photo: Data.photo || "",
+        totalStudentCount: data?.totalStudentCount || "",
+        totalCourseCount: data?.totalCourseCount || "",
+        totalAwardsCount: data?.totalAwardsCount || "",
+        Years_of_Excellence_count: data?.Years_of_Excellence_count || "",
+        photo: data?.photo || "",
       });
     }
-  }, [Data]);
+    setDataLoad(false);
+  };
+
+  useEffect(() => {
+    handelDataLoad();
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -66,7 +74,6 @@ export default function AdminBannerUpdate() {
       }
 
       setMessage("Banner updated successfully!");
-      setData(response?.payload?.data);
     } catch (error) {
       console.error("Error updating banner:", error);
       setMessage("Failed to update banner");
@@ -75,6 +82,18 @@ export default function AdminBannerUpdate() {
     }
   }
 
+  if (DataLoad) {
+    return (
+      <LayoutAdmin>
+        <div className=" bg-[Var(--admin-bg-color)] flex justify-center h-screen items-center z-50">
+          <div className="space-y-4">
+            <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+            <div className="text-white text-xl">Loading...</div>
+          </div>
+        </div>
+      </LayoutAdmin>
+    );
+  }
   return (
     <LayoutAdmin>
       <div className="max-w-2xl bg-[Var(--admin-bg-color)] mx-auto p-6">
@@ -92,7 +111,7 @@ export default function AdminBannerUpdate() {
                 onChange={(e) =>
                   setStats({
                     ...stats,
-                    totalStudentCount: parseInt(e.target.value),
+                    totalStudentCount: e.target.value,
                   })
                 }
                 className="w-full p-2 border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)]  border rounded"
@@ -111,7 +130,7 @@ export default function AdminBannerUpdate() {
                 onChange={(e) =>
                   setStats({
                     ...stats,
-                    totalCourseCount: parseInt(e.target.value),
+                    totalCourseCount: e.target.value,
                   })
                 }
                 className="w-full p-2  border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] border rounded"
@@ -130,7 +149,7 @@ export default function AdminBannerUpdate() {
                 onChange={(e) =>
                   setStats({
                     ...stats,
-                    totalAwardsCount: parseInt(e.target.value),
+                    totalAwardsCount: e.target.value,
                   })
                 }
                 className="w-full p-2 border border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] rounded"
@@ -145,11 +164,11 @@ export default function AdminBannerUpdate() {
               </label>
               <input
                 type="number"
-                value={stats.yearsOfExcellence}
+                value={stats.Years_of_Excellence_count}
                 onChange={(e) =>
                   setStats({
                     ...stats,
-                    yearsOfExcellence: parseInt(e.target.value),
+                    Years_of_Excellence_count: e.target.value,
                   })
                 }
                 className="w-full p-2 border border-[Var(--input-border-color)] text-[Var(--input-text-color)] bg-[Var(--input-bg-color)] rounded"

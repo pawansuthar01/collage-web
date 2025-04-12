@@ -134,11 +134,11 @@ export const UpdatedMainSectionData = async (req, res, next) => {
 
 export const GetBanner = async (req, res, next) => {
   try {
-    const bannerData = await Main.find();
+    const bannerData = await Main.findOne({ Key_id: "INFO_Banner" });
     res.status(200).json({
       success: true,
 
-      data: bannerData,
+      data: [bannerData],
 
       message: "successfully bannerData get",
     });
