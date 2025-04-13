@@ -53,7 +53,10 @@ export const submitMessage = createAsyncThunk(
   "user/submitMessage",
   async (data: any, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post("/app/user/v3/Message", data);
+      const response = await axiosInstance.post(
+        "/collage/v3/user/message",
+        data
+      );
       return response.data;
     } catch (error: any) {
       return rejectWithValue(
@@ -63,12 +66,23 @@ export const submitMessage = createAsyncThunk(
   }
 );
 
+export const getFeedback = createAsyncThunk(
+  "feedback/getFeedback",
+  async () => {
+    const response = await axiosInstance.get(`/collage/v3/user/feedback`);
+    return response.data;
+  }
+);
+
 // Feedback Submit
 export const submitFeedback = createAsyncThunk(
   "user/submitFeedback",
   async (data: any, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post("/app/user/v3/Feedback", data);
+      const response = await axiosInstance.post(
+        "/collage/v3/user/feedback",
+        data
+      );
       return response.data;
     } catch (error: any) {
       return rejectWithValue(

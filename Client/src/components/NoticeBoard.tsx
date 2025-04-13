@@ -1,29 +1,12 @@
 import { Bell } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/Store";
+import { formatMongoDate } from "../../Helper/DateFormat";
 
 const NoticeBoard = () => {
-  const notices = [
-    {
-      id: 1,
-      date: "2024-03-15",
-      title: "New Semester Registration",
-      content:
-        "Registration for the upcoming semester starts from March 20th, 2024.",
-    },
-    {
-      id: 2,
-      date: "2024-03-14",
-      title: "Annual Sports Meet",
-      content:
-        "Annual sports meet will be held from April 5th to April 7th, 2024.",
-    },
-    {
-      id: 3,
-      date: "2024-03-13",
-      title: "Guest Lecture Series",
-      content:
-        "Distinguished Professor Dr. Smith will deliver a lecture on AI on March 25th.",
-    },
-  ];
+  const NoticeData = useSelector(
+    (state: RootState) => state.storeData.NoticeData
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,18 +17,37 @@ const NoticeBoard = () => {
         </h2>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {notices.map((notice) => (
-          <div
-            key={notice.id}
-            className="bg-[var(--cardBg-color)] p-6 rounded-lg cursor-pointer shadow-md hover:shadow-lg transition-shadow"
-          >
-            <div className="text-sm text-gray-500">{notice.date}</div>
-            <h3 className="mt-2 text-xl font-semibold text-[var(--heading-color)]">
-              {notice.title}
-            </h3>
-            <p className="mt-2 text-gray-600">{notice.content}</p>
+        {NoticeData.length ? (
+          NoticeData.map((notice) => (
+            <div key={notice._id}>
+              <div className="w-full max-w-3xl bg-[var(--cardBg-color)]  rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border ">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h2 className="text-xl font-bold text-[var(--heading-color)]">
+                      {notice?.title}
+                    </h2>
+                    <p className="mt-2 text-gray-600 ">{notice?.message}</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-gray-600 mb-4">
+                  <p>
+                    <span className="font-medium">Start Date:</span>{" "}
+                    {formatMongoDate(notice?.publish_date)}
+                  </p>
+                  <p>
+                    <span className="font-medium">End Date:</span>{" "}
+                    {formatMongoDate(notice?.expiry_date)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="p-6 space-y-4">
+            <p className="text-gray-600 text-center">No notices available</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

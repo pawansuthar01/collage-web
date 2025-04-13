@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 import Layout from "../layout/layout";
@@ -6,11 +6,21 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../Redux/Store";
 import { CourseApplySubmit } from "../Redux/Slice/UserSlice";
-
+import { CourseCardSkeleton } from "../components/loadingPage/Skeleton";
+import { getCourseData } from "../Redux/Slice/getData";
+type Course = {
+  _id: string;
+  name_course: string;
+  course_description: string;
+  course_dur: string;
+  course_fees: string;
+  course_seats: string;
+};
 const CoursesPage = () => {
   const [showForm, setShowForm] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<Course[]>([]);
   const [courseApplyData, setCourseApplyData] = useState({
     name: "",
     email: "",
@@ -20,40 +30,19 @@ const CoursesPage = () => {
     previousEducation: "",
     message: "",
   });
-  const courses = [
-    {
-      id: 1,
-      name: "B.Tech",
-      duration: "4 Years",
-      description: "B.Tech in Computer Science and Engineering",
-      fees: "₹2,50,000/year",
-      seats: 60,
-    },
-    {
-      id: 2,
-      name: "BBA",
-      duration: "3 Years",
-      description: "Bachelor of Business Administration (BBA)",
-      fees: "₹1,80,000/year",
-      seats: 120,
-    },
-    {
-      id: 3,
-      name: "B.Tech",
-      duration: "4 Years",
-      description: "B.Tech in Mechanical Engineering",
-      fees: "₹2,20,000/year",
-      seats: 60,
-    },
-    {
-      id: 4,
-      name: "Arts & Humanities",
-      duration: "3 Years",
-      description: "Bachelor of Arts (BA)",
-      fees: "₹1,20,000/year",
-      seats: 180,
-    },
-  ];
+  async function getCourses() {
+    setLoading(true);
+    const res = await dispatch(getCourseData());
+    if (res?.payload && typeof res.payload === "object") {
+      const Data = res.payload;
+      setData(Data);
+    }
+    setLoading(false);
+  }
+  useEffect(() => {
+    getCourses();
+  }, []);
+
   function handelFromOpen({ name, fees }: { name: string; fees: string }) {
     if (!name || !fees) {
       toast.error("Something went wrong...");
@@ -103,6 +92,7 @@ const CoursesPage = () => {
     }
     setLoading(false);
   };
+
   return (
     <Layout>
       <motion.div
@@ -120,46 +110,55 @@ const CoursesPage = () => {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
-            {courses.map((course) => (
-              <motion.div
-                key={course.id}
-                whileHover={{ scale: 1.02 }}
-                className="bg-white p-6 rounded-lg shadow-md"
-              >
-                <h3 className="text-xl font-semibold  text-[var(--heading-color)]">
-                  {course.name}
-                </h3>
-                <p className="mt-2  font-medium text-[var(--course-year-color)]">
-                  {course.duration}
-                </p>
-                <p className="mt-2 text-gray-600">{course.description}</p>
-                <div className="mt-4 flex justify-between items-center">
-                  <span className="text-[var(--course-fees-color)]">
-                    Fees: {course.fees}
-                  </span>
-                  <span className="text-[var(--course-seat-color)]">
-                    Seats: {course.seats}
-                  </span>
-                </div>
-                <button
-                  onClick={() =>
-                    handelFromOpen({ name: course.name, fees: course.fees })
-                  }
-                  className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
-                >
-                  Apply Now
-                </button>
-              </motion.div>
-            ))}
+            {loading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <CourseCardSkeleton key={i} />
+                ))
+              : data.map((course) => (
+                  <motion.div
+                    key={course._id}
+                    whileHover={{ scale: 1.02 }}
+                    className="bg-white p-6 rounded-lg shadow-md"
+                  >
+                    <h3 className="text-xl font-semibold  text-[var(--heading-color)]">
+                      {course.name_course}
+                    </h3>
+                    <p className="mt-2  font-medium text-[var(--course-year-color)]">
+                      Duration: {course.course_dur}
+                    </p>
+                    <p className="mt-2 text-gray-600">
+                      {course.course_description}
+                    </p>
+                    <div className="mt-4 flex justify-between items-center">
+                      <span className="text-[var(--course-fees-color)]">
+                        Fees :₹{course.course_fees}
+                      </span>
+                      <span className="text-[var(--course-seat-color)]">
+                        Seats: {course.course_seats}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() =>
+                        handelFromOpen({
+                          name: course.name_course,
+                          fees: course.course_fees,
+                        })
+                      }
+                      className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
+                    >
+                      Apply Now
+                    </button>
+                  </motion.div>
+                ))}
           </div>
 
           {showForm && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-8"
+              className="fixed inset-0 bg-black bg-opacity-80 pt-44  overflow-x-auto flex items-center justify-center p-8"
             >
-              <div className="bg-white rounded-lg p-8 max-w-md w-full">
+              <div className="bg-[Var(--cardBg-color)] rounded-lg p-8  max-w-md w-full">
                 <h3 className="text-2xl font-bold mb-4">
                   Apply for {courseApplyData.courseName}
                 </h3>
@@ -176,7 +175,7 @@ const CoursesPage = () => {
                       id="name"
                       name="name"
                       onChange={handleChange}
-                      className="mt-1 block  w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
+                      className=" block  w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div>
@@ -191,7 +190,7 @@ const CoursesPage = () => {
                       id="email"
                       name="email"
                       onChange={handleChange}
-                      className="mt-1 block  w-full  rounded-lg p-1 outline-none border-2  border-gray-900 shadow-sm "
+                      className=" block  w-full  rounded-lg p-1 outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div>
@@ -206,7 +205,7 @@ const CoursesPage = () => {
                       id="phone"
                       name="phone"
                       onChange={handleChange}
-                      className="mt-1 block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
+                      className=" block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div>
@@ -221,7 +220,7 @@ const CoursesPage = () => {
                       id="previousEducation"
                       name="previousEducation"
                       onChange={handleChange}
-                      className="mt-1 block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
+                      className=" block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div>
@@ -236,7 +235,7 @@ const CoursesPage = () => {
                       id="message"
                       name="message"
                       onChange={handleChange}
-                      className="mt-1 block   w-full  rounded-lg   outline-none border-2  border-gray-900 shadow-sm "
+                      className=" block   w-full  rounded-lg   outline-none border-2  border-gray-900 shadow-sm "
                     />
                   </div>
                   <div className="flex justify-end space-x-3">

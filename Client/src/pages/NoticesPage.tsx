@@ -1,35 +1,42 @@
 import { motion } from "framer-motion";
 import { Bell } from "lucide-react";
 import Layout from "../layout/layout";
+import formatMongoDateToIndian, {
+  formatMongoDate,
+} from "../../Helper/DateFormat";
+import { NoticeToStudentSkeleton } from "../components/loadingPage/Skeleton";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
+import { useEffect, useState } from "react";
+import { getNoticeData } from "../Redux/Slice/getData";
+type Notice = {
+  _id: string;
+
+  notice_type: string;
+  title: string;
+  message: string;
+  publish_date: string;
+  expiry_date: string;
+  createdAt: string;
+};
 
 const NoticesPage = () => {
-  const notices = [
-    {
-      id: 1,
-      date: "2024-03-15",
-      title: "New Semester Registration",
-      content:
-        "Registration for the upcoming semester starts from March 20th, 2024.",
-      category: "Academic",
-    },
-    {
-      id: 2,
-      date: "2024-03-14",
-      title: "Annual Sports Meet",
-      content:
-        "Annual sports meet will be held from April 5th to April 7th, 2024.",
-      category: "Sports",
-    },
-    {
-      id: 3,
-      date: "2024-03-13",
-      title: "Guest Lecture Series",
-      content:
-        "Distinguished Professor Dr. Smith will deliver a lecture on AI on March 25th.",
-      category: "Events",
-    },
-    // Add more notices here
-  ];
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<Notice[]>([]);
+  async function getNotices() {
+    setLoading(true);
+    const res = await dispatch(getNoticeData());
+    if (res?.payload && typeof res.payload === "object") {
+      const Data = res.payload;
+      setData(Data);
+    }
+    setLoading(false);
+  }
+  useEffect(() => {
+    getNotices();
+  }, []);
 
   return (
     <Layout>
@@ -48,27 +55,59 @@ const NoticesPage = () => {
           </div>
 
           <div className="grid gap-6">
-            {notices.map((notice) => (
-              <motion.div
-                key={notice.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="bg-[var(--cardBg-color)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-[var(--notice-bg-color)] text-[var(--notice-text-color)]">
-                      {notice.category}
-                    </span>
-                    <h3 className="mt-2 text-xl font-semibold text-[var(--heading-color)]">
-                      {notice.title}
-                    </h3>
-                    <p className="mt-2 text-gray-600">{notice.content}</p>
-                  </div>
-                  <div className="text-sm text-gray-500">{notice.date}</div>
+            {loading ? (
+              Array.from({ length: 2 }).map((_, index) => (
+                <NoticeToStudentSkeleton key={index} />
+              ))
+            ) : data.length > 0 ? (
+              data.map((notice) => (
+                <div key={notice._id}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="w-full max-w-3xl bg-[var(--CardBg-color)]  rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border"
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                          <span className="bg-[var(--notice-bg-color)] text-[var(--notice-text-color)] px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                            {notice?.notice_type}
+                          </span>
+                        </div>
+                        <h2 className="text-xl font-bold text-[var(--heading-color)]">
+                          {notice?.title}
+                        </h2>
+                        <p className="mt-2 text-[var(--text-Secondary-color)] ">
+                          {notice?.message}
+                        </p>
+                      </div>
+                      <div className="text-right text-sm  text-[var(--text-Secondary-color)] whitespace-nowrap max-w-xs ">
+                        Post Time: {formatMongoDate(notice?.createdAt)}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-[var(--text-Secondary-color)] mb-4">
+                      <p>
+                        <span className="font-medium text-sm">Start Date:</span>{" "}
+                        {formatMongoDateToIndian(notice?.publish_date)}
+                      </p>
+                      <p>
+                        <span className="font-medium text-sm">End Date:</span>{" "}
+                        {formatMongoDateToIndian(notice?.expiry_date)}
+                      </p>
+                    </div>
+                  </motion.div>
                 </div>
-              </motion.div>
-            ))}
+              ))
+            ) : (
+              <div className="bg-[var(--admin-bg-color)] rounded-lg shadow-md">
+                <div className="p-6 space-y-4">
+                  <p className="text-[var(--text-Secondary-color)] text-center">
+                    No notices available
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </motion.div>

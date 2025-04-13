@@ -1,8 +1,93 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
 import Layout from "../layout/layout";
-
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../Redux/Store";
+import { useEffect, useState } from "react";
+import { getSocialLinkData } from "../Redux/Slice/getData";
+import { submitMessage } from "../Redux/Slice/UserSlice";
+type formDataType = {
+  message: string;
+  phoneNumber: string;
+  name: string;
+  email: string;
+};
+type contactType = {
+  phoneNumber: number;
+  email: string;
+};
 const ContactPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const ContactData = useSelector(
+    (state: RootState) => state.storeData.SocialLinkData
+  );
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [contact, setContact] = useState<contactType>();
+  const [details, setDetails] = useState<formDataType>({
+    name: "",
+    email: "",
+    message: "",
+    phoneNumber: "",
+  });
+  async function contactDataLoad() {
+    const res = await dispatch(getSocialLinkData());
+    if (res?.payload) {
+      setContact(res?.payload[0]);
+    }
+  }
+  useEffect(() => {
+    if (ContactData[0] == null) {
+      contactDataLoad();
+    } else {
+      setContact(ContactData[0]);
+    }
+  }, []);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setDetails((prev) => ({ ...prev, [name]: value }));
+    const element = document.getElementById(name);
+    if (element) {
+      element.style.borderColor = "";
+    }
+  };
+
+  const handelSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    if (
+      details.name &&
+      details.phoneNumber &&
+      details.message &&
+      details.email
+    ) {
+      try {
+        const response = await dispatch(submitMessage(details));
+
+        if (response.payload?.success) {
+          setMessage("Send message  successfully!");
+        } else {
+          throw new Error(response.payload?.message || "Sending failed");
+        }
+      } catch (error: any) {
+        console.error("Error message send info:", error);
+        setMessage(error?.message || "Failed to Sending message");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      Object.entries(details).forEach(([key, value]) => {
+        const element = document.getElementById(key);
+        if (element) {
+          element.style.borderColor = value == "" ? "red" : "";
+        }
+      });
+    }
+    setLoading(false);
+  };
+
   return (
     <Layout>
       <motion.div
@@ -28,7 +113,10 @@ const ContactPage = () => {
                   className="flex items-center"
                 >
                   <Phone className="h-6 w-6 text-[var(--icon-color)]" />
-                  <span className="ml-3 text-gray-600">+XXX XXX XX00</span>
+                  <span className="ml-3 text-gray-600">
+                    {" "}
+                    {contact?.phoneNumber}
+                  </span>
                 </motion.div>
                 <motion.div
                   initial={{ x: -20, opacity: 0 }}
@@ -37,9 +125,7 @@ const ContactPage = () => {
                   className="flex items-center"
                 >
                   <Mail className="h-6 w-6 text-[var(--icon-color)]" />
-                  <span className="ml-3 text-gray-600">
-                    info@mataGujri.gmail.com
-                  </span>
+                  <span className="ml-3 text-gray-600">{contact?.email}</span>
                 </motion.div>
                 <motion.div
                   initial={{ x: -20, opacity: 0 }}
@@ -56,6 +142,7 @@ const ContactPage = () => {
               </div>
 
               <motion.form
+                onSubmit={handelSubmit}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
@@ -71,7 +158,26 @@ const ContactPage = () => {
                   <input
                     type="text"
                     id="name"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
+                    name="name"
+                    value={details.name}
+                    onChange={handleChange}
+                    className="mt-1 p-2 border outline-none block w-full rounded-md border-gray-300 shadow-sm "
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="number"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Phone number
+                  </label>
+                  <input
+                    type="number"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={details.phoneNumber}
+                    onChange={handleChange}
+                    className="mt-1 p-2 border outline-none block w-full rounded-md border-gray-300 shadow-sm "
                   />
                 </div>
                 <div>
@@ -84,7 +190,10 @@ const ContactPage = () => {
                   <input
                     type="email"
                     id="email"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm "
+                    name="email"
+                    value={details.email}
+                    onChange={handleChange}
+                    className="mt-1 p-2 border outline-none block w-full rounded-md border-gray-300 shadow-sm "
                   />
                 </div>
                 <div>
@@ -96,15 +205,30 @@ const ContactPage = () => {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={4}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                    value={details.message}
+                    onChange={handleChange}
+                    className="mt-1 p-2 border outline-none  block w-full rounded-md border-gray-300 shadow-sm"
                   />
                 </div>
+                {message && (
+                  <div
+                    className={`p-3 rounded ${
+                      message.includes("success")
+                        ? "bg-green-200 text-green-700"
+                        : "bg-red-200 text-red-700"
+                    }`}
+                  >
+                    {message}
+                  </div>
+                )}
                 <button
                   type="submit"
+                  disabled={loading}
                   className="bg-[var(--btn-color)] text-white px-6 py-2 rounded-md custom-hover transition-colors"
                 >
-                  Send Message
+                  {loading ? "Sending..." : " Send Message"}
                 </button>
               </motion.form>
             </div>

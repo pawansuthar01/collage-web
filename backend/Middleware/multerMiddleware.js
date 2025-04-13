@@ -33,7 +33,6 @@ const upload = multer({
       "image/svg+xml",
       "application/pdf",
     ];
-    console.log(file);
     // Validate file type
     if (!allowedExts.includes(file.mimetype)) {
       return cb(

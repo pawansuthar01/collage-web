@@ -10,7 +10,7 @@ type MessageType = {
   _id: string;
   name: string;
   email: string;
-  subject: string;
+  giveFeedback: string;
   message: string;
   createdAt?: string;
   read: boolean;
@@ -23,7 +23,7 @@ function FeedbackList() {
 
   const handelLoadMessage = async () => {
     const res = await dispatch(GetAllFeedback());
-    const fetchedMessages = res?.payload?.data || [];
+    const fetchedMessages = res?.payload?.data.allFeedback || [];
     setFeedback(fetchedMessages);
   };
 
@@ -32,8 +32,11 @@ function FeedbackList() {
   }, []);
 
   const handelDelete = async (id: string) => {
-    console.log(id);
-    await dispatch(DeleteFeedback(id));
+    if (window.confirm("Are you sure you want to delete this Feedback?")) {
+      await dispatch(DeleteFeedback(id));
+
+      setFeedback((prev) => prev.filter((n) => n._id !== id));
+    }
   };
 
   return (
@@ -62,9 +65,11 @@ function FeedbackList() {
                         <span className="font-semibold">{msg.name}</span>
                       </div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2  text-[Var(--admin-text-Secondary-color)] ">
-                      {msg.subject}
-                    </h3>
+                    <p className="text-[Var(--admin-text-Secondary-color)]">
+                      <span className="font-semibold">For :</span>{" "}
+                      {msg.giveFeedback}
+                    </p>
+
                     <p className=" text-[Var(--admin-text-Secondary-color)] mb-4 whitespace-pre-wrap">
                       {msg.message}
                     </p>

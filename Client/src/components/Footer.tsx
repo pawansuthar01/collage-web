@@ -1,9 +1,34 @@
 import { BookOpen } from "lucide-react";
-
+import { useEffect, useState } from "react";
+import { AppDispatch, RootState } from "../Redux/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { getSocialLinkData } from "../Redux/Slice/getData";
+type LinkDataType = {
+  instagram: string;
+  youtube: string;
+  facebook: string;
+};
 const Footer = () => {
   const date = new Date();
   const year = date.getFullYear();
-
+  const dispatch = useDispatch<AppDispatch>();
+  const LinkData = useSelector(
+    (state: RootState) => state.storeData.SocialLinkData
+  );
+  const [link, setLink] = useState<LinkDataType>();
+  async function contactDataLoad() {
+    const res = await dispatch(getSocialLinkData());
+    if (res?.payload) {
+      setLink(res?.payload[0]);
+    }
+  }
+  useEffect(() => {
+    if (LinkData[0] == null) {
+      contactDataLoad();
+    } else {
+      setLink(LinkData[0]);
+    }
+  }, []);
   return (
     <footer className="bg-[var(--bg-color)] text-[var(--text-color)] ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -74,22 +99,33 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Connect</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="custom-hover-text">
+                <a
+                  href={link?.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="custom-hover-text"
+                >
                   Facebook
                 </a>
               </li>
+
               <li>
-                <a href="#" className="custom-hover-text">
-                  Twitter
+                <a
+                  href={link?.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="custom-hover-text"
+                >
+                  Youtube
                 </a>
               </li>
               <li>
-                <a href="#" className="custom-hover-text">
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="#" className="custom-hover-text">
+                <a
+                  href={link?.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="custom-hover-text"
+                >
                   Instagram
                 </a>
               </li>

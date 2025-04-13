@@ -4,8 +4,10 @@ import { Calendar, Award, Users, BookOpen } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Store";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   const bannerData = useSelector(
     (state: RootState) => state.storeData.bannerData
   );
@@ -24,6 +26,16 @@ const Hero = () => {
         })
         .join("");
     }
+
+    if (
+      !bannerData[0] ||
+      bannerData[0].Years_of_Excellence_count == null ||
+      bannerData[0].totalCourseCount == null ||
+      bannerData[0].totalAwardsCount == null ||
+      bannerData[0].Years_of_Excellence_count == null
+    ) {
+      navigate("/Error");
+    }
   }, []);
 
   const stats = [
@@ -31,7 +43,7 @@ const Hero = () => {
       id: 1,
       icon: Users,
       label: "Students",
-      value: bannerData[0]?.totalStudentCount || "",
+      value: bannerData[0]?.totalStudentCount,
     },
     {
       id: 2,
@@ -43,13 +55,13 @@ const Hero = () => {
       id: 3,
       icon: Award,
       label: "Awards",
-      value: bannerData[0].totalAwardsCount,
+      value: bannerData[0]?.totalAwardsCount,
     },
     {
       id: 4,
       icon: Calendar,
       label: "Years of Excellence",
-      value: bannerData[0].Years_of_Excellence_count,
+      value: bannerData[0]?.Years_of_Excellence_count,
     },
   ];
 
@@ -101,7 +113,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <section className=" py-8 min-[1025px]:mt-24   text-[var(--text-color)]">
+      <section className=" py-8 lg:mt-52  text-[var(--text-color)]">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (

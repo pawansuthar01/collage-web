@@ -28,10 +28,11 @@ export const SubmitSociolLink = async (req, res, next) => {
 export const updateSociolLink = async (req, res, next) => {
   try {
     const SociolLink = await SocialLink.findOneAndUpdate(
-      { key_id: "SociolLink_KEY" },
+      { uniqueKey: "INFORMATION" },
       req.body,
       { new: true, runValidators: true }
     );
+
     if (!SociolLink) {
       return next(new AppError("something wont wrong,try next time...", 400));
     }

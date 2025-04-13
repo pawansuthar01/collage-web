@@ -17,9 +17,30 @@ export const CourseSkeleton = () => {
     </div>
   );
 };
+
+export const CourseCardSkeleton = () => {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      className="bg-white p-6 rounded-lg shadow-md animate-pulse"
+    >
+      <div className="h-6 w-3/4 bg-gray-300 rounded mb-4"></div>
+      <div className="h-4 w-1/2 bg-gray-300 rounded mb-2"></div>
+      <div className="h-4 w-full bg-gray-200 rounded mb-2"></div>
+      <div className="h-4 w-5/6 bg-gray-200 rounded mb-4"></div>
+
+      <div className="flex justify-between items-center mb-4">
+        <div className="h-4 w-1/4 bg-gray-300 rounded"></div>
+        <div className="h-4 w-1/4 bg-gray-300 rounded"></div>
+      </div>
+
+      <div className="h-10 w-full bg-gray-300 rounded"></div>
+    </motion.div>
+  );
+};
 export const NoticeSkeleton = () => {
   return (
-    <motion.div className="bg-[var(--admin-bg-color)] w-[350px]  border border-[Var(--admin-border-color)] p-6 rounded-lg shadow-md animate-pulse">
+    <motion.div className="bg-[var(--admin-bg-color)] w-[300px]  border border-[Var(--admin-border-color)] p-6 rounded-lg shadow-md animate-pulse">
       <div className="flex justify-between items-start">
         <div className="w-full space-y-3">
           <div className="w-24 h-6 bg-[Var(--admin-bg-card-color)] rounded-full" />
@@ -33,6 +54,26 @@ export const NoticeSkeleton = () => {
       <div className="mt-4 flex justify-end space-x-2">
         <div className="h-9 w-9 bg-[Var(--admin-bg-card-color)] rounded-lg" />
         <div className="h-9 w-9 bg-[Var(--admin-bg-card-color)] rounded-lg" />
+      </div>
+    </motion.div>
+  );
+};
+export const NoticeToStudentSkeleton = () => {
+  return (
+    <motion.div className="bg-[var(--cardBg-color)] w-[300px]  border p-6 rounded-lg shadow-md animate-pulse">
+      <div className="flex justify-between items-start">
+        <div className="w-full space-y-3">
+          <div className="w-24 h-6 bg-[Var(--text-Secondary-color)] rounded-full" />
+          <div className="w-2/3 h-6 bg-[Var(--text-Secondary-color)] rounded" />
+          <div className="w-full h-4 bg-[Var(--text-Secondary-color)] rounded" />
+          <div className="w-3/4 h-4 bg-[Var(--text-Secondary-color)] rounded" />
+        </div>
+        <div className="w-16 h-4 bg-[Var(--text-Secondary-color)]rounded" />
+      </div>
+
+      <div className="mt-4 flex justify-end space-x-2">
+        <div className="h-9 w-9 bg-[Var(--text-Secondary-color)] rounded-lg" />
+        <div className="h-9 w-9 bg-[Var(--text-Secondary-color)] rounded-lg" />
       </div>
     </motion.div>
   );

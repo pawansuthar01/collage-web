@@ -9,55 +9,40 @@ import { SkeletonBox } from "../components/loadingPage/Skeleton";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../Redux/Store";
 import { useEffect, useState } from "react";
-import { getBannerData } from "../Redux/Slice/getData";
+import {
+  getBannerData,
+  getCourseData,
+  getFeedbackData,
+  getNoticeData,
+  getSocialLinkData,
+} from "../Redux/Slice/getData";
+import { Course } from "../components/Course";
+import { useNavigate } from "react-router-dom";
+import { AllFeedback, BastFeedback } from "../components/feedbackPage";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const handelBannerDataLoad = async () => {
     try {
       setLoading(true);
       await dispatch(getBannerData());
+      await dispatch(getCourseData());
+      await dispatch(getSocialLinkData());
+
+      await dispatch(getNoticeData());
+      await dispatch(getFeedbackData());
 
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      navigate("/Error");
     }
   };
 
   useEffect(() => {
     handelBannerDataLoad();
   }, []);
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Parker",
-      course: "B.A.",
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-      quote:
-        "The faculty and resources here have been instrumental in shaping my career in technology.",
-    },
-    {
-      id: 2,
-      name: "Michael Chang",
-      course: "BBA",
-      image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-      quote:
-        "The practical approach to business education gave me real-world experience.",
-    },
-    {
-      id: 3,
-      name: "Emma Wilson",
-      course: "B.tech",
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-      quote:
-        "The hands-on laboratory experience has been invaluable for my engineering career.",
-    },
-  ];
 
   if (loading) {
     return (
@@ -105,114 +90,14 @@ const HomePage = () => {
         </section>
 
         {/* Featured Programs */}
-        <section className="py-16 bg-[var(--cardBg-color)]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-[var(--heading-color)]">
-                Featured Programs
-              </h2>
-              <p className="mt-4 text-lg text-gray-600">
-                Discover our most popular academic programs
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "RS-CIT",
-                  description:
-                    "Learn cutting-edge technologies and software development",
-                  image:
-                    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-                },
-                {
-                  title: "BBA",
-                  description:
-                    "Master data-driven decision making and business strategy",
-                  image:
-                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-                },
-                {
-                  title: "BA",
-                  description:
-                    "Learn modern marketing techniques and strategies",
-                  image:
-                    "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-                },
-              ].map((program, index) => (
-                <motion.div
-                  key={program.title}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-[var(--cardBg-color)] rounded-lg shadow-lg overflow-hidden"
-                >
-                  <img
-                    src={program.image}
-                    alt={program.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-[var(--heading-color)] mb-2">
-                      {program.title}
-                    </h3>
-                    <p className="text-gray-600">{program.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Course />
 
         {/* Testimonials */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-[var(--heading-color)]">
-                Student Testimonials
-              </h2>
-              <p className="mt-4 text-lg text-gray-600">
-                What our students say about us
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={testimonial.id}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-[var(--cardBg-color)] p-6 rounded-lg shadow-md"
-                >
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div className="ml-4">
-                      <h4 className="text-lg font-semibold text-[var(--heading-color)]">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-gray-600">{testimonial.course}</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 italic">"{testimonial.quote}"</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
 
+        <BastFeedback />
         {/* Feedback System */}
         <FeedbackSystem />
+        <AllFeedback />
       </motion.div>
     </Layout>
   );

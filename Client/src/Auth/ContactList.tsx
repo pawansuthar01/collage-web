@@ -1,4 +1,4 @@
-import { Mail, MessageSquare, User } from "lucide-react";
+import { Mail, MessageSquare, Phone, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { GetAllMessage, messageMarkAsRead } from "../Redux/Slice/Admin";
@@ -7,9 +7,9 @@ import LayoutAdmin from "../layout/AdminLayout";
 
 type MessageType = {
   _id: string;
-  fullName: string;
+  name: string;
   email: string;
-  subject: string;
+  phoneNumber: string;
   message: string;
   createdAt?: string;
   read: boolean;
@@ -106,7 +106,20 @@ function ContactList() {
                           className="text-[Var(--dark-icon-color)]"
                           size={20}
                         />
-                        <span className="font-semibold">{msg.fullName}</span>
+                        <span className="font-semibold">{msg.name}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <Phone
+                          className="text-[Var(--dark-icon-color)]"
+                          size={20}
+                        />
+
+                        <a
+                          className="text-[Var(--admin-text-Secondary-color)] max-sm:text-sm"
+                          href={`tel:+${msg.phoneNumber}`}
+                        >
+                          {msg.phoneNumber}
+                        </a>
                       </div>
                       <div className="flex items-center gap-3">
                         <Mail
@@ -121,9 +134,7 @@ function ContactList() {
                         </a>
                       </div>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-[Var(--admin-text-Secondary-color)]">
-                      {msg.subject}
-                    </h3>
+
                     <p className="text-[Var(--admin-text-Secondary-color)] mb-4 whitespace-pre-wrap">
                       {msg.message}
                     </p>

@@ -3,13 +3,18 @@ import AppError from "../Utils/AppErrors.js";
 
 export const addFeedback = async (req, res, next) => {
   try {
-    const { rating, message, name, giveFeedback } = req.body;
-    if ((!rating || !message || !name, !email)) {
+    console.log(req.body);
+    const {
+      rating,
+      feedback: message,
+      name,
+      feedbackType: giveFeedback,
+    } = req.body;
+    if (!rating || !message || !name || !giveFeedback) {
       return next(new AppError("please give ratting and comment...", 400));
     }
     const feedback = new Feedback({
       giveFeedback,
-
       name,
       message,
 
@@ -48,26 +53,33 @@ export const deleteFeedbackById = async (req, res, next) => {
 };
 export const getAllFeedback = async (req, res, next) => {
   try {
-    const { page = 1, limit = 20 } = req.query;
+    const { page = 1, limit = 0 } = req.query;
     const skip = (page - 1) * limit;
-    const feedbackData = await Feedback.find({})
+
+    // Filter feedback with ratings between 3 and 5
+    const bastFeedback = await Feedback.find({
+      rating: { $gte: 3, $lte: 5 }, // Rating between 3 and 5
+    })
       .skip(skip)
-      .limit(parseInt(limit));
-    const countFeedback = await Feedback.countDocuments({});
-    if (!feedbackData) {
+      .limit(parseInt(6));
+
+    const AllFeedback = await Feedback.find({});
+
+    if (!AllFeedback || AllFeedback.length === 0) {
       return next(
-        new AppError("something went wrong , please tyr Again  ", 400)
+        new AppError("No feedback found with ratings between 3 and 5", 404)
       );
     }
+
     res.status(200).json({
       success: true,
-      message: "successfully get feedback...",
-      data: feedbackData,
-      totalPage: Math.ceil(countFeedback / limit),
-      countFeedback,
-      currentPage: page,
+      message: "Successfully fetched feedback with ratings between 3 and 5",
+      data: {
+        bast: bastFeedback,
+        allFeedback: AllFeedback,
+      },
     });
   } catch (error) {
-    return next(new AppError(error.message, 400));
+    return next(new AppError(error.message || "Internal Server Error", 500));
   }
 };

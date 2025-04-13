@@ -4,14 +4,14 @@ import { updateSocialData } from "../Redux/Slice/Admin";
 import toast from "react-hot-toast";
 import { AppDispatch, RootState } from "../Redux/Store";
 import LayoutAdmin from "../layout/AdminLayout";
+import { getSocialLinkData } from "../Redux/Slice/getData";
 
 interface SocialLinks {
   instagram: string;
-  linkedin: string;
+  youtube: string;
   facebook: string;
-  git: string;
-  x: string;
-  cv: string;
+  phoneNumber: number;
+  email: string;
 }
 
 const SocialUpdate: React.FC = () => {
@@ -25,26 +25,31 @@ const SocialUpdate: React.FC = () => {
 
   const [formData, setFormData] = useState<SocialLinks>({
     instagram: "",
-    linkedin: "",
+    youtube: "",
     facebook: "",
-    git: "",
-    x: "",
-    cv: "",
+    phoneNumber: 0,
+    email: "",
   });
-
+  async function contactDataLoad() {
+    const res = await dispatch(getSocialLinkData());
+    if (res?.payload) {
+      setData(res?.payload[0]);
+    }
+  }
   useEffect(() => {
     if (Data) {
       setFormData({
         instagram: Data.instagram || "",
-        linkedin: Data.linkedin || "",
+        youtube: Data.youtube || "",
         facebook: Data.facebook || "",
-        git: Data.git || "",
-        x: Data.x || "",
-        cv: Data.cv || "",
+        phoneNumber: Data.phoneNumber || 0,
+        email: Data?.email || "",
       });
     }
   }, [Data]);
-
+  useEffect(() => {
+    contactDataLoad();
+  }, []);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -55,11 +60,10 @@ const SocialUpdate: React.FC = () => {
 
     if (
       !formData.instagram ||
-      !formData.linkedin ||
+      !formData.youtube ||
       !formData.facebook ||
-      !formData.git ||
-      !formData.x ||
-      !formData.cv
+      !formData.phoneNumber ||
+      !formData.email
     ) {
       toast.error("All social links are required to update.");
       return;
@@ -69,7 +73,6 @@ const SocialUpdate: React.FC = () => {
       setLoading(true);
       const response = await dispatch(updateSocialData(formData));
       setLoading(false);
-
       if (response.payload.success) {
         toast.success(response.payload.message);
         setData(response.payload.data);
@@ -94,10 +97,12 @@ const SocialUpdate: React.FC = () => {
           className="bg-[Var(--admin-bg-card-color)] border-[Var(--admin-border-color)] border rounded-md  p-2 m-2"
         >
           {[
-            { label: "Instagram Link", name: "instagram" },
-            { label: "Youtube Link", name: "Youtube" },
-            { label: "Facebook Link", name: "facebook" },
-          ].map(({ label, name }) => (
+            { label: "Instagram Link", name: "instagram", Type: "url" },
+            { label: "Youtube Link", name: "youtube", Type: "url" },
+            { label: "Facebook Link", name: "facebook", Type: "url" },
+            { label: "Phone Number", name: "phoneNumber", Type: "number" },
+            { label: "Email ", name: "email", Type: "email" },
+          ].map(({ label, name, Type }) => (
             <div className="mb-4" key={name}>
               <label
                 htmlFor={name}
@@ -106,7 +111,7 @@ const SocialUpdate: React.FC = () => {
                 {label}
               </label>
               <input
-                type="url"
+                type={Type}
                 id={name}
                 name={name}
                 value={(formData as any)[name]}

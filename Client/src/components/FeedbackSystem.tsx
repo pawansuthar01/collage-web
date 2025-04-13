@@ -1,21 +1,30 @@
 import React, { useState } from "react";
 import { MessageSquare, Star, Send } from "lucide-react";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
+import { submitFeedback } from "../Redux/Slice/UserSlice";
 
 const FeedbackSystem = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [feedbackType, setFeedbackType] = useState("course");
   const [feedback, setFeedback] = useState("");
+  const [name, setName] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the feedback to your backend
-    console.log({ feedbackType, rating, feedback });
-    // Reset form
+    const Data = {
+      feedbackType,
+      name,
+      rating,
+      feedback,
+    };
+    await dispatch(submitFeedback(Data));
+    setName("");
     setRating(0);
     setFeedback("");
-    alert("Thank you for your feedback!");
   };
 
   return (
@@ -42,6 +51,24 @@ const FeedbackSystem = () => {
           onSubmit={handleSubmit}
           className="max-w-2xl mx-auto bg-[var(--cardBg-color)] rounded-lg shadow-lg p-8"
         >
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-gray-700 text-sm font-bold   mb-2"
+            >
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              value={name}
+              placeholder="Full name"
+              onChange={(e) => setName(e.target.value)}
+              className="block w-full   rounded-lg p-2  outline-none border-2  sm:text-sm"
+            />
+          </div>
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               What would you like to give feedback about?

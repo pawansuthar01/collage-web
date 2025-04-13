@@ -21,6 +21,7 @@ import FeedbackList from "./Auth/feedback";
 import ContactList from "./Auth/ContactList";
 import CallList from "./Auth/CalllistPage";
 import SocialUpdate from "./Auth/SociolLink";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/notices" element={<NoticesPage />} />
+          <Route path="/Error" element={<ErrorPage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
