@@ -1,6 +1,5 @@
 import { config } from "dotenv";
 config();
-console.log(config());
 import app from "./app.js";
 import cloudinaryPkg from "cloudinary";
 const { v2: cloudinary } = cloudinaryPkg;
