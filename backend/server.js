@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config();
+import { configDotenv } from "dotenv";
+configDotenv.config();
 import app from "./app.js";
 import cloudinaryPkg from "cloudinary";
 const { v2: cloudinary } = cloudinaryPkg;
