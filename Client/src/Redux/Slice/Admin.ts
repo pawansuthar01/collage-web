@@ -347,6 +347,15 @@ export const checkPasswordReset = createAsyncThunk(
   }
 );
 
+export const AdminDashboardData = createAsyncThunk("/Admin/Data", async () => {
+  try {
+    const response = await axiosInstance.get(`/collage/v5/admin/Data`);
+    return response?.data;
+  } catch (error: any) {
+    return error?.response?.data || error?.message || "Something went wrong...";
+  }
+});
+
 export const changePassword = createAsyncThunk(
   "/put/admin/password",
   async ({

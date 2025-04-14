@@ -3,6 +3,7 @@ import {
   AdminCheck,
   changePassword,
   checkPasswordResetToken,
+  GetAdminData,
   updatePassword,
 } from "../Controllers/AdminController.js";
 import {
@@ -53,6 +54,7 @@ Admin.get("/Login/:email/:password", AdminCheck);
 Admin.get("/checkPasswordReset/:resetToken", checkPasswordResetToken);
 Admin.put("/change/Password/:resetToken", changePassword);
 Admin.put("/update/password", updatePassword);
+Admin.get("/Data", GetAdminData);
 Admin.route("/course").post(upload.single("photo"), AddCourse);
 Admin.route("/course/:id")
   .put(upload.single("photo"), updatedCourseById)

@@ -7,6 +7,10 @@ import {
   Phone,
 } from "lucide-react";
 import LayoutAdmin from "../../layout/AdminLayout";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../Redux/Store";
+import { AdminDashboardData } from "../../Redux/Slice/Admin";
+import { useEffect, useState } from "react";
 
 const StatCard = ({
   title,
@@ -35,32 +39,92 @@ const StatCard = ({
     </div>
   </div>
 );
+type DashBordDataType = {
+  CountFeedback: number;
+  CountCallReq: number;
+  CountMessage: number;
+  CountCourse: number;
+  NoticeCount: number;
+  courseApplyApplication: number;
+};
 
 const Dashboard = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState(false);
+  const [DashBoard, setDashboard] = useState<DashBordDataType>();
+  const HandelDataLoad = async () => {
+    setLoading(true);
+    const res = await dispatch(AdminDashboardData());
+    if (res && res?.payload?.data) {
+      setDashboard(res?.payload?.data);
+      setLoading(false);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    HandelDataLoad();
+  }, []);
   const stats = [
-    { title: "Total Students", value: 1234, icon: Users, color: "bg-blue-500" },
+    {
+      title: "Total Feedback",
+      value: DashBoard?.CountFeedback || 0,
+      icon: Users,
+      color: "bg-blue-500",
+    },
     {
       title: "Active Courses",
-      value: 45,
+      value: DashBoard?.CountCourse || 0,
       icon: BookOpen,
       color: "bg-green-500",
     },
-    { title: "New Notices", value: 12, icon: Bell, color: "bg-yellow-500" },
     {
-      title: "Upcoming Events",
-      value: 8,
+      title: "New Notices",
+      value: DashBoard?.NoticeCount || 0,
+      icon: Bell,
+      color: "bg-yellow-500",
+    },
+    {
+      title: "Course Apply Count ",
+      value: DashBoard?.courseApplyApplication || 0,
       icon: Calendar,
       color: "bg-purple-500",
     },
     {
       title: "New Messages",
-      value: 23,
+      value: DashBoard?.CountMessage || 0,
       icon: MessageSquare,
       color: "bg-pink-500",
     },
-    { title: "Call Requests", value: 15, icon: Phone, color: "bg-indigo-500" },
+    {
+      title: "Call Requests",
+      value: DashBoard?.CountCallReq || 0,
+      icon: Phone,
+      color: "bg-indigo-500",
+    },
   ];
 
+  if (loading) {
+    return (
+      <LayoutAdmin>
+        <div className="bg-[Var(--admin-bg-color)] pt-12 animate-pulse">
+          <div className="text-2xl pl-2 font-semibold text-[Var(--admin-text-Primary-color)] mb-6 h-6 w-40 bg-gray-300 rounded-md"></div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(4)].map((_, index) => (
+              <div
+                key={index}
+                className="p-4 rounded-xl shadow bg-[Var(--admin-box-bg-color)] flex flex-col gap-4"
+              >
+                <div className="h-4 w-1/2 bg-gray-300 rounded-md"></div>
+                <div className="h-8 w-full bg-gray-300 rounded-md"></div>
+                <div className="h-3 w-1/3 bg-gray-300 rounded-md"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </LayoutAdmin>
+    );
+  }
   return (
     <LayoutAdmin>
       <div className="bg-[Var(--admin-bg-color)] pt-12">
@@ -72,24 +136,6 @@ const Dashboard = () => {
           {stats.map((stat, index) => (
             <StatCard key={index} {...stat} />
           ))}
-        </div>
-
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-[Var(--admin-bg-card-color)] border m-2  border-[var(--admin-border-color)] p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold text-[Var(--admin-text-Primary-color)] mb-4">
-              Recent Activities
-            </h2>
-            <div className="space-y-4">{/* Add recent activities here */}</div>
-          </div>
-
-          <div className="bg-[Var(--admin-bg-card-color)] border m-2  border-[var(--admin-border-color)] p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold text-[Var(--admin-text-Primary-color)] mb-4">
-              Quick Actions
-            </h2>
-            <div className="grid grid-cols-2 gap-4">
-              {/* Add quick action buttons here */}
-            </div>
-          </div>
         </div>
       </div>
     </LayoutAdmin>

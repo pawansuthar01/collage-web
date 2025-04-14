@@ -4,6 +4,12 @@ import * as dotenv from "dotenv";
 import AdminData from "../module/AdminModule.js";
 import AppError from "../Utils/AppErrors.js";
 import sendEmail from "../Utils/EmailSender.js";
+import Feedback from "../module/feedbackModule.js";
+import Message from "../module/massageModule.js";
+import Call from "../module/CallModule.js";
+import courseApply from "../module/courseApply.js";
+import Notice from "../module/NoticesModule.js";
+import Course from "../module/CourseModule.js";
 dotenv.config();
 const failedAttempts = new Map();
 
@@ -331,6 +337,40 @@ export const updatePassword = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Password successfully updated.",
+    });
+  } catch (error) {
+    return next(new AppError(error.message, 400));
+  }
+};
+export const GetAdminData = async (req, res, next) => {
+  try {
+    const [
+      CountFeedback,
+      CountCourse,
+      CountMessage,
+      CountCallReq,
+      courseApplyApplication,
+      NoticeCount,
+    ] = await Promise.all([
+      Feedback.countDocuments({}),
+      Course.countDocuments({}),
+      Message.countDocuments({}),
+      Call.countDocuments({}),
+      courseApply.countDocuments({}),
+      Notice.countDocuments({}),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      message: "Successfully fetched data",
+      data: {
+        CountFeedback,
+        CountCourse,
+        CountMessage,
+        CountCallReq,
+        courseApplyApplication,
+        NoticeCount,
+      },
     });
   } catch (error) {
     return next(new AppError(error.message, 400));

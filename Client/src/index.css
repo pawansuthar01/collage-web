@@ -29,15 +29,15 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 :root {
-  --bg-color: rgb(255, 255, 0); /*main background color*/
-  --icon-color: #f22c00; /*icon text color*/
-  --text-color: black; /*text color*/
+  --bg-color: #7e7eca; /*main background color*/
+  --icon-color: #7e7eca; /*icon text color*/
+  --text-color: white; /*text color*/
   --text-Secondary-color: #393838;
   --cardBg-color: white; /*card background color*/
   --opacity: 0.4;
   --hero-text-color: white; /* hero page text color*/
-  --btn-color: #f22c00; /*button background color*/
-  --heading-color: #241f1f; /*main heading  color*/
+  --btn-color: #8b8be1; /*button background color*/
+  --heading-color: #8b7b7b; /*main heading  color*/
   --course-year-color: #c32525; /*course year text  color*/
   --course-fees-color: #241f1f; /*course year text  color*/
   --course-seat-color: red; /*course seats text  color*/
@@ -68,7 +68,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #8f8f90; /* admin text hover color text-slate-100 */
 }
 .custom-hover:hover {
-  background-color: #d52d07; /*hover background    color*/
+  background-color: #6d6dda; /*hover background    color*/
 }
 .custom-hover-text:hover {
   color: #d52d07; /*hover background    color*/
