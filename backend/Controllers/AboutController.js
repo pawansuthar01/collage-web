@@ -5,7 +5,8 @@ import AppError from "../Utils/AppErrors.js";
 
 //* uploadAboutSectionDetails//*
 export const AboutSectionCreate = async (req, res, next) => {
-  if (!req.file) {
+  const { description } = req.body;
+  if (!req.file || !req.body.description) {
     return next(new AppError("please give All Data  ", 400));
   }
   let photo =
@@ -32,6 +33,7 @@ export const AboutSectionCreate = async (req, res, next) => {
     }
     const CreateAbout = new About({
       photo,
+      description,
     });
     if (!CreateAbout) {
       return next(new AppError("SomeThing Wont wrong...", 400));
@@ -52,6 +54,7 @@ export const AboutSectionCreate = async (req, res, next) => {
 
 //*updated main section data//*
 export const AboutSectionUpdate = async (req, res, next) => {
+  const { description } = req.body;
   if (!req.file) {
     return next(new AppError("please give All Data  ", 400));
   }
@@ -80,6 +83,7 @@ export const AboutSectionUpdate = async (req, res, next) => {
     }
     const updatedData = {
       ...(req.file && { photo }),
+      ...(req.body.description && { description }),
     };
     const updatedAboutSection = await About.findOneAndUpdate(
       { Key_id: "About_image" },

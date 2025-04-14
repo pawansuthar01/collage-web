@@ -48,7 +48,7 @@ export const AboutUpdate = createAsyncThunk(
   "/update/About",
   async (data: any) => {
     try {
-      const response = await axiosInstance.put("/app/admin/v3/About", data);
+      const response = await axiosInstance.put("/collage/v5/admin/About", data);
       return response?.data;
     } catch (error: any) {
       return (

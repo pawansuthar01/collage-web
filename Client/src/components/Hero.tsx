@@ -113,7 +113,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <section className=" py-8 lg:mt-52  text-[var(--text-color)]">
+      <section className=" py-8  relative top-20  text-[var(--text-color)]">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (

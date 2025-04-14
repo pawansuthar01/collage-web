@@ -54,7 +54,7 @@ const NoticesPage = () => {
             </h2>
           </div>
 
-          <div className="grid gap-6">
+          <div className="grid gap-6  justify-evenly ">
             {loading ? (
               Array.from({ length: 2 }).map((_, index) => (
                 <NoticeToStudentSkeleton key={index} />
@@ -86,7 +86,7 @@ const NoticesPage = () => {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-[var(--text-Secondary-color)] mb-4">
+                    <div className=" flex justify-between flex-wrap gap-2 text-sm text-[var(--text-Secondary-color)] mb-4">
                       <p>
                         <span className="font-medium text-sm">Start Date:</span>{" "}
                         {formatMongoDateToIndian(notice?.publish_date)}

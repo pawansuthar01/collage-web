@@ -109,7 +109,7 @@ const CoursesPage = () => {
             </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+          <div className=" gap-6 flex justify-evenly flex-wrap">
             {loading
               ? Array.from({ length: 3 }).map((_, i) => (
                   <CourseCardSkeleton key={i} />
@@ -118,7 +118,7 @@ const CoursesPage = () => {
                   <motion.div
                     key={course._id}
                     whileHover={{ scale: 1.02 }}
-                    className="bg-white p-6 rounded-lg shadow-md"
+                    className="bg-white p-6 min-w-[350px] border rounded-lg shadow-md"
                   >
                     <h3 className="text-xl font-semibold  text-[var(--heading-color)]">
                       {course.name_course}

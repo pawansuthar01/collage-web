@@ -55,7 +55,7 @@ export default function AdminAboutUpdate() {
       formData.append("description", aboutInfo.description);
 
       const response = await dispatch(AboutUpdate(formData));
-
+      console.log(response);
       if (response.payload?.success) {
         setMessage("About page updated successfully!");
         setData(response?.payload?.data);

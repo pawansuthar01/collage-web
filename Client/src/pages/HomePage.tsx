@@ -37,6 +37,7 @@ const HomePage = () => {
       setLoading(false);
     } catch (error) {
       navigate("/Error");
+      console.log(error);
     }
   };
 

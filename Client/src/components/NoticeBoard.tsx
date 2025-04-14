@@ -16,11 +16,11 @@ const NoticeBoard = () => {
           Notice Board
         </h2>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className=" gap-6 flex  justify-evenly flex-wrap">
         {NoticeData.length ? (
           NoticeData.map((notice) => (
             <div key={notice._id}>
-              <div className="w-full max-w-3xl bg-[var(--cardBg-color)]  rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border ">
+              <div className=" max-w-2xl bg-[var(--cardBg-color)]  rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border ">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h2 className="text-xl font-bold text-[var(--heading-color)]">
@@ -30,7 +30,7 @@ const NoticeBoard = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm text-gray-600 mb-4">
+                <div className="flex  justify-between flex-wrap gap-2 text-sm text-gray-600 mb-4">
                   <p>
                     <span className="font-medium">Start Date:</span>{" "}
                     {formatMongoDate(notice?.publish_date)}
