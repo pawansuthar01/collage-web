@@ -25,6 +25,7 @@ import ErrorPage from "./components/ErrorPage";
 import RequireAuth from "./Auth/RequireRole";
 import NotFoundPage from "./pages/NotFound";
 import Denied from "./pages/Denied";
+import CheckAdminIsLoggedIn from "./Auth/CheckAdminIsLoggedIn";
 
 function App() {
   return (
@@ -37,7 +38,9 @@ function App() {
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/Admin" element={<AdminLogin />} />
+          <Route element={<CheckAdminIsLoggedIn />}>
+            <Route path="/Admin" element={<AdminLogin />} />
+          </Route>
           <Route element={<RequireAuth allowedRole={"ADMIN"} />}>
             {" "}
             <Route path="/Admin/Dashboard" element={<Dashboard />} />
