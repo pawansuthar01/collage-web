@@ -1,10 +1,9 @@
-import { config } from "dotenv";
-config();
+import * as dotenv from "dotenv";
+dotenv.config();
 import app from "./app.js";
 import cloudinaryPkg from "cloudinary";
 const { v2: cloudinary } = cloudinaryPkg;
 const PORT = process.env.PORT || 5003;
-console.log(PORT);
 
 export default cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
