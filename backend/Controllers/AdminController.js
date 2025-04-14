@@ -85,6 +85,7 @@ export const AdminCheck = async (req, res, next) => {
       await createAdmin.save();
       return res.status(200).json({
         success: true,
+        data: findAdmin,
         message: "Admin account created successfully.",
       });
     }
@@ -130,6 +131,7 @@ export const AdminCheck = async (req, res, next) => {
       await sendEmail(process.env.EMAIL, subject, message);
       return res.status(200).json({
         success: true,
+        data: findAdmin,
         message: "Successfully logged in as Admin.",
       });
     } else {

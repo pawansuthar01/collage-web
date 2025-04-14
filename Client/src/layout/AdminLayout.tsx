@@ -14,8 +14,12 @@ import {
   Info,
   Lock,
   ChevronDown,
+  LogOut,
 } from "lucide-react";
 import { BiSolidColorFill } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
+import { logout } from "../Redux/Slice/Admin";
 
 const Sidebar = ({
   isOpen,
@@ -178,8 +182,12 @@ type LayoutProps = {
 };
 
 const LayoutAdmin = ({ children }: LayoutProps) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const handelLogout = async () => {
+    await dispatch(logout());
+  };
   return (
     <div className="min-h-screen  text-[Var(--admin-text-Primary-color)] bg-[Var(--admin-bg-color)] ">
       <Sidebar
@@ -196,9 +204,9 @@ const LayoutAdmin = ({ children }: LayoutProps) => {
             >
               <Menu className="w-6 h-6" />
             </button>
-            <div className="flex items-center space-x-4">
-              <span className="text-[Var(--admin-text-Primary-color)]">
-                Admin Name
+            <div onClick={handelLogout} className="flex items-center space-x-4">
+              <span className="text-red-500 pl-2 flex gap-2">
+                <LogOut /> LogOut
               </span>
             </div>
           </div>

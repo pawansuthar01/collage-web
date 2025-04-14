@@ -3,8 +3,9 @@ import axiosInstance from "../../../Helper/axiosInstance";
 
 interface AdminState {
   Message: any;
+  isLoggedIn: boolean | string;
   Feedback: any;
-  password: string | null;
+  Role: string | null;
 }
 const initialState: AdminState = {
   Message:
@@ -15,7 +16,8 @@ const initialState: AdminState = {
     localStorage.getItem("Feedback") !== null
       ? JSON.parse(localStorage.getItem("Feedback") as string)
       : {},
-  password: localStorage.getItem("password") || null,
+  Role: localStorage.getItem("Role") || null,
+  isLoggedIn: localStorage.getItem("isLoggedIn") || false,
 };
 // update banner data //
 export const updateBanner = createAsyncThunk(
@@ -315,10 +317,10 @@ export const updateSocialData = createAsyncThunk(
 
 export const AdminLogin = createAsyncThunk(
   "/LoginAs/admin",
-  async ({ email, password }: { email: string; password: string }) => {
+  async (data: any) => {
     try {
       const response = await axiosInstance.get(
-        `/app/admin/v3/Login/${email}/${password}`
+        `/collage/v5/admin/Login/${data.email}/${data.password}`
       );
       return response?.data;
     } catch (error: any) {
@@ -388,7 +390,14 @@ export const UpdatePassword = createAsyncThunk(
 const AdminRedux = createSlice({
   name: "AdminStore",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.setItem("isLoggedIn", "false");
+      localStorage.setItem("Role", "");
+      state.isLoggedIn = false;
+      state.Role = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(GetAllMessage.fulfilled, (state, action) => {
@@ -402,9 +411,17 @@ const AdminRedux = createSlice({
           localStorage.setItem("feedback", action?.payload?.data?.feedback);
           state.Feedback = action?.payload?.data?.Feedback;
         }
+      })
+      .addCase(AdminLogin.fulfilled, (state, action) => {
+        if (action?.payload?.success) {
+          localStorage.setItem("Role", action?.payload?.data?.Role);
+          state.Role = action?.payload?.data?.Role;
+          localStorage.setItem("isLoggedIn", "true");
+          state.isLoggedIn = true;
+        }
       });
   },
 });
 
-export const {} = AdminRedux.actions;
+export const { logout } = AdminRedux.actions;
 export default AdminRedux.reducer;

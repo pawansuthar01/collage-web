@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import About from "../components/About";
 import Layout from "../layout/layout";
-import image from "../../public/download (2).jpeg";
+import image from "../../public/assets/download (2).jpeg";
+import image_1 from "../../public/assets/image_2.jpeg";
+import image2 from "../../public/assets/Screenshot 2025-04-14 133921.png";
 
 const AboutPage = () => {
   return (
@@ -24,7 +26,7 @@ const AboutPage = () => {
               <img
                 src={image}
                 alt="Mata Gujri Ji"
-                className="object-cover w-full h-full"
+                className=" w-full h-full max-h-[320px]"
               />
             </div>
 
@@ -96,9 +98,9 @@ const AboutPage = () => {
 
             <div className="overflow-hidden rounded-xl shadow-lg">
               <img
-                src={image}
+                src={image_1}
                 alt="Mata Gujri with grandsons"
-                className="object-cover w-full h-full"
+                className="object- w-full h-full max-h-[320px]"
               />
             </div>
           </div>
@@ -133,9 +135,9 @@ const AboutPage = () => {
 
               <div className="overflow-hidden rounded-xl shadow-md">
                 <img
-                  src={image}
+                  src={image2}
                   alt="Director"
-                  className="object-cover w-full h-full"
+                  className="object w-full h-full  max-h-[320px]"
                 />
               </div>
             </div>

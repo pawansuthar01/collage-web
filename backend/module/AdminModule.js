@@ -1,10 +1,12 @@
 import { model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import { type } from "os";
 
 const AdminModule = new Schema(
   {
     Key_id: { type: String, default: "_Admin_ID_", unique: true },
+    Role: { type: String, default: "ADMIN", unique: true },
     email: {
       type: String,
       unique: [true, "Email is already registered"],

@@ -9,7 +9,6 @@ const storageKeys = [
   "aboutData",
   "courseData",
   "NoticeData",
-  "skillsData",
   "feedbackData",
 ] as const;
 
@@ -68,8 +67,38 @@ export const getBannerData = createFetchThunk("bannerData");
 export const getAboutData = createFetchThunk("aboutData");
 export const getCourseData = createFetchThunk("courseData");
 export const getNoticeData = createFetchThunk("NoticeData");
-export const getSkillsData = createFetchThunk("skillsData");
 export const getFeedbackData = createFetchThunk("feedbackData");
+
+export const getAllData = createAsyncThunk<
+  Partial<DataState>,
+  void,
+  { rejectValue: string }
+>("get/allData", async (_, { rejectWithValue }) => {
+  try {
+    const requests = storageKeys.map(async (key) => {
+      const endpoint = `/collage/v3/user/${key
+        .replace("Data", "")
+        .toLowerCase()}`;
+      const response = await axiosInstance.get(endpoint);
+      const data = response?.data?.data || [];
+      localStorage.setItem(key, JSON.stringify(data));
+      return { key, data };
+    });
+
+    const results = await Promise.all(requests);
+    const resultObj: Partial<DataState> = {};
+
+    results.forEach(({ key, data }) => {
+      resultObj[key] = data;
+    });
+
+    return resultObj;
+  } catch (error: any) {
+    return rejectWithValue(
+      error?.response?.data?.message || error?.message || "Something went wrong"
+    );
+  }
+});
 
 // ----------------------------
 // ✅ Slice
@@ -79,22 +108,16 @@ const DataRedux = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    const handleData = (key: StorageKey, thunk: any) => {
-      builder.addCase(
-        thunk.fulfilled,
-        (state, action: PayloadAction<any[]>) => {
-          state[key] = action.payload;
+    builder.addCase(
+      getAllData.fulfilled,
+      (state, action: PayloadAction<Partial<DataState>>) => {
+        for (const key in action.payload) {
+          if (action.payload[key]) {
+            state[key] = action.payload[key]!;
+          }
         }
-      );
-    };
-
-    handleData("SocialLinkData", getSocialLinkData);
-    handleData("bannerData", getBannerData);
-    handleData("aboutData", getAboutData);
-    handleData("courseData", getCourseData);
-    handleData("NoticeData", getNoticeData);
-    handleData("skillsData", getSkillsData);
-    handleData("feedbackData", getFeedbackData);
+      }
+    );
   },
 });
 

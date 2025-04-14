@@ -9,13 +9,7 @@ import { SkeletonBox } from "../components/loadingPage/Skeleton";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../Redux/Store";
 import { useEffect, useState } from "react";
-import {
-  getBannerData,
-  getCourseData,
-  getFeedbackData,
-  getNoticeData,
-  getSocialLinkData,
-} from "../Redux/Slice/getData";
+import { getAllData } from "../Redux/Slice/getData";
 import { Course } from "../components/Course";
 import { useNavigate } from "react-router-dom";
 import { AllFeedback, BastFeedback } from "../components/feedbackPage";
@@ -27,12 +21,7 @@ const HomePage = () => {
   const handelBannerDataLoad = async () => {
     try {
       setLoading(true);
-      await dispatch(getBannerData());
-      await dispatch(getCourseData());
-      await dispatch(getSocialLinkData());
-
-      await dispatch(getNoticeData());
-      await dispatch(getFeedbackData());
+      await dispatch(getAllData());
 
       setLoading(false);
     } catch (error) {

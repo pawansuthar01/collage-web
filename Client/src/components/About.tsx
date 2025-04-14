@@ -46,12 +46,7 @@ const About = () => {
           <h3 className="text-2xl font-semibold text-[var(--heading-color)] mb-4">
             Our Vision
           </h3>
-          <p className="text-gray-600">
-            {About.description ||
-              ` To be a leading institution of higher education, recognized globally
-            for academic excellence, innovative research, and the development of
-            leaders who make a positive impact on society.`}
-          </p>
+          <p className="text-gray-600">{About.description}</p>
           <div className="mt-8">
             <h4 className="text-xl font-semibold text-gray-900 mb-2">
               Key Features
@@ -66,10 +61,7 @@ const About = () => {
         </div>
         <div className="relative h-[400px]">
           <img
-            src={
-              About.photo ||
-              "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-            }
+            src={About.photo}
             alt="College campus"
             className="absolute inset-0 w-full h-full object-cover rounded-lg"
           />
