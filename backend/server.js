@@ -1,8 +1,10 @@
-import { config } from "dotenv";
-config();
 import app from "./app.js";
 import cloudinaryPkg from "cloudinary";
 const { v2: cloudinary } = cloudinaryPkg;
+if (process.env.NODE_ENV !== "production") {
+  const dotenv = await import("dotenv");
+  dotenv.config();
+}
 const PORT = process.env.PORT || 5003;
 console.log(PORT);
 
