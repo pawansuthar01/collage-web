@@ -26,6 +26,7 @@ import RequireAuth from "./Auth/RequireRole";
 import NotFoundPage from "./pages/NotFound";
 import Denied from "./pages/Denied";
 import CheckAdminIsLoggedIn from "./Auth/CheckAdminIsLoggedIn";
+import UpdatePassword from "./Auth/Password/ResetPassword";
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route
+            path="/Admin/changePassword/:token"
+            element={<UpdatePassword />}
+          />
           <Route element={<CheckAdminIsLoggedIn />}>
             <Route path="/Admin" element={<AdminLogin />} />
           </Route>
@@ -54,7 +59,6 @@ function App() {
             <Route path="/Admin/update-About" element={<AdminAboutUpdate />} />
             <Route path="/Admin/password-update" element={<ChangePassword />} />
             <Route path="/Admin/SociolLink-update" element={<SocialUpdate />} />
-            <Route path="/Admin/password-resat" element={<ChangePassword />} />
             <Route path="/Admin/courses" element={<CourseList />} />
             <Route
               path="/admin/courses-Applications"

@@ -336,7 +336,7 @@ export const checkPasswordReset = createAsyncThunk(
   async (resetToken: string) => {
     try {
       const response = await axiosInstance.get(
-        `/app/admin/v3/checkPasswordReset/${resetToken}`
+        `/collage/v5/admin/checkPasswordReset/${resetToken}`
       );
       return response?.data;
     } catch (error: any) {
@@ -367,7 +367,7 @@ export const changePassword = createAsyncThunk(
   }) => {
     try {
       const response = await axiosInstance.put(
-        `/app/admin/v3/change/Password/${resetToken}`,
+        `/collage/v5/admin/change/Password/${resetToken}`,
         { newPassword }
       );
       return response?.data;
@@ -384,7 +384,7 @@ export const UpdatePassword = createAsyncThunk(
   async (data: any) => {
     try {
       const response = await axiosInstance.put(
-        `/app/admin/v3/update/password/`,
+        `/collage/v5/admin/update/password/`,
         data
       );
       return response?.data;

@@ -1,10 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import {
-//   changePassword,
-//   checkPasswordReset,
-// } from "../../../src/Redux/Slice/Admin";
+
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { AppDispatch } from "../../Redux/Store";
 import { changePassword, checkPasswordReset } from "../../Redux/Slice/Admin";
@@ -26,7 +23,7 @@ const UpdatePassword: React.FC = () => {
     newPassword: "",
     confirmPassword: "",
   });
-  const [successMessage, setSuccessMessage] = useState<string>("gsaoshahashhl");
+  const [successMessage, setSuccessMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
@@ -93,7 +90,6 @@ const UpdatePassword: React.FC = () => {
       if (!resetToken) return;
 
       const res = await dispatch(checkPasswordReset(resetToken));
-
       if (res?.payload?.success) {
         setError("");
       } else {
@@ -108,18 +104,18 @@ const UpdatePassword: React.FC = () => {
     }
   }, [resetToken, checkLoading, dispatch]);
 
-  if (!checkLoading) {
+  if (checkLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[#242424]">
         <div className="loader border-t-4 border-blue-500 rounded-full w-12 h-12 animate-spin"></div>
-        <p className="text-white mt-2 bg-red-500">Loading...</p>
+        <p className="text-white mt-2 ">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen bg-[#242424]">
-      <div className="my-auto m-auto sm:w-[60%] w-[90%] max-w-md p-6 bg-[#2a2828] border-cyan-200 border-1 rounded-md shadow-[0_0_5px_0_cyan]">
+    <div className="flex h-screen bg-[Var(--admin-bg-color)]">
+      <div className="my-auto m-auto sm:w-[60%] w-[90%] max-w-md p-6 bg-[Var(--admin-card-bg-color)] border-cyan-200 border-1 rounded-md shadow-[0_0_5px_0_cyan]">
         <h2 className="text-xl text-white font-semibold text-center mb-6">
           Reset Your Password
         </h2>
@@ -138,7 +134,7 @@ const UpdatePassword: React.FC = () => {
               value={passwordData.newPassword}
               onChange={handleUserInput}
               placeholder="Password"
-              className="w-full p-3 border max-w-xs:text-sm outline-none border-cyan-300 rounded text-white"
+              className="w-full p-3 border max-w-xs:text-sm outline-none bg-[Var(--input-bg-color)] border-cyan-300 rounded text-white"
             />
             <div
               className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -159,7 +155,7 @@ const UpdatePassword: React.FC = () => {
               value={passwordData.confirmPassword}
               onChange={handleUserInput}
               placeholder="Confirm Password"
-              className="w-full p-3 border max-w-xs:text-sm pr-10 outline-none border-cyan-300 rounded text-white"
+              className="w-full p-3 border max-w-xs:text-sm bg-[Var(--input-bg-color)] pr-10 outline-none border-cyan-300 rounded text-white"
             />
             <div
               className="absolute inset-y-0 right-3 flex items-center cursor-pointer"

@@ -28,7 +28,7 @@ export const sendResetPasswordEmail = async (email, next) => {
 
   await adminExist.save();
 
-  const resetPassword_url = `${process.env.FRONTEND_URL}/changePassword/${resetToken}`;
+  const resetPassword_url = `${process.env.FRONTEND_URL}/Admin/changePassword/${resetToken}`;
   const subject = "Reset Password";
   const message = `
   <div style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f4f4f4; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
