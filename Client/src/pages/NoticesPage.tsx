@@ -54,7 +54,7 @@ const NoticesPage = () => {
             </h2>
           </div>
 
-          <div className="flex gap-6  justify-evenly ">
+          <div className="flex gap-6  flex-wrap justify-evenly ">
             {loading ? (
               Array.from({ length: 2 }).map((_, index) => (
                 <NoticeToStudentSkeleton key={index} />

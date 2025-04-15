@@ -67,10 +67,7 @@ const Hero = () => {
 
   return (
     <div>
-      <div
-        id="home"
-        className="   min-[350px]:mb-30   md:mb-36 lg:mb-40 xl:mb-40"
-      >
+      <div id="home" className=" ">
         <div className="relative pt-16 ">
           <div className="absolute inset-0">
             <img
@@ -118,7 +115,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <section className=" mt-36 text-[var(--text-color)]">
+      <div className="  text-[var(--text-color)]">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
@@ -136,7 +133,7 @@ const Hero = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
