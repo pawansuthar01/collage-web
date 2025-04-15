@@ -134,6 +134,17 @@ const Footer = () => {
         </div>
         <div className="mt-8 pt-8 border-t border-blue-800 text-center text-gray-300">
           <p>&copy; {year} Mata Gujri Khalsa College. All rights reserved.</p>
+          <div className="mt-2 text-sm text-[var(--text-Secondary-color)] font-bold">
+            Developed by{" "}
+            <a
+              href="https://pawansuthar.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white underline hover:text-black transition-colors text-xl"
+            >
+              Pawan Kumar
+            </a>
+          </div>
         </div>
       </div>
     </footer>
