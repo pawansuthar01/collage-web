@@ -15,13 +15,11 @@ const initialState: UserState = {
 };
 
 // Subscribe
-export const Subscribe = createAsyncThunk(
-  "user/subscribe",
-  async (email: string, { rejectWithValue }) => {
+export const CallReqSubmit = createAsyncThunk(
+  "Call/Request",
+  async (data: any, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post(
-        `/app/user/v3/Data/subscribe/${email}`
-      );
+      const response = await axiosInstance.post(`/collage/v3/user/Call/`, data);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(
@@ -100,17 +98,6 @@ const UserRedux = createSlice({
   extraReducers: (builder) => {
     builder
       // Subscribe
-      .addCase(Subscribe.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(Subscribe.fulfilled, (state) => {
-        state.loading = false;
-      })
-      .addCase(Subscribe.rejected, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
 
       // Message Submit
       .addCase(submitMessage.pending, (state) => {

@@ -221,9 +221,9 @@ export const DeleteEvent = createAsyncThunk(
 
 //call req//
 //get All call req//
-export const GetAllCallReq = createAsyncThunk("/get/feedback", async () => {
+export const GetAllCallReq = createAsyncThunk("/get/call", async () => {
   try {
-    const response = await axiosInstance.get("/");
+    const response = await axiosInstance.get("/collage/v5/admin/Call");
     return response?.data;
   } catch (error: any) {
     return error?.response?.data || error?.message || "Something went wrong...";
@@ -234,7 +234,7 @@ export const CallMarkAsRead = createAsyncThunk(
   "/put/message",
   async (id: string) => {
     try {
-      const response = await axiosInstance.put(`/app/user/v3/Message/${id}`);
+      const response = await axiosInstance.put(`/collage/v5/admin/Call/${id}`);
       return response?.data;
     } catch (error: any) {
       return (

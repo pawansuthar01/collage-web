@@ -4,7 +4,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000",
+  "theme_color": "#7e7eca",
   "icons": [
     {
       "src": "/assets/MATA GUJRI logo 1.png",

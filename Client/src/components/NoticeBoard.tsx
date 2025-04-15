@@ -2,8 +2,10 @@ import { Bell } from "lucide-react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Store";
 import { formatMongoDate } from "../../Helper/DateFormat";
+import { useNavigate } from "react-router-dom";
 
 const NoticeBoard = () => {
+  const navigate = useNavigate();
   const NoticeData = useSelector(
     (state: RootState) => state.storeData.NoticeData
   );
@@ -20,7 +22,10 @@ const NoticeBoard = () => {
         {NoticeData.length ? (
           NoticeData.map((notice) => (
             <div key={notice._id}>
-              <div className=" max-w-2xl bg-[var(--cardBg-color)]  rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border ">
+              <div
+                onClick={() => navigate("/notices")}
+                className=" max-w-2xl bg-[var(--cardBg-color)]  rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 border "
+              >
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h2 className="text-xl font-bold text-[var(--heading-color)]">

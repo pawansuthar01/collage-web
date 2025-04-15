@@ -1,21 +1,73 @@
 import { X } from "lucide-react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
+import { CallReqSubmit } from "../Redux/Slice/UserSlice";
 
 export const CallRequest = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     course: "",
     message: "",
   });
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handelSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    alert("Thank you for your request. We will call you back soon!");
-    setFormData({ name: "", phone: "", course: "", message: "" });
+    setMessage("");
+    setLoading(true);
+    if (!formData.course) {
+      setLoading(false);
+      setMessage("select course");
+      return;
+    }
+    if (
+      formData.name &&
+      formData.course &&
+      formData.phone &&
+      formData.message
+    ) {
+      try {
+        const response = await dispatch(CallReqSubmit(formData));
+        if (response.payload?.success) {
+          setMessage("Send message  successfully!");
+        } else {
+          throw new Error(response.payload?.message || "Sending failed");
+        }
+      } catch (error: any) {
+        console.error("Error message send info:", error);
+        setMessage(error?.message || "Failed to Sending message");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      Object.entries(formData).forEach(([key, value]) => {
+        const element = document.getElementById(key);
+        if (element) {
+          element.style.borderColor = value == "" ? "red" : "";
+        }
+      });
+    }
+    setLoading(false);
   };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setMessage("");
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    const element = document.getElementById(name);
+    if (element) {
+      element.style.borderColor = "";
+    }
+  };
+
   return (
     <div
       className={`fixed   right-0 top-1/2 -translate-y-1/2 z-50 transition-transform duration-300 ${
@@ -34,33 +86,39 @@ export const CallRequest = () => {
             <X className="h-5 w-5" />
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form noValidate onSubmit={handelSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
               Name
             </label>
             <input
+              id="name"
+              name="name"
               type="text"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+              className="mt-1 p-1 border text-sm outline-none block w-full rounded-md border-gray-300 shadow-sm"
               value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
+              onChange={handleChange}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700"
+            >
               Phone
             </label>
             <input
+              id="phone"
+              name="phone"
               type="tel"
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm  sm:text-sm"
+              className="mt-1 p-1 border text-sm outline-none block w-full rounded-md border-gray-300 shadow-sm"
               value={formData.phone}
-              onChange={(e) =>
-                setFormData({ ...formData, phone: e.target.value })
-              }
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -68,13 +126,17 @@ export const CallRequest = () => {
               Course Interest
             </label>
             <select
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm  sm:text-sm"
+              onClick={() => setMessage("")}
+              className="mt-1 p-1 border text-sm outline-none block w-full rounded-md border-gray-300 shadow-sm"
               value={formData.course}
               onChange={(e) =>
-                setFormData({ ...formData, course: e.target.value })
+                setFormData((prev) => ({ ...prev, course: e?.target.value }))
               }
             >
-              <option value="">Select a course</option>
+              <option value="" className="bg-transparent">
+                {" "}
+                Select a course
+              </option>
               <option value="bca">BCA</option>
               <option value="bba">BBA</option>
               <option value="bcom">B.Com</option>
@@ -82,19 +144,34 @@ export const CallRequest = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-gray-700"
+            >
               Message
             </label>
             <textarea
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+              id="message"
+              name="message"
+              className="mt-1 p-1 border text-sm outline-none block w-full rounded-md border-gray-300 shadow-sm"
               rows={3}
               value={formData.message}
-              onChange={(e) =>
-                setFormData({ ...formData, message: e.target.value })
-              }
+              onChange={handleChange}
             ></textarea>
           </div>
+          {message && (
+            <div
+              className={`p-1 rounded ${
+                message.includes("success")
+                  ? "bg-green-200 text-green-700"
+                  : "bg-red-200 text-red-700"
+              }`}
+            >
+              {message}
+            </div>
+          )}
           <button
+            disabled={loading}
             type="submit"
             className="w-full bg-[var(--bg-color)] text-[var(--text-color)] py-2 px-4 rounded-md custom-hover focus:outline-none "
           >
@@ -102,10 +179,11 @@ export const CallRequest = () => {
           </button>
         </form>
       </div>
+
       {!isFormOpen && (
         <button
           onClick={() => setIsFormOpen(true)}
-          className="absolute -left-2 top-[20%] -translate-x-full -translate-y-[20%] bg-[var(--bg-color)] text-[var(--text-color)] py-2 pt-0 px-4 rounded-l-md transform -rotate-90 origin-right custom-hover"
+          className={`absolute    -left-2 top-[20%] -translate-x-full -translate-y-[20%] bg-[var(--bg-color)] text-[var(--text-color)] py-4 pt-0 px-4 rounded-l-md transform -rotate-90 origin-right custom-hover`}
         >
           Request Call Back
         </button>

@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Store";
+import { useNavigate } from "react-router-dom";
 export const Course = () => {
+  const navigate = useNavigate();
   const courseData = useSelector(
     (state: RootState) => state.storeData.courseData
   );
@@ -24,6 +26,7 @@ export const Course = () => {
           {courseData.length > 0 &&
             courseData.map((program, index) => (
               <motion.div
+                onClick={() => navigate("/courses")}
                 key={program._id}
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

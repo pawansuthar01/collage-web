@@ -102,3 +102,12 @@ input[type="number"]::-webkit-inner-spin-button {
     transform: rotate(360deg);
   }
 }
+
+@keyframes animationCallReq {
+  0% {
+    transform: scaleY(30px);
+  }
+  100% {
+    transform: scaleY(0px);
+  }
+}
