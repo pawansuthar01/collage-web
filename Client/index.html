@@ -7,7 +7,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
-    <!-- Prevents Zooming -->
+
+    <!-- ✅ Correct Manifest Link -->
+    <link rel="manifest" href="/manifest.json" />
 
     <title>Mata Gujri Khalsa Shikshan Sansthan</title>
 
@@ -33,7 +35,7 @@
     <meta property="og:type" content="website" />
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#f22c00" />
+    <meta name="theme-color" content="#000" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -42,9 +44,16 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(() => console.log("✅ Service Worker Registered"));
+      }
+    </script>
   </body>
 </html>

@@ -290,7 +290,7 @@ export const updatePassword = async (req, res, next) => {
 
     await adminExist.save();
 
-    const resetPassword_url = `${process.env.FRONTEND_URL}/changePassword/${resetToken}`;
+    const resetPassword_url = `${process.env.FRONTEND_URL}/Admin/changePassword/${resetToken}`;
     const subject = "🔒 Password Changed Successfully";
 
     const message = `
