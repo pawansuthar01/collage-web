@@ -69,12 +69,12 @@ const Hero = () => {
     <div>
       <div
         id="home"
-        className="  min-[320px]:mb-36   md:mb-32 lg:mb-32  xl:mb-40"
+        className="   min-[350px]:mb-30   md:mb-36 lg:mb-40 xl:mb-40"
       >
         <div className="relative pt-16 ">
           <div className="absolute inset-0">
             <img
-              className="w-full h-screen object-cover"
+              className="w-full h-screen max-h-[1000px] object-cover"
               src={bannerData[0]?.photo}
               alt="College campus"
             />
@@ -118,7 +118,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <section className="  text-[var(--text-color)]">
+      <section className=" mt-36 text-[var(--text-color)]">
         <div className=" mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat) => (
