@@ -18,7 +18,7 @@ const NoticeBoard = () => {
           Notice Board
         </h2>
       </div>
-      <div className=" gap-6 flex  justify-evenly flex-wrap">
+      <div className=" gap-6 flex  justify-evenly  flex-wrap">
         {NoticeData.length ? (
           NoticeData.map((notice) => (
             <div key={notice._id}>

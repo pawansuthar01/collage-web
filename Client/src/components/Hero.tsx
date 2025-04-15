@@ -67,7 +67,10 @@ const Hero = () => {
 
   return (
     <div>
-      <div className=" mb:24 min-[375px]:mb-28 sm:mb-28 md:mb-28 lg:mb-28">
+      <div
+        id="home"
+        className="  min-[320px]:mb-36   md:mb-32 lg:mb-32  xl:mb-40"
+      >
         <div className="relative pt-16 ">
           <div className="absolute inset-0">
             <img

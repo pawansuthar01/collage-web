@@ -68,10 +68,10 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #8f8f90; /* admin text hover color text-slate-100 */
 }
 .custom-hover:hover {
-  background-color: #6d6dda; /*hover background    color*/
+  background-color: #334155; /*hover background    color*/
 }
 .custom-hover-text:hover {
-  color: #d52d07; /*hover background    color*/
+  color: #3d4c61; /*hover background    color*/
 }
 .circular-text {
   position: absolute;
