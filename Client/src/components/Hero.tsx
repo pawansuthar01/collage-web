@@ -67,11 +67,14 @@ const Hero = () => {
 
   return (
     <div>
-      <div id="home" className=" ">
+      <div
+        id="home"
+        className=" max-[500px]:mb-[250px] max-[750px]:mb-40 max-sm:mb:36 max-md:mb-36 sm:mb-40  md:mb-36  lg:mb-36"
+      >
         <div className="relative pt-16 ">
           <div className="absolute inset-0">
             <img
-              className="w-full h-screen max-h-[1000px] object-cover"
+              className="w-full h-screen object-cover"
               src={bannerData[0]?.photo}
               alt="College campus"
             />
