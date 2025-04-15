@@ -1,6 +1,6 @@
 {
-  "name": "MGKSS Admin",
-  "short_name": "Admin",
+  "name": "MGKSS",
+  "short_name": "MGKSS",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
