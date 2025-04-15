@@ -216,7 +216,19 @@ const LayoutAdmin = ({ children }: LayoutProps) => {
 
         <footer className="bg-[var(--admin-nav-bg-color)] shadow-sm mt-auto">
           <div className="text-center py-4 text-sm text-[Var(--admin-text-Primary-color)]">
-            © {new Date().getFullYear()} Admin Dashboard. All rights reserved.
+            © {new Date().getFullYear()} Mata Gujri Khalsa College. All rights
+            reserved.
+            <div className="mt-2 text-sm text-[var(--text-Secondary-color)] font-bold">
+              Developed by{" "}
+              <a
+                href="https://pawansuthar.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white underline hover:text-black transition-colors text-xl"
+              >
+                Pawan Kumar
+              </a>
+            </div>
           </div>
         </footer>
       </div>
