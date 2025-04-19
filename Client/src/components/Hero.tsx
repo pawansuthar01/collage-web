@@ -2,18 +2,25 @@ import { MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Calendar, Award, Users, BookOpen } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../Redux/Store";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../Redux/Store";
+import { getBannerData } from "../Redux/Slice/getData";
 
 const Hero = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const bannerData = useSelector(
     (state: RootState) => state.storeData.bannerData
   );
 
   const circularTextRef = useRef<HTMLDivElement>(null);
 
+  async function LoadData() {
+    try {
+      await dispatch(getBannerData());
+    } catch (error) {
+      console.error(error);
+    }
+  }
   useEffect(() => {
     const text = "Mata gujri khlasa shikshan sansthan  • WELCOME •  ";
     if (circularTextRef.current) {
@@ -34,7 +41,7 @@ const Hero = () => {
       bannerData[0].totalAwardsCount == null ||
       bannerData[0].Years_of_Excellence_count == null
     ) {
-      navigate("/Error");
+      LoadData();
     }
   }, []);
 

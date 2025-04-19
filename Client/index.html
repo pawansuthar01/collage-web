@@ -8,8 +8,6 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
 
-    <!-- ✅ Correct Manifest Link -->
-
     <title>Mata Gujri Khalsa Shikshan Sansthan</title>
 
     <!-- SEO Meta Tags -->
@@ -23,30 +21,28 @@
     />
     <meta name="author" content="Mata Gujri Khalsa Shikshan Sansthan" />
 
-    <!-- Open Graph for Social Media -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Mata Gujri Khalsa Shikshan Sansthan" />
     <meta
       property="og:description"
       content="Join Mata Gujri Khalsa Shikshan Sansthan and explore a world of learning opportunities."
     />
-    <meta property="og:image" content="college-image.jpg" />
-    <meta property="og:url" content="https://your-college-website.com" />
+    <meta property="og:image" content="/assets/MATA GUJRI logo 1.png" />
+    <meta property="og:url" content="https://mgkss.in" />
     <meta property="og:type" content="website" />
 
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#000" />
+    <!-- Theme -->
+    <meta name="theme-color" content="#000000" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png" />
-
-    <!-- CSS Styles -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="/assets/MATA GUJRI logo 1.png" />
   </head>
   <body>
     <div id="root"></div>
 
     <script type="module" src="/src/main.tsx"></script>
 
+    <!-- Optional: PWA Manifest -->
     <script>
       const path = window.location.pathname;
       const manifestLink = document.createElement("link");
@@ -57,10 +53,15 @@
         manifestLink.href = "/manifest-user.json";
       }
       document.head.appendChild(manifestLink);
+    </script>
+
+    <!-- Optional: Service Worker -->
+    <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register("/service-worker.js")
-          .then(() => console.log("✅ Service Worker Registered"));
+          .then(() => console.log("✅ Service Worker Registered"))
+          .catch((err) => console.error("SW registration failed:", err));
       }
     </script>
   </body>

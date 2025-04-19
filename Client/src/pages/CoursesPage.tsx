@@ -80,8 +80,7 @@ const CoursesPage = () => {
       courseApplyData.courseName &&
       courseApplyData.previousEducation
     ) {
-      const res = await dispatch(CourseApplySubmit(courseApplyData));
-      console.log(res);
+      await dispatch(CourseApplySubmit(courseApplyData));
     } else {
       Object.entries(courseApplyData).forEach(([key, value]) => {
         const element = document.getElementById(key);

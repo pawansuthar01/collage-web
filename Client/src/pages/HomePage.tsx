@@ -11,12 +11,10 @@ import { AppDispatch } from "../Redux/Store";
 import { useEffect, useState } from "react";
 import { getAllData } from "../Redux/Slice/getData";
 import { Course } from "../components/Course";
-import { useNavigate } from "react-router-dom";
 import { AllFeedback, BastFeedback } from "../components/feedbackPage";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const handelBannerDataLoad = async () => {
     try {
@@ -25,7 +23,6 @@ const HomePage = () => {
 
       setLoading(false);
     } catch (error) {
-      navigate("/Error");
       console.log(error);
     }
   };
