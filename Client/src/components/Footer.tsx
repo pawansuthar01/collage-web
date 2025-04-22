@@ -113,7 +113,7 @@ const Footer = () => {
           <div className="mt-2 text-sm text-[var(--text-Secondary-color)] font-bold">
             Developed by{" "}
             <a
-              href="https://pawansuthar.netlify.app/"
+              href="https://pawansuthar.in/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white underline hover:text-black transition-colors text-xl"

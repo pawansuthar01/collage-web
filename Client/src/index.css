@@ -29,18 +29,18 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 :root {
-  --bg-color: #7e7eca; /*main background color*/
-  --icon-color: #7e7eca; /*icon text color*/
+  --bg-color: #e4400d; /*main background color*/
+  --icon-color: #e4400d; /*icon text color*/
   --text-color: white; /*text color*/
   --text-Secondary-color: #393838;
   --cardBg-color: white; /*card background color*/
   --opacity: 0.4;
   --hero-text-color: white; /* hero page text color*/
-  --btn-color: #8b8be1; /*button background color*/
-  --heading-color: #8b7b7b; /*main heading  color*/
-  --course-year-color: #c32525; /*course year text  color*/
-  --course-fees-color: #241f1f; /*course year text  color*/
-  --course-seat-color: red; /*course seats text  color*/
+  --btn-color: #e4400d; /*button background color*/
+  --heading-color: #e4400d; /*main heading  color*/
+  --course-year-color: #e70a0a; /*course year text  color*/
+  --course-fees-color: #c32525; /*course year text  color*/
+  --course-seat-color: #c32525; /*course seats text  color*/
   --notice-bg-color: #e7f489; /*notice section notice type bg  color*/
   --notice-text-color: #b04d3e; /*notice section notice type   text  color*/
   --input-bg-color: #1e293b; /*notice section notice type   text  color*/
@@ -68,10 +68,10 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #8f8f90; /* admin text hover color text-slate-100 */
 }
 .custom-hover:hover {
-  background-color: #8787ce; /*hover background    color*/
+  background-color: #fe500b; /*hover background    color*/
 }
 .custom-hover-text:hover {
-  color: #7d7db7; /*hover background    color*/
+  color: #a4390f; /*hover background    color*/
 }
 .circular-text {
   position: absolute;

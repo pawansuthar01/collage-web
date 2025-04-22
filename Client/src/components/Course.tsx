@@ -31,7 +31,7 @@ export const Course = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-[var(--cardBg-color)] w-[380px] rounded-lg shadow-lg overflow-hidden"
+                className="bg-[var(--cardBg-color)] w-[380px] rounded-lg border-2  cursor-pointer shadow-lg overflow-hidden"
               >
                 <img
                   src={program.photo}
