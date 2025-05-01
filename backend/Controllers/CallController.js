@@ -31,32 +31,29 @@ export const SubmitCallRequired = async (req, res, next) => {
     });
     (async () => {
       try {
-        const subjectAdmin = "📩 New Message from User";
+        const subjectAdmin = "📞 Call Request from Student";
         const EmailMessageForAdmin = `
-<div style="max-width: 600px; margin: auto; font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-  
-  <h2 style="color: #007bff; text-align: center; margin-bottom: 20px;">📩 New Message from User</h2>
-
-  <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;">
-    <p><strong>👤 Sender Name:</strong> ${name}</p>
-    <p><strong>📧 Sender Email:</strong> <a href="number:${number}" style="color: #007bff; text-decoration: none;">${number}</a></p>
-    <p><strong>📌 course_Interest:</strong> ${course_Interest}</p>
-  </div>
-
-  <p style="margin-top: 20px; font-size: 16px; color: #333;">📝 <strong>Message:</strong></p>
-  <p style="background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 15px; line-height: 1.5; color: #555;">
-    ${message}
-  </p>
-
-  <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
-
-  <p style="font-size: 14px; color: #777;">📌 This message was sent from your website's contact form.</p>
-
-  <p style="font-size: 14px; color: #555;">Best regards,</p>
-  <p style="font-size: 16px; font-weight: bold; color: #007bff;">${name}</p>
-
-</div>
-`;
+        <div style="max-width: 600px; margin: auto; font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+          <h2 style="color: #007bff; text-align: center; margin-bottom: 20px;">📞 Call Request from Student</h2>
+        
+          <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;">
+            <p><strong>👤 Name:</strong> ${name}</p>
+            <p><strong>📱 Number:</strong> <a href="tel:${number}" style="color: #007bff; text-decoration: none;">${number}</a></p>
+            <p><strong>🎯 Interested Course:</strong> ${course_Interest}</p>
+          </div>
+        
+          <p style="margin-top: 20px; font-size: 16px; color: #333;">📝 <strong>Message:</strong></p>
+          <p style="background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 15px; line-height: 1.5; color: #555;">
+            ${message}
+          </p>
+        
+          <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
+        
+          <p style="font-size: 14px; color: #777;">This call request was submitted from your website.</p>
+          <p style="font-size: 14px; color: #555;">Regards,</p>
+          <p style="font-size: 16px; font-weight: bold; color: #007bff;">${name}</p>
+        </div>
+        `;
 
         await sendEmail(process.env.EMAIL, subjectAdmin, EmailMessageForAdmin);
       } catch (error) {

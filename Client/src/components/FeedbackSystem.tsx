@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../Redux/Store";
 import { submitFeedback } from "../Redux/Slice/UserSlice";
+import { GetAllFeedback } from "../Redux/Slice/Admin";
 
 const FeedbackSystem = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,6 +23,7 @@ const FeedbackSystem = () => {
       feedback,
     };
     await dispatch(submitFeedback(Data));
+    await dispatch(GetAllFeedback());
     setName("");
     setRating(0);
     setFeedback("");
@@ -75,6 +77,7 @@ const FeedbackSystem = () => {
             </label>
             <select
               value={feedbackType}
+              required
               onChange={(e) => setFeedbackType(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md "
             >
@@ -116,6 +119,7 @@ const FeedbackSystem = () => {
               Your Feedback
             </label>
             <textarea
+              required
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
               rows={4}

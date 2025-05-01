@@ -134,7 +134,7 @@ export const AdminCheck = async (req, res, next) => {
         </div>
       `;
 
-      await sendEmail(process.env.EMAIL, subject, message);
+      await sendEmail(email, subject, message);
       return res.status(200).json({
         success: true,
         data: findAdmin,
@@ -213,7 +213,7 @@ export const changePassword = async (req, res, next) => {
         <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
     
         <p>Best regards,</p>
-        <p><strong>Pawan Kumar</strong></p>
+        
       </div>
     `;
 
@@ -322,7 +322,7 @@ export const updatePassword = async (req, res, next) => {
         <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
     
         <p>Best regards,</p>
-        <p><strong>Pawan Kumar</strong></p>
+       
       </div>
     `;
 
