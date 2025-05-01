@@ -36,6 +36,12 @@ export const CallRequest = () => {
         const response = await dispatch(CallReqSubmit(formData));
         if (response.payload?.success) {
           setMessage("Send message  successfully!");
+          setFormData({
+            name: "",
+            phone: "",
+            course: "",
+            message: "",
+          });
         } else {
           throw new Error(response.payload?.message || "Sending failed");
         }
@@ -137,9 +143,10 @@ export const CallRequest = () => {
                 {" "}
                 Select a course
               </option>
-              <option value="bca">BCA</option>
-              <option value="bba">BBA</option>
-              <option value="bcom">B.Com</option>
+              <option value="B.A">B.A</option>
+              <option value="RS-CIT">RS-CIT</option>
+              <option value="B.A.Ed">B.A.Ed</option>
+              <option value="B.Ed">B.Ed</option>
               <option value="other">Other</option>
             </select>
           </div>
@@ -175,7 +182,7 @@ export const CallRequest = () => {
             type="submit"
             className="w-full bg-[var(--bg-color)] text-[var(--text-color)] py-2 px-4 rounded-md custom-hover focus:outline-none "
           >
-            Submit Request
+            {loading ? "Submit Request" : "Loading..."}
           </button>
         </form>
       </div>

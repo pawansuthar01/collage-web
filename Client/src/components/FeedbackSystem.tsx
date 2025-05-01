@@ -26,6 +26,7 @@ const FeedbackSystem = () => {
     await dispatch(GetAllFeedback());
     setName("");
     setRating(0);
+    setFeedbackType("course");
     setFeedback("");
   };
 

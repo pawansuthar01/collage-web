@@ -33,7 +33,7 @@ export const submitMessage = async (req, res, next) => {
 
     (async () => {
       try {
-        const subjectAdmin = "📩 New Message from User";
+        const subjectAdmin = "📩 New Message from student";
         const EmailMessageForAdmin = `
         <div style="max-width: 600px; margin: auto; font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; border-radius: 10px; border: 1px solid #ddd; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
           
@@ -55,12 +55,10 @@ export const submitMessage = async (req, res, next) => {
           <p style="font-size: 14px; color: #777;">📌 This message was sent from your website's contact form.</p>
       
           <p style="font-size: 14px; color: #555;">Best regards,</p>
-          <p style="font-size: 16px; font-weight: bold; color: #007bff;">${name}</p>
       
         </div>
       `;
         await sendEmail(process.env.EMAIL, subjectAdmin, EmailMessageForAdmin);
-        console.log("✅ Email sent successfully.");
       } catch (emailError) {
         console.error("❌ Error sending email:", emailError.message);
       }

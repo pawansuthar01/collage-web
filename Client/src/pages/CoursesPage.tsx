@@ -81,6 +81,15 @@ const CoursesPage = () => {
       courseApplyData.previousEducation
     ) {
       await dispatch(CourseApplySubmit(courseApplyData));
+      setCourseApplyData({
+        name: "",
+        email: "",
+        phone: "",
+        courseName: "",
+        courseFees: "",
+        previousEducation: "",
+        message: "",
+      });
     } else {
       Object.entries(courseApplyData).forEach(([key, value]) => {
         const element = document.getElementById(key);

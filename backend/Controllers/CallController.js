@@ -51,7 +51,7 @@ export const SubmitCallRequired = async (req, res, next) => {
         
           <p style="font-size: 14px; color: #777;">This call request was submitted from your website.</p>
           <p style="font-size: 14px; color: #555;">Regards,</p>
-          <p style="font-size: 16px; font-weight: bold; color: #007bff;">${name}</p>
+          
         </div>
         `;
 
