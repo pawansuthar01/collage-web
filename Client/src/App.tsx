@@ -29,7 +29,7 @@ import CheckAdminIsLoggedIn from "./Auth/CheckAdminIsLoggedIn";
 import UpdatePassword from "./Auth/Password/ResetPassword";
 import { DocumentPage } from "./pages/documentPage";
 import DocumentsPage from "./Auth/document/document";
-import NoticeBoard from "./components/NoticeBoard";
+
 import BannerNotice from "./Auth/Notice/BannerNotice";
 
 function App() {
