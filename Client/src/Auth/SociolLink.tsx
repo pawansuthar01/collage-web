@@ -12,6 +12,7 @@ interface SocialLinks {
   facebook: string;
   phoneNumber: number;
   email: string;
+  address: string;
 }
 
 const SocialUpdate: React.FC = () => {
@@ -29,6 +30,7 @@ const SocialUpdate: React.FC = () => {
     facebook: "",
     phoneNumber: 0,
     email: "",
+    address: "",
   });
   async function contactDataLoad() {
     const res = await dispatch(getSocialLinkData());
@@ -44,6 +46,7 @@ const SocialUpdate: React.FC = () => {
         facebook: Data.facebook || "",
         phoneNumber: Data.phoneNumber || 0,
         email: Data?.email || "",
+        address: Data?.address || "",
       });
     }
   }, [Data]);
@@ -63,7 +66,8 @@ const SocialUpdate: React.FC = () => {
       !formData.youtube ||
       !formData.facebook ||
       !formData.phoneNumber ||
-      !formData.email
+      !formData.email ||
+      !formData.address
     ) {
       toast.error("All social links are required to update.");
       return;
@@ -102,6 +106,7 @@ const SocialUpdate: React.FC = () => {
             { label: "Facebook Link", name: "facebook", Type: "url" },
             { label: "Phone Number", name: "phoneNumber", Type: "number" },
             { label: "Email ", name: "email", Type: "email" },
+            { label: "address ", name: "address", Type: "text" },
           ].map(({ label, name, Type }) => (
             <div className="mb-4" key={name}>
               <label

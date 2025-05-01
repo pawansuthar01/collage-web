@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
 import Layout from "../layout/layout";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../Redux/Store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
 import { useEffect, useState } from "react";
 import { getSocialLinkData } from "../Redux/Slice/getData";
 import { submitMessage } from "../Redux/Slice/UserSlice";
@@ -15,12 +15,11 @@ type formDataType = {
 type contactType = {
   phoneNumber: number;
   email: string;
+  address: string;
 };
 const ContactPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const ContactData = useSelector(
-    (state: RootState) => state.storeData.SocialLinkData
-  );
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [contact, setContact] = useState<contactType>();
@@ -37,11 +36,7 @@ const ContactPage = () => {
     }
   }
   useEffect(() => {
-    if (ContactData[0] == null) {
-      contactDataLoad();
-    } else {
-      setContact(ContactData[0]);
-    }
+    contactDataLoad();
   }, []);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -134,10 +129,7 @@ const ContactPage = () => {
                   className="flex items-center"
                 >
                   <MapPin className="h-6 w-6 text-[var(--icon-color)]" />
-                  <span className="ml-3 text-gray-600">
-                    Mata Gujri Khalsa College Of Education, sikh minority
-                    institution 2 C, Rajasthan 335001
-                  </span>
+                  <span className="ml-3 text-gray-600">{contact?.address}</span>
                 </motion.div>
               </div>
 

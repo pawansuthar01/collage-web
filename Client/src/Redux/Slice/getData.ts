@@ -30,9 +30,12 @@ const createFetchThunk = (key: StorageKey) => {
     async (_, { rejectWithValue }) => {
       try {
         const response = await axiosInstance.get(
-          `/collage/v3/user/${key.replace("Data", "").toLowerCase()}`
+          `/collage/v3/user/${key.replace("Data", "").toLowerCase()}
+        `
         );
-        return response?.data?.data || [];
+        const data = response?.data?.data || [];
+        localStorage.setItem(key, JSON.stringify(data));
+        return data;
       } catch (error: any) {
         return rejectWithValue(
           error?.response?.data?.message ||

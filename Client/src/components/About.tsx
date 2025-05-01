@@ -1,17 +1,15 @@
 import { Users } from "lucide-react";
 import { getAboutData } from "../Redux/Slice/getData";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../Redux/Store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
 type AboutDataType = {
   photo: string;
   description: string;
 };
 const About = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const AboutData = useSelector(
-    (state: RootState) => state.storeData.AboutData
-  );
+
   const [About, setAbout] = useState<AboutDataType>({
     photo: "",
     description: "",
@@ -24,14 +22,7 @@ const About = () => {
     }
   }
   useEffect(() => {
-    if (AboutData == null) {
-      contactDataLoad();
-    } else {
-      setAbout({
-        photo: AboutData[0]?.photo || "",
-        description: AboutData[0]?.description || "",
-      });
-    }
+    contactDataLoad();
   }, []);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
