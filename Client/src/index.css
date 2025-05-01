@@ -35,6 +35,8 @@ input[type="number"]::-webkit-inner-spin-button {
   --text-Secondary-color: #393838;
   --cardBg-color: white; /*card background color*/
   --opacity: 0.4;
+  --notice-line-text-color: var(--text-color); /*notice line text color */
+  --notice-line-bg-color: var(--bg-color);
   --hero-text-color: white; /* hero page text color*/
   --btn-color: #e4400d; /*button background color*/
   --heading-color: #e4400d; /*main heading  color*/
@@ -110,4 +112,11 @@ input[type="number"]::-webkit-inner-spin-button {
   100% {
     transform: scaleY(0px);
   }
+}
+.notice-bar {
+  background-color: transparent;
+
+  padding: 10px;
+  font-weight: bold;
+  color: #794a4a;
 }

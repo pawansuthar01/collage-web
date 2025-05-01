@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../Redux/Store";
 import { getBannerData } from "../Redux/Slice/getData";
+import { NoticeLine } from "./NoticeLine";
 
 const Hero = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -79,6 +80,9 @@ const Hero = () => {
         className=" max-[500px]:mb-[250px] max-[750px]:mb-40 max-sm:mb:36 max-md:mb-36 sm:mb-40  md:mb-36  lg:mb-36"
       >
         <div className="relative pt-16 ">
+          <div className="z-40 relative">
+            <NoticeLine />
+          </div>
           <div className="absolute inset-0">
             <img
               className="w-full h-screen object-cover"

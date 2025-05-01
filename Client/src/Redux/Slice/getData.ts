@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "../../../Helper/axiosInstance";
 
 // Define all keys
-
 const storageKeys = [
   "SocialLinkData",
   "bannerData",
@@ -10,6 +9,7 @@ const storageKeys = [
   "courseData",
   "NoticeData",
   "feedbackData",
+  "BannerNoticeData",
 ] as const;
 
 type StorageKey = (typeof storageKeys)[number];
@@ -18,27 +18,12 @@ interface DataState {
   [key: string]: any[];
 }
 
-// Function to get stored data
-const getStoredData = (key: StorageKey): any[] => {
-  try {
-    const data = localStorage.getItem(key);
-    return data && data !== "undefined" && data !== "null"
-      ? JSON.parse(data)
-      : [];
-  } catch (error) {
-    console.error(`❌ localStorage error for ${key}:`, error);
-    return [];
-  }
-};
-
-// Initial state
+// Initial state (no localStorage usage)
 const initialState: DataState = Object.fromEntries(
-  storageKeys.map((key) => [key, getStoredData(key)])
+  storageKeys.map((key) => [key, []])
 ) as DataState;
 
-// ----------------------------
 // 🔁 Utility to create thunk
-// ----------------------------
 const createFetchThunk = (key: StorageKey) => {
   return createAsyncThunk<any[], void, { rejectValue: string }>(
     `get/${key}`,
@@ -47,9 +32,7 @@ const createFetchThunk = (key: StorageKey) => {
         const response = await axiosInstance.get(
           `/collage/v3/user/${key.replace("Data", "").toLowerCase()}`
         );
-        const data = response?.data?.data || [];
-        localStorage.setItem(key, JSON.stringify(data));
-        return data;
+        return response?.data?.data || [];
       } catch (error: any) {
         return rejectWithValue(
           error?.response?.data?.message ||
@@ -61,14 +44,23 @@ const createFetchThunk = (key: StorageKey) => {
   );
 };
 
-// 🔁 Create individual thunks
+// Individual thunks
 export const getSocialLinkData = createFetchThunk("SocialLinkData");
 export const getBannerData = createFetchThunk("bannerData");
 export const getAboutData = createFetchThunk("aboutData");
 export const getCourseData = createFetchThunk("courseData");
 export const getNoticeData = createFetchThunk("NoticeData");
 export const getFeedbackData = createFetchThunk("feedbackData");
+export const getBannerNoticeData = createFetchThunk("BannerNoticeData");
 
+export const getDocumentData = createAsyncThunk("get/Document", async () => {
+  try {
+    const response = await axiosInstance.get(`/collage/v3/user/document`);
+    return response?.data;
+  } catch (error: any) {
+    return error?.response?.data || error?.message || "Something went wrong...";
+  }
+});
 export const getAllData = createAsyncThunk<
   Partial<DataState>,
   void,
@@ -80,9 +72,7 @@ export const getAllData = createAsyncThunk<
         .replace("Data", "")
         .toLowerCase()}`;
       const response = await axiosInstance.get(endpoint);
-      const data = response?.data?.data || [];
-      localStorage.setItem(key, JSON.stringify(data));
-      return { key, data };
+      return { key, data: response?.data?.data || [] };
     });
 
     const results = await Promise.all(requests);
@@ -100,9 +90,7 @@ export const getAllData = createAsyncThunk<
   }
 });
 
-// ----------------------------
-// ✅ Slice
-// ----------------------------
+// Slice
 const DataRedux = createSlice({
   name: "DataStore",
   initialState,

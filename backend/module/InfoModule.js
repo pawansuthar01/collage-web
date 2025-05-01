@@ -9,6 +9,7 @@ const InformationSchema = new Schema(
     instagram: { type: String },
     facebook: { type: String },
     youtube: { type: String },
+    address: { type: String, required: true },
   },
   { timestamps: true }
 );

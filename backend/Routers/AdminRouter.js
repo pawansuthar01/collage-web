@@ -47,6 +47,15 @@ import {
   AboutSectionCreate,
   AboutSectionUpdate,
 } from "../Controllers/AboutController.js";
+import {
+  DeleteNotice,
+  editNotice,
+  newNotice,
+} from "../Controllers/BannerNotice.js";
+import {
+  DeleteDocument,
+  newDocument,
+} from "../Controllers/documentController.js";
 
 const Admin = Router();
 Admin.get("/Login/:email/:password", AdminCheck);
@@ -85,5 +94,9 @@ Admin.route("/course")
   .delete(DeleteCourseById);
 Admin.route("/courseApply").get(getAllCourseApply);
 Admin.route("/courseApply/:id").put(markToReadCourseApply);
+Admin.route("/banner-notice").post(newNotice);
+Admin.route("/banner-notice/:id").put(editNotice).delete(DeleteNotice);
+Admin.route("/document").post(upload.single("photo"), newDocument);
+Admin.route("/document/:id").delete(DeleteDocument);
 
 export default Admin;

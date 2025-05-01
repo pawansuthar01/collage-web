@@ -27,6 +27,10 @@ import NotFoundPage from "./pages/NotFound";
 import Denied from "./pages/Denied";
 import CheckAdminIsLoggedIn from "./Auth/CheckAdminIsLoggedIn";
 import UpdatePassword from "./Auth/Password/ResetPassword";
+import { DocumentPage } from "./pages/documentPage";
+import DocumentsPage from "./Auth/document/document";
+import NoticeBoard from "./components/NoticeBoard";
+import BannerNotice from "./Auth/Notice/BannerNotice";
 
 function App() {
   return (
@@ -35,6 +39,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/notices" element={<NoticesPage />} />
+          <Route path="/documents" element={<DocumentPage />} />
           <Route path="/Error" element={<ErrorPage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -49,6 +54,8 @@ function App() {
           <Route element={<RequireAuth allowedRole={"ADMIN"} />}>
             {" "}
             <Route path="/Admin/Dashboard" element={<Dashboard />} />
+            <Route path="/Admin/document" element={<DocumentsPage />} />
+            <Route path="/Admin/banner-notice" element={<BannerNotice />} />
             <Route path="/Admin/call-requests" element={<CallList />} />
             <Route path="/Admin/feedback" element={<FeedbackList />} />
             <Route path="/Admin/contacts" element={<ContactList />} />

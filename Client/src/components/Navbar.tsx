@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Home, Phone, Users, Menu, X, Bell } from "lucide-react";
 import { motion } from "framer-motion";
+import { GrDocumentUser } from "react-icons/gr";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +13,7 @@ const Navbar = () => {
     { name: "Courses", icon: BookOpen, to: "/courses" },
     { name: "About", icon: Users, to: "/about" },
     { name: "Contact", icon: Phone, to: "/contact" },
+    { name: "Document", icon: GrDocumentUser, to: "/documents" },
   ];
 
   return (

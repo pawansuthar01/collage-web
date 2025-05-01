@@ -98,9 +98,9 @@ const CoursesPage = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="pt-20 pb-16"
+        className="pt-20 pb-16  min-h-[50%]"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="flex items-center mb-8">
             <GraduationCap className="h-8 w-8 text-[var(--icon-color)]" />
             <h2 className="ml-3 text-3xl font-bold  text-[var(--hading-color)]">
@@ -108,47 +108,57 @@ const CoursesPage = () => {
             </h2>
           </div>
 
-          <div className=" gap-6 flex justify-evenly flex-wrap">
-            {loading
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <CourseCardSkeleton key={i} />
-                ))
-              : data.map((course) => (
-                  <motion.div
-                    key={course._id}
-                    whileHover={{ scale: 1.02 }}
-                    className="bg-white p-6 min-w-[350px] border rounded-lg shadow-md"
+          <div className=" gap-6 flex justify-evenly  flex-wrap">
+            {loading ? (
+              Array.from({ length: 3 }).map((_, i) => (
+                <CourseCardSkeleton key={i} />
+              ))
+            ) : data.length > 0 ? (
+              data.map((course) => (
+                <motion.div
+                  key={course._id}
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-white p-6 min-w-[350px] border rounded-lg shadow-md"
+                >
+                  <h3 className="text-xl font-semibold  text-[var(--heading-color)]">
+                    {course.name_course}
+                  </h3>
+                  <p className="mt-2  font-medium text-[var(--course-year-color)]">
+                    Duration: {course.course_dur}
+                  </p>
+                  <p className="mt-2 text-gray-600">
+                    {course.course_description}
+                  </p>
+                  <div className="mt-4 flex justify-between items-center">
+                    <span className="text-[var(--course-fees-color)]">
+                      Fees :₹{course.course_fees}
+                    </span>
+                    <span className="text-[var(--course-seat-color)]">
+                      Seats: {course.course_seats}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() =>
+                      handelFromOpen({
+                        name: course.name_course,
+                        fees: course.course_fees,
+                      })
+                    }
+                    className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
                   >
-                    <h3 className="text-xl font-semibold  text-[var(--heading-color)]">
-                      {course.name_course}
-                    </h3>
-                    <p className="mt-2  font-medium text-[var(--course-year-color)]">
-                      Duration: {course.course_dur}
-                    </p>
-                    <p className="mt-2 text-gray-600">
-                      {course.course_description}
-                    </p>
-                    <div className="mt-4 flex justify-between items-center">
-                      <span className="text-[var(--course-fees-color)]">
-                        Fees :₹{course.course_fees}
-                      </span>
-                      <span className="text-[var(--course-seat-color)]">
-                        Seats: {course.course_seats}
-                      </span>
-                    </div>
-                    <button
-                      onClick={() =>
-                        handelFromOpen({
-                          name: course.name_course,
-                          fees: course.course_fees,
-                        })
-                      }
-                      className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
-                    >
-                      Apply Now
-                    </button>
-                  </motion.div>
-                ))}
+                    Apply Now
+                  </button>
+                </motion.div>
+              ))
+            ) : (
+              <div className=" rounded-lg ">
+                <div className="p-6 space-y-4">
+                  <p className="text-[var(--text-Secondary-color)] text-center">
+                    No Course available
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {showForm && (

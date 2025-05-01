@@ -3,7 +3,8 @@ import AppError from "../Utils/AppErrors.js";
 
 export const SubmitSociolLink = async (req, res, next) => {
   try {
-    const { phoneNumber, email, instagram, facebook, youtube } = req.body;
+    const { phoneNumber, address, email, instagram, facebook, youtube } =
+      req.body;
 
     const SociolLink = new SocialLink({
       phoneNumber,
@@ -11,6 +12,7 @@ export const SubmitSociolLink = async (req, res, next) => {
       email,
       youtube,
       instagram,
+      address,
     });
     if (!SociolLink) {
       return next(new AppError("something wont wrong,try next time...", 400));

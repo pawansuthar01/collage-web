@@ -176,6 +176,59 @@ export const DeleteNotice = createAsyncThunk(
     }
   }
 );
+/// Notice //
+//Notice new  add//
+export const newBannerNotice = createAsyncThunk(
+  "/new/BannerNotice",
+  async (data: any) => {
+    try {
+      const response = await axiosInstance.post(
+        `/collage/v5/Admin/banner-notice`,
+        data
+      );
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
+//Update notice//
+export const UpdateBannerNotice = createAsyncThunk(
+  "/update/BannerNotice",
+  async (data: any) => {
+    try {
+      const response = await axiosInstance.put(
+        `/collage/v5/admin/banner-notice/${data.id}`,
+        {
+          notice: data.notice,
+        }
+      );
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
+//Delete notice//
+export const DeleteBannerNotice = createAsyncThunk(
+  "/delete/BannerNotice",
+  async (id: string) => {
+    try {
+      const response = await axiosInstance.delete(
+        `/collage/v5/admin/banner-notice/${id}`
+      );
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
 // Event//
 
 //  new Event add//
@@ -193,7 +246,7 @@ export const UpdateEvent = createAsyncThunk(
   "/update/About",
   async (data: any) => {
     try {
-      const response = await axiosInstance.put("/app/admin/v3/About", data);
+      const response = await axiosInstance.put("/collage/v5/admin/event", data);
       return response?.data;
     } catch (error: any) {
       return (
@@ -208,7 +261,41 @@ export const DeleteEvent = createAsyncThunk(
   async (id: string) => {
     try {
       const response = await axiosInstance.delete(
-        `/app/admin/v3/education/${id}`
+        `/collage/v5/admin/event/${id}`
+      );
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
+//new Document//
+export const newDocument = createAsyncThunk(
+  "/new/Document",
+  async (data: any) => {
+    console.log(data);
+    try {
+      const response = await axiosInstance.post(
+        "/collage/v5/admin/document",
+        data
+      );
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
+//Delete Document//
+export const DeleteDocument = createAsyncThunk(
+  "/delete/education",
+  async (id: string) => {
+    try {
+      const response = await axiosInstance.delete(
+        `/collage/v5/admin/document/${id}`
       );
       return response?.data;
     } catch (error: any) {

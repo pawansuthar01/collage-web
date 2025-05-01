@@ -44,7 +44,7 @@ const NoticesPage = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0 }}
-        className="pt-20 pb-16"
+        className="pt-20 pb-16 min-h-[50%]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center mb-8">
@@ -100,7 +100,7 @@ const NoticesPage = () => {
                 </div>
               ))
             ) : (
-              <div className="bg-[var(--admin-bg-color)] rounded-lg shadow-md">
+              <div className=" rounded-lg ">
                 <div className="p-6 space-y-4">
                   <p className="text-[var(--text-Secondary-color)] text-center">
                     No notices available

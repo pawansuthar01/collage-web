@@ -11,6 +11,8 @@ import { GetCourse } from "../Controllers/CourseController.js";
 import { submitMessage } from "../Controllers/MessageController.js";
 import { ApplyCourse } from "../Controllers/courseApplycontroller.js";
 import { SubmitCallRequired } from "../Controllers/CallController.js";
+import { getBannerNotice } from "../Controllers/BannerNotice.js";
+import { getDocument } from "../Controllers/documentController.js";
 
 const UserRouter = Router();
 UserRouter.route("/sociallink").get(GetSocial);
@@ -22,4 +24,6 @@ UserRouter.route("/Call").post(SubmitCallRequired);
 UserRouter.route("/course").get(GetCourse);
 UserRouter.route("/notice").get(AllNoticeGet);
 UserRouter.route("/course_apply").post(ApplyCourse);
+UserRouter.route("/bannernotice").get(getBannerNotice);
+UserRouter.route("/document").get(getDocument);
 export default UserRouter;

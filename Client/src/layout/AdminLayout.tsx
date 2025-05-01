@@ -15,6 +15,7 @@ import {
   Lock,
   ChevronDown,
   LogOut,
+  FileText,
 } from "lucide-react";
 import { BiSolidColorFill } from "react-icons/bi";
 import { useDispatch } from "react-redux";
@@ -58,6 +59,7 @@ const Sidebar = ({
       submenu: [
         { path: "/Admin/notices", label: "Notice List" },
         { path: "/Admin/notices/add", label: "Add Notice" },
+        { path: "/Admin/banner-notice", label: "Highlighted Notice" },
       ],
       isOpen: noticeMenuOpen,
       setOpen: setNoticeMenuOpen,
@@ -67,6 +69,11 @@ const Sidebar = ({
       path: "/Admin/feedback",
       title: "Feedback",
       icon: <MessageSquare className="w-5 h-5" />,
+    },
+    {
+      path: "/Admin/document",
+      title: "document",
+      icon: <FileText className="w-5 h-5" />,
     },
     {
       path: "/Admin/call-requests",
