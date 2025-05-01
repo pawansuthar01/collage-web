@@ -18,7 +18,7 @@ const About = () => {
   async function contactDataLoad() {
     const res = await dispatch(getAboutData());
     if (res && res?.payload != undefined) {
-      setAbout(res?.payload[0]);
+      setAbout(res?.payload?.data[0]);
     }
   }
   useEffect(() => {

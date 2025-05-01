@@ -32,7 +32,7 @@ const ContactPage = () => {
   async function contactDataLoad() {
     const res = await dispatch(getSocialLinkData());
     if (res?.payload) {
-      setContact(res?.payload[0]);
+      setContact(res?.payload?.data[0]);
     }
   }
   useEffect(() => {

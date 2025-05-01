@@ -3,9 +3,8 @@ import axiosInstance from "../../../Helper/axiosInstance";
 
 // Define all keys
 const storageKeys = [
-  "SocialLinkData",
   "bannerData",
-  "aboutData",
+
   "courseData",
   "NoticeData",
   "feedbackData",
@@ -48,9 +47,8 @@ const createFetchThunk = (key: StorageKey) => {
 };
 
 // Individual thunks
-export const getSocialLinkData = createFetchThunk("SocialLinkData");
+
 export const getBannerData = createFetchThunk("bannerData");
-export const getAboutData = createFetchThunk("aboutData");
 export const getCourseData = createFetchThunk("courseData");
 export const getNoticeData = createFetchThunk("NoticeData");
 export const getFeedbackData = createFetchThunk("feedbackData");
@@ -59,6 +57,22 @@ export const getBannerNoticeData = createFetchThunk("BannerNoticeData");
 export const getDocumentData = createAsyncThunk("get/Document", async () => {
   try {
     const response = await axiosInstance.get(`/collage/v3/user/document`);
+    return response?.data;
+  } catch (error: any) {
+    return error?.response?.data || error?.message || "Something went wrong...";
+  }
+});
+export const getSocialLinkData = createAsyncThunk("get/link", async () => {
+  try {
+    const response = await axiosInstance.get(`/collage/v3/user/sociallink`);
+    return response?.data;
+  } catch (error: any) {
+    return error?.response?.data || error?.message || "Something went wrong...";
+  }
+});
+export const getAboutData = createAsyncThunk("get/about", async () => {
+  try {
+    const response = await axiosInstance.get(`/collage/v3/user/about`);
     return response?.data;
   } catch (error: any) {
     return error?.response?.data || error?.message || "Something went wrong...";

@@ -23,8 +23,11 @@ const Navbar = () => {
           <div className="">
             <Link to="/" className="flex items-center">
               <BookOpen className="h-8 w-8 max-[600px]:h-5" />
-              <span className="ml-2 text-xl capitalize max-[600px]:text-sm font-bold">
-                mata gujri khlasa sansthan
+              <span className="ml-2 max-[400px]:hidden  flex text-xl capitalize max-[600px]:text-sm font-bold">
+                Mata gujri khlasa shikshan sansthan
+              </span>
+              <span className="ml-2 text-xl   max-[400px]:flex hidden capitalize max-[600px]:text-sm font-bold">
+                Mata gujri khlasa shikshan
               </span>
             </Link>
           </div>

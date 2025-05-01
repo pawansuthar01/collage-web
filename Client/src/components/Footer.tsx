@@ -1,33 +1,29 @@
 import { BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
-import { AppDispatch, RootState } from "../Redux/Store";
-import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
+import { useDispatch } from "react-redux";
 import { getSocialLinkData } from "../Redux/Slice/getData";
 type LinkDataType = {
   instagram: string;
   youtube: string;
   facebook: string;
+  address: string;
 };
 const Footer = () => {
   const date = new Date();
   const year = date.getFullYear();
   const dispatch = useDispatch<AppDispatch>();
-  const LinkData = useSelector(
-    (state: RootState) => state.storeData.SocialLinkData
-  );
+
   const [link, setLink] = useState<LinkDataType>();
   async function contactDataLoad() {
     const res = await dispatch(getSocialLinkData());
     if (res?.payload) {
-      setLink(res?.payload[0]);
+      setLink(res?.payload?.data[0]);
     }
   }
+
   useEffect(() => {
-    if (LinkData[0] == null) {
-      contactDataLoad();
-    } else {
-      setLink(LinkData[0]);
-    }
+    contactDataLoad();
   }, []);
   return (
     <footer className="bg-[var(--bg-color)] text-[var(--text-color)] ">
@@ -36,13 +32,10 @@ const Footer = () => {
           <div className="flex items-center">
             <BookOpen className="h-8 w-8" />
             <span className="ml-2 text-xl font-bold">
-              Mata Gujri Khalsa College
+              Mata gujri khlasa shikshan sansthan
             </span>
           </div>
-          <p className="mt-4 ">
-            Mata Gujri Khalsa College Of Education, sikh minority institution 2
-            C, Rajasthan 335001
-          </p>
+          <p className="mt-4 ">{link?.address}</p>
         </div>
         <div className="flex justify-between flex-wrap px-10">
           <div>
