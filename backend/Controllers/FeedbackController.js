@@ -65,12 +65,6 @@ export const getAllFeedback = async (req, res, next) => {
 
     const AllFeedback = await Feedback.find({});
 
-    if (!AllFeedback || AllFeedback.length === 0) {
-      return next(
-        new AppError("No feedback found with ratings between 3 and 5", 404)
-      );
-    }
-
     res.status(200).json({
       success: true,
       message: "Successfully fetched feedback with ratings between 3 and 5",

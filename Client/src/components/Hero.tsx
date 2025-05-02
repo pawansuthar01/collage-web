@@ -14,7 +14,6 @@ const Hero = () => {
   );
 
   const circularTextRef = useRef<HTMLDivElement>(null);
-
   async function LoadData() {
     try {
       await dispatch(getBannerData());

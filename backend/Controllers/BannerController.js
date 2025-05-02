@@ -76,7 +76,6 @@ export const UpdatedMainSectionData = async (req, res, next) => {
     totalAwardsCount,
     Years_of_Excellence_count,
   } = req.body;
-  console.log(req.body);
   try {
     // *cloudinary setup //*
 
