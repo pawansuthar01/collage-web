@@ -1,8 +1,8 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateSocialData } from "../Redux/Slice/Admin";
 import toast from "react-hot-toast";
-import { AppDispatch, RootState } from "../Redux/Store";
+import { AppDispatch } from "../Redux/Store";
 import LayoutAdmin from "../layout/AdminLayout";
 import { getSocialLinkData } from "../Redux/Slice/getData";
 

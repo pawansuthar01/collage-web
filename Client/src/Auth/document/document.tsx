@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DocumentCard from "./documentCart";
-import { Upload, Grid, List, Download, Trash2, Eye } from "lucide-react";
+import { Upload } from "lucide-react";
 import LayoutAdmin from "../../layout/AdminLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/Store";
@@ -18,7 +18,6 @@ const DocumentsPage: React.FC = () => {
   const [documents, setDocuments] = useState<DocumentData[]>(documentData);
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const handleDelete = async (id: string) => {
     const res = await dispatch(DeleteDocument(id));
