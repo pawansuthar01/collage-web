@@ -19,10 +19,7 @@ const SocialUpdate: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
 
-  const { SocialLinkData } = useSelector(
-    (state: RootState) => state?.storeData
-  );
-  const [Data, setData] = useState<SocialLinks>(SocialLinkData[0]);
+  const [Data, setData] = useState<SocialLinks>();
 
   const [formData, setFormData] = useState<SocialLinks>({
     instagram: "",
@@ -35,7 +32,7 @@ const SocialUpdate: React.FC = () => {
   async function contactDataLoad() {
     const res = await dispatch(getSocialLinkData());
     if (res?.payload) {
-      setData(res?.payload[0]);
+      setData(res?.payload?.data[0]);
     }
   }
   useEffect(() => {

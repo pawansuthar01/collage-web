@@ -133,8 +133,12 @@ export const AdminCheck = async (req, res, next) => {
           </div>
         </div>
       `;
+      try {
+        await sendEmail(email, subject, message);
+      } catch (error) {
+        console.log(error.message);
+      }
 
-      await sendEmail(email, subject, message);
       return res.status(200).json({
         success: true,
         data: findAdmin,

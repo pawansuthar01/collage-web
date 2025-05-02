@@ -55,9 +55,6 @@ export const AboutSectionCreate = async (req, res, next) => {
 //*updated main section data//*
 export const AboutSectionUpdate = async (req, res, next) => {
   const { description } = req.body;
-  if (!req.file) {
-    return next(new AppError("please give All Data  ", 400));
-  }
 
   try {
     // *cloudinary setup //*

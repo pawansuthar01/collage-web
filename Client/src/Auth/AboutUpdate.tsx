@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../Redux/Store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/Store";
 import { AboutUpdate } from "../Redux/Slice/Admin";
 import LayoutAdmin from "../layout/AdminLayout";
 import toast from "react-hot-toast";
+import { getAboutData } from "../Redux/Slice/getData";
 
 interface AboutInfo {
   photo: string;
@@ -12,22 +13,37 @@ interface AboutInfo {
 
 export default function AdminAboutUpdate() {
   const dispatch = useDispatch<AppDispatch>();
-  const { aboutData } = useSelector((state: RootState) => state?.storeData);
-  const [Data, setData] = useState<AboutInfo>(aboutData[0]);
+  const [Data, setData] = useState<AboutInfo>();
   const [aboutInfo, setAboutInfo] = useState<AboutInfo>({
     photo: "",
     description: "",
   });
+  const [DataLoad, setDataLoad] = useState(false);
   const [photo, setPhoto] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  const handelDataLoad = async () => {
+    setDataLoad(true);
+    const res = await dispatch(getAboutData());
+    if (res && res.payload) {
+      const data = res.payload?.data[0];
+      if (data) {
+        setAboutInfo({
+          photo: data.photo || "",
+          description: data.description || "",
+        });
+      }
+    }
+    setDataLoad(false);
+  };
+
+  useEffect(() => {
+    handelDataLoad();
+  }, []);
+
   useEffect(() => {
     if (Data) {
-      setAboutInfo({
-        photo: Data.photo || "",
-        description: Data.description || "",
-      });
     }
   }, [Data]);
 
@@ -70,6 +86,19 @@ export default function AdminAboutUpdate() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (DataLoad) {
+    return (
+      <LayoutAdmin>
+        <div className=" bg-[Var(--admin-bg-color)] flex justify-center h-screen items-center z-50">
+          <div className="space-y-4">
+            <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+            <div className="text-white text-xl">Loading...</div>
+          </div>
+        </div>
+      </LayoutAdmin>
+    );
   }
 
   return (

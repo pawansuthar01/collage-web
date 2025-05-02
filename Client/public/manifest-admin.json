@@ -1,7 +1,7 @@
 {
   "name": "MGKSS Dashboard",
   "short_name": "MGKSS Dashboard",
-  "start_url": "/Admin",
+  "start_url": "/Admin/Dashboard",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0f172a",
