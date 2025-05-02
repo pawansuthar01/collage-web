@@ -95,6 +95,8 @@ const ChangePassword: React.FC = () => {
       ) as HTMLInputElement;
       if (oldInput) oldInput.style.borderColor = "red";
       toast.error(res.payload.message);
+    } else {
+      toast.error(res.payload.message);
     }
   };
 

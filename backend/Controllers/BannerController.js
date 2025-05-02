@@ -76,7 +76,7 @@ export const UpdatedMainSectionData = async (req, res, next) => {
     totalAwardsCount,
     Years_of_Excellence_count,
   } = req.body;
-
+  console.log(req.body);
   try {
     // *cloudinary setup //*
 
@@ -106,6 +106,7 @@ export const UpdatedMainSectionData = async (req, res, next) => {
       ...(totalAwardsCount && { totalAwardsCount }),
       ...(req.file && { photo }),
     };
+
     const updatedMainSection = await Main.findOneAndUpdate(
       { Key_id: "INFO_Banner" },
       updatedData,
@@ -114,7 +115,7 @@ export const UpdatedMainSectionData = async (req, res, next) => {
         runValidators: true,
       }
     );
-
+    await updatedMainSection.save();
     if (!updatedMainSection) {
       return next(new AppError("SomeThing Wont wrong...", 400));
     }

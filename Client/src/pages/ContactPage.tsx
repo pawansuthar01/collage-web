@@ -21,6 +21,7 @@ const ContactPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [loading, setLoading] = useState(false);
+  const [contactLoading, setContactLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [contact, setContact] = useState<contactType>();
   const [details, setDetails] = useState<formDataType>({
@@ -30,10 +31,12 @@ const ContactPage = () => {
     phoneNumber: "",
   });
   async function contactDataLoad() {
+    setContactLoading(true);
     const res = await dispatch(getSocialLinkData());
     if (res?.payload) {
       setContact(res?.payload?.data[0]);
     }
+    setContactLoading(false);
   }
   useEffect(() => {
     contactDataLoad();
@@ -101,37 +104,46 @@ const ContactPage = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <div className="space-y-6">
-                <motion.div
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  className="flex items-center"
-                >
-                  <Phone className="h-6 w-6 text-[var(--icon-color)]" />
-                  <span className="ml-3 text-gray-600">
-                    {" "}
-                    {contact?.phoneNumber}
-                  </span>
-                </motion.div>
-                <motion.div
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                  className="flex items-center"
-                >
-                  <Mail className="h-6 w-6 text-[var(--icon-color)]" />
-                  <span className="ml-3 text-gray-600">{contact?.email}</span>
-                </motion.div>
-                <motion.div
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="flex items-center"
-                >
-                  <MapPin className="h-6 w-6 text-[var(--icon-color)]" />
-                  <span className="ml-3 text-gray-600">{contact?.address}</span>
-                </motion.div>
-              </div>
+              {!contactLoading ? (
+                <div className="space-y-6">
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    className="flex items-center"
+                  >
+                    <Phone className="h-6 w-6 text-[var(--icon-color)]" />
+                    <span className="ml-3 text-gray-600">
+                      {" "}
+                      {contact?.phoneNumber}
+                    </span>
+                  </motion.div>
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 }}
+                    className="flex items-center"
+                  >
+                    <Mail className="h-6 w-6 text-[var(--icon-color)]" />
+                    <span className="ml-3 text-gray-600">{contact?.email}</span>
+                  </motion.div>
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex items-center"
+                  >
+                    <MapPin className="h-6 w-6 text-[var(--icon-color)]" />
+                    <span className="ml-3 text-gray-600">
+                      {contact?.address}
+                    </span>
+                  </motion.div>
+                </div>
+              ) : (
+                <div className="w-[80%] justify-center flex-col flex items-center">
+                  <div className="w-6 h-6 animate-spin border-2 border-blue-500 rounded-full border-b-0 border-l-0"></div>
+                  loading...
+                </div>
+              )}
 
               <motion.form
                 onSubmit={handelSubmit}

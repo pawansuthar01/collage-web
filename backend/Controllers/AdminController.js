@@ -217,11 +217,8 @@ export const changePassword = async (req, res, next) => {
       </div>
     `;
 
-    try {
-      await sendEmail(admin.email, subject, message);
-    } catch (error) {
-      return next(new AppError("Failed to send email: " + error.message, 500));
-    }
+    await sendEmail(email, subject, message);
+
     res.status(200).json({
       success: true,
       message: "Password successfully updated.",

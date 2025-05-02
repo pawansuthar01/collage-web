@@ -4,6 +4,7 @@ import { AppDispatch } from "../Redux/Store";
 import { updateBanner } from "../Redux/Slice/Admin";
 import LayoutAdmin from "../layout/AdminLayout";
 import { getBannerData } from "../Redux/Slice/getData";
+import toast from "react-hot-toast";
 interface BannerStats {
   totalStudentCount: string;
   totalCourseCount: string;
@@ -51,6 +52,10 @@ export default function AdminBannerUpdate() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error("File size must be less than 10MB.");
+        return;
+      }
       setPhoto(file);
     }
   };
@@ -65,10 +70,17 @@ export default function AdminBannerUpdate() {
       if (photo) {
         formData.append("photo", photo);
       }
-      formData.append("stats", JSON.stringify(stats));
+
+      formData.append("totalStudentCount", stats.totalStudentCount);
+      formData.append("totalCourseCount", stats.totalCourseCount);
+      formData.append("totalAwardsCount", stats.totalAwardsCount);
+      formData.append(
+        "Years_of_Excellence_count",
+        stats.Years_of_Excellence_count
+      );
 
       const response = await dispatch(updateBanner(formData));
-
+      console.log(response);
       if (!response.payload.success) {
         throw new Error("Failed to update banner");
       }

@@ -182,7 +182,7 @@ export const CallRequest = () => {
             type="submit"
             className="w-full bg-[var(--bg-color)] text-[var(--text-color)] py-2 px-4 rounded-md custom-hover focus:outline-none "
           >
-            {loading ? "Submit Request" : "Loading..."}
+            {!loading ? "Submit Request" : "Loading..."}
           </button>
         </form>
       </div>

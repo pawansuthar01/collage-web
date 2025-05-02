@@ -61,7 +61,7 @@ export const getAllFeedback = async (req, res, next) => {
       rating: { $gte: 3, $lte: 5 }, // Rating between 3 and 5
     })
       .skip(skip)
-      .limit(parseInt(6));
+      .limit(parseInt(4));
 
     const AllFeedback = await Feedback.find({});
 

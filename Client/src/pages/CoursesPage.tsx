@@ -127,7 +127,7 @@ const CoursesPage = () => {
                 <motion.div
                   key={course._id}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-white p-6 min-w-[350px] border rounded-lg shadow-md"
+                  className="bg-white border-gray-500-500 p-6 min-w-[350px] border-2 rounded-lg shadow-sm"
                 >
                   <h3 className="text-xl font-semibold  text-[var(--heading-color)]">
                     {course.name_course}
@@ -146,17 +146,24 @@ const CoursesPage = () => {
                       Seats: {course.course_seats}
                     </span>
                   </div>
-                  <button
-                    onClick={() =>
-                      handelFromOpen({
-                        name: course.name_course,
-                        fees: course.course_fees,
-                      })
-                    }
-                    className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
-                  >
-                    Apply Now
-                  </button>
+                  {Number(course.course_seats) != 0 ? (
+                    <button
+                      onClick={() =>
+                        handelFromOpen({
+                          name: course.name_course,
+                          fees: course.course_fees,
+                        })
+                      }
+                      className="mt-4 w-full bg-[var(--btn-color)] custom-hover  text-[var(--text-color)] px-4 py-2 rounded-md  transition-colors"
+                    >
+                      Apply Now
+                    </button>
+                  ) : (
+                    <p className="text-center text-red-500 font-bold">
+                      {" "}
+                      Seats full
+                    </p>
+                  )}
                 </motion.div>
               ))
             ) : (
@@ -192,6 +199,7 @@ const CoursesPage = () => {
                       type="text"
                       id="name"
                       name="name"
+                      value={courseApplyData.name}
                       onChange={handleChange}
                       className=" block  w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
                     />
@@ -207,6 +215,7 @@ const CoursesPage = () => {
                       type="email"
                       id="email"
                       name="email"
+                      value={courseApplyData.email}
                       onChange={handleChange}
                       className=" block  w-full  rounded-lg p-1 outline-none border-2  border-gray-900 shadow-sm "
                     />
@@ -221,6 +230,7 @@ const CoursesPage = () => {
                     <input
                       type="tel"
                       id="phone"
+                      value={courseApplyData.phone}
                       name="phone"
                       onChange={handleChange}
                       className=" block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
@@ -237,6 +247,7 @@ const CoursesPage = () => {
                       type="text"
                       id="previousEducation"
                       name="previousEducation"
+                      value={courseApplyData.previousEducation}
                       onChange={handleChange}
                       className=" block   w-full  rounded-lg p-1  outline-none border-2  border-gray-900 shadow-sm "
                     />
@@ -252,6 +263,7 @@ const CoursesPage = () => {
                       rows={4}
                       id="message"
                       name="message"
+                      value={courseApplyData.message}
                       onChange={handleChange}
                       className=" block   w-full  rounded-lg   outline-none border-2  border-gray-900 shadow-sm "
                     />
