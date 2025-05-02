@@ -221,7 +221,7 @@ export const changePassword = async (req, res, next) => {
       </div>
     `;
 
-    await sendEmail(email, subject, message);
+    await sendEmail(admin.email, subject, message);
 
     res.status(200).json({
       success: true,
@@ -245,6 +245,7 @@ export const checkPasswordResetToken = async (req, res, next) => {
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
+    console.log(hashedToken);
     const admin = await AdminData.findOne({
       forgotPasswordToken: hashedToken,
       forgotPasswordExpiry: { $gt: Date.now() },

@@ -76,7 +76,7 @@ const UpdatePassword: React.FC = () => {
       setPasswordData({ newPassword: "", confirmPassword: "" });
 
       setTimeout(() => {
-        navigate("/admin/login"); // or another route
+        navigate("/Admin"); // or another route
       }, 3000);
     } else {
       setError("Token expired or invalid, please try again.");
