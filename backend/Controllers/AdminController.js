@@ -338,6 +338,7 @@ export const updatePassword = async (req, res, next) => {
     }
     res.status(200).json({
       success: true,
+      data: adminExist,
       message: "Password successfully updated.",
     });
   } catch (error) {
@@ -345,8 +346,7 @@ export const updatePassword = async (req, res, next) => {
   }
 };
 export const GetAdminData = async (req, res, next) => {
-  const { password } = req.params;
-
+  const { password } = req.body;
   if (!password) {
     return res.status(401).json({
       success: false,

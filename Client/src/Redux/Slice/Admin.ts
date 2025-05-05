@@ -446,10 +446,10 @@ export const AdminDashboardData = createAsyncThunk("/Admin/Data", async () => {
   }
 
   try {
-    const response = await axiosInstance.get(
-      `/collage/v5/admin/Data/${password}`
-    );
-    return response?.data;
+    const response = await axiosInstance.post(`/collage/v5/admin/Dashboard`, {
+      password: password,
+    });
+    return response.data;
   } catch (error: any) {
     if (error?.response?.status == 401) {
       localStorage.clear();
@@ -532,6 +532,12 @@ const AdminRedux = createSlice({
           state.Role = action?.payload?.data?.Role;
           localStorage.setItem("isLoggedIn", "true");
           state.isLoggedIn = true;
+          state.Password = action?.payload?.data?.password;
+        }
+      })
+      .addCase(UpdatePassword.fulfilled, (state, action) => {
+        if (action?.payload?.success) {
+          localStorage.setItem("Password", action?.payload?.data?.password);
           state.Password = action?.payload?.data?.password;
         }
       });
