@@ -60,7 +60,7 @@ const BannerNotice: React.FC = () => {
   };
   const getNotice = async () => {
     const res = await dispatch(getBannerNoticeData());
-    console.log(res);
+   
     if (res && typeof res.payload === "object") {
       setNotices(res?.payload);
     }

@@ -79,7 +79,7 @@ export const AdminCheck = async (req, res, next) => {
 
   if (!password || !email) {
     return next(
-      new AppError("Admin authentication requires email and password", 400)
+      new AppError("Admin authentication requires email and password", 401)
     );
   }
 
@@ -345,6 +345,22 @@ export const updatePassword = async (req, res, next) => {
   }
 };
 export const GetAdminData = async (req, res, next) => {
+  const { password } = req.params;
+
+  if (!password) {
+    return res.status(401).json({
+      success: false,
+      message: `Admin authentication requires  password `,
+    });
+  }
+  const findAdmin = await AdminData.findOne({ Key_id: "_Admin_ID_" });
+  const isPasswordValid = password === findAdmin.password;
+  if (!isPasswordValid) {
+    return res.status(401).json({
+      success: false,
+      message: `Password does not match. Attempt `,
+    });
+  }
   try {
     const [
       CountFeedback,

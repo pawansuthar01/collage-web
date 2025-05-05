@@ -4,6 +4,7 @@ import axiosInstance from "../../../Helper/axiosInstance";
 interface AdminState {
   Message: any;
   isLoggedIn: boolean | string;
+  Password: string;
   Feedback: any;
   Role: string | null;
 }
@@ -18,6 +19,7 @@ const initialState: AdminState = {
       : {},
   Role: localStorage.getItem("Role") || null,
   isLoggedIn: localStorage.getItem("isLoggedIn") || false,
+  Password: localStorage.getItem("Password") as string,
 };
 // update banner data //
 export const updateBanner = createAsyncThunk(
@@ -435,10 +437,25 @@ export const checkPasswordReset = createAsyncThunk(
 );
 
 export const AdminDashboardData = createAsyncThunk("/Admin/Data", async () => {
+  const password = localStorage.getItem("Password");
+
+  if (!password || password == undefined) {
+    localStorage.clear();
+
+    window.location.href = "/admin";
+  }
+
   try {
-    const response = await axiosInstance.get(`/collage/v5/admin/Data`);
+    const response = await axiosInstance.get(
+      `/collage/v5/admin/Data/${password}`
+    );
     return response?.data;
   } catch (error: any) {
+    if (error?.response?.status == 401) {
+      localStorage.clear();
+
+      window.location.href = "/admin";
+    }
     return error?.response?.data || error?.message || "Something went wrong...";
   }
 });
@@ -511,9 +528,11 @@ const AdminRedux = createSlice({
       .addCase(AdminLogin.fulfilled, (state, action) => {
         if (action?.payload?.success) {
           localStorage.setItem("Role", action?.payload?.data?.Role);
+          localStorage.setItem("Password", action?.payload?.data?.password);
           state.Role = action?.payload?.data?.Role;
           localStorage.setItem("isLoggedIn", "true");
           state.isLoggedIn = true;
+          state.Password = action?.payload?.data?.password;
         }
       });
   },

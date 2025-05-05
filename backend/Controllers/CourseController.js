@@ -57,8 +57,6 @@ export const AddCourse = async (req, res, next) => {
 export const updatedCourseById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log(req.body);
-    console.log(req.file);
     const { name, year, seats, fees, description } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return next(new AppError("Invalid Course ID", 400));
