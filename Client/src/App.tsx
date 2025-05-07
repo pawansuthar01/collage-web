@@ -31,6 +31,8 @@ import { DocumentPage } from "./pages/documentPage";
 import DocumentsPage from "./Auth/document/document";
 
 import BannerNotice from "./Auth/Notice/BannerNotice";
+import Facilities from "./pages/facilities";
+import FacilitiesUpdate from "./Auth/facilities/Facilities";
 
 function App() {
   return (
@@ -43,6 +45,7 @@ function App() {
           <Route path="/Error" element={<ErrorPage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/Facilities" element={<Facilities />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route
             path="/Admin/changePassword/:token"
@@ -59,6 +62,10 @@ function App() {
             <Route path="/Admin/call-requests" element={<CallList />} />
             <Route path="/Admin/feedback" element={<FeedbackList />} />
             <Route path="/Admin/contacts" element={<ContactList />} />
+            <Route
+              path="/Admin/Facilities-Update"
+              element={<FacilitiesUpdate />}
+            />
             <Route
               path="/Admin/update-banner"
               element={<AdminBannerUpdate />}

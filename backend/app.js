@@ -10,8 +10,6 @@ import dataBaseConnection from "./config/dbConncetion.js";
 import UserRouter from "./Routers/UserRouter.js";
 import Admin from "./Routers/AdminRouter.js";
 import ErrorMiddleware from "./Middleware/Error.Middleware.js";
-import { GetAdminData } from "./Controllers/AdminController.js";
-import { getDocument } from "./Controllers/documentController.js";
 
 const app = express();
 

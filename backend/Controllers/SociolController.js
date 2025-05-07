@@ -3,13 +3,25 @@ import AppError from "../Utils/AppErrors.js";
 
 export const SubmitSociolLink = async (req, res, next) => {
   try {
-    const { phoneNumber, address, email, instagram, facebook, youtube } =
-      req.body;
+    const {
+      phoneNumber,
+      address,
+      grievanceOfficerEmail,
+      grievanceOfficerName,
+      grievanceOfficerNumber,
+      email,
+      instagram,
+      facebook,
+      youtube,
+    } = req.body;
 
     const SociolLink = new SocialLink({
       phoneNumber,
       facebook,
       email,
+      grievanceOfficerEmail,
+      grievanceOfficerName,
+      grievanceOfficerNumber,
       youtube,
       instagram,
       address,

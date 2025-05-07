@@ -22,7 +22,7 @@ const Hero = () => {
     }
   }
   useEffect(() => {
-    const text = "Mata gujri khlasa shikshan sansthan  • WELCOME •  ";
+    const text = "Mata gujri khalsa shikshan sansthan  • WELCOME •  ";
     if (circularTextRef.current) {
       circularTextRef.current.innerHTML = text
         .split("")
@@ -120,9 +120,8 @@ const Hero = () => {
             <div className=" flex items-center max-[650px]:flex-col justify-center text-[var(--text-color)]">
               <MapPin className="h-6 w-6" />
               <span className="ml-2 text-lg max-[650px]:text-[17px]">
-                {" "}
-                Mata Gujri Khalsa College Of Education, sikh minority
-                institution 2 C, Rajasthan 335001
+                Mata gujri Khalsa shikshan sansthan , Minority institution ,
+                sriganganagar - 335001 (Rajasthan)
               </span>
             </div>
           </div>

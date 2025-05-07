@@ -62,6 +62,20 @@ export const getDocumentData = createAsyncThunk("get/Document", async () => {
     return error?.response?.data || error?.message || "Something went wrong...";
   }
 });
+
+export const getFacilitiesData = createAsyncThunk(
+  "get/facilities",
+  async () => {
+    try {
+      const response = await axiosInstance.get(`/collage/v3/user/facilities`);
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
 export const getSocialLinkData = createAsyncThunk("get/link", async () => {
   try {
     const response = await axiosInstance.get(`/collage/v3/user/sociallink`);

@@ -56,6 +56,10 @@ import {
   DeleteDocument,
   newDocument,
 } from "../Controllers/documentController.js";
+import {
+  DeleteFacilities,
+  newFacilities,
+} from "../Controllers/Facilities.controller.js";
 
 const Admin = Router();
 Admin.get("/Login/:email/:password", AdminCheck);
@@ -98,5 +102,7 @@ Admin.route("/banner-notice").post(newNotice);
 Admin.route("/banner-notice/:id").put(editNotice).delete(DeleteNotice);
 Admin.route("/document").post(upload.single("photo"), newDocument);
 Admin.route("/document/:id").delete(DeleteDocument);
+Admin.route("/facilities").post(upload.single("image"), newFacilities);
+Admin.route("/facilities/:id").delete(DeleteFacilities);
 
 export default Admin;

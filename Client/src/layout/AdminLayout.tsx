@@ -21,6 +21,7 @@ import { BiSolidColorFill } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../Redux/Store";
 import { logout } from "../Redux/Slice/Admin";
+import { HiAcademicCap } from "react-icons/hi";
 
 const Sidebar = ({
   isOpen,
@@ -75,6 +76,7 @@ const Sidebar = ({
       title: "document",
       icon: <FileText className="w-5 h-5" />,
     },
+
     {
       path: "/Admin/call-requests",
       title: "Call Requests",
@@ -101,6 +103,11 @@ const Sidebar = ({
       icon: <Lock className="w-5 h-5" />,
     },
     {
+      path: "/Admin/Facilities-Update",
+      title: "Facilities and Activities",
+      icon: <HiAcademicCap className="w-5 h-5" />,
+    },
+    {
       path: "/Admin/SociolLink-update",
       title: "Sociol Link",
       icon: <BiSolidColorFill className="w-5 h-5" />,
@@ -124,8 +131,8 @@ const Sidebar = ({
           <X className="w-6 h-6" />
         </button>
       </div>
-      <nav className="px-4 py-6">
-        <ul className="space-y-2">
+      <nav className="px-4 py-6 ">
+        <ul className="space-y-2 ">
           {menuItems.map((item, index) => (
             <li key={index}>
               {item.submenu ? (

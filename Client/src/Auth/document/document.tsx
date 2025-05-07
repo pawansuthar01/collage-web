@@ -60,13 +60,11 @@ const DocumentsPage: React.FC = () => {
 
       formData.append("photo", file);
       const res = await dispatch(newDocument(formData));
-      console.log(res);
 
       if (res && res?.payload.data && res?.payload?.success) {
         setLoading(false);
 
         setDocuments((prev) => {
-          console.log("prev:", prev); // Log to see the prev value
           return [res?.payload?.data, ...(Array.isArray(prev) ? prev : [])];
         });
       }

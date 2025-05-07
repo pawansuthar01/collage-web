@@ -4,7 +4,10 @@ const InformationSchema = new Schema(
   {
     uniqueKey: { type: String, default: "INFORMATION", unique: true },
     phoneNumber: { type: Number, required: true },
+    grievanceOfficerNumber: { type: Number },
 
+    grievanceOfficerEmail: { type: String },
+    grievanceOfficerName: { type: String },
     email: { type: String, required: true },
     instagram: { type: String },
     facebook: { type: String },

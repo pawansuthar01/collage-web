@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../Redux/Store";
 import { getDocumentData } from "../Redux/Slice/getData";
+import Layout from "../layout/layout";
 type Document = {
   _id: string;
   url: string;
@@ -45,32 +46,34 @@ export const DocumentPage = () => {
     );
   }
   return (
-    <section className="w-full bg-gradient-to-tr from-indigo-50 to-purple-100 py-6 px-4 md:px-8">
-      <h2 className="text-xl md:text-3xl font-semibold text-gray-800 mb-6 text-center">
-        Documents
-      </h2>
+    <Layout>
+      <section className="w-full min-h-screen bg-gradient-to-tr from-indigo-50 to-purple-100 py-6 px-4 md:px-8">
+        <h2 className="text-xl md:text-3xl pt-14 font-semibold text-gray-800 mb-6 text-center">
+          Documents
+        </h2>
 
-      <div className="flex flex-col gap-4">
-        {documents.length > 0 &&
-          documents.map((doc) => (
-            <div
-              key={doc._id}
-              className=" flex p-2 justify-center rounded-xl overflow-hidden "
-            >
-              <img
-                src={doc.url}
-                alt="Document"
-                className="w-full h-auto lg:w-[50%] object-cover rounded-lg "
-              />
-            </div>
-          ))}
-      </div>
+        <div className="flex flex-col gap-4">
+          {documents.length > 0 &&
+            documents.map((doc) => (
+              <div
+                key={doc._id}
+                className=" flex p-2 justify-center rounded-xl overflow-hidden "
+              >
+                <img
+                  src={doc.url}
+                  alt="Document"
+                  className="w-full h-auto lg:w-[50%] object-cover rounded-lg "
+                />
+              </div>
+            ))}
+        </div>
 
-      {documents.length == 0 && (
-        <p className="text-center text-gray-500 mt-8">
-          No image documents available.
-        </p>
-      )}
-    </section>
+        {documents.length == 0 && (
+          <p className="text-center text-gray-500 mt-8">
+            No image documents available.
+          </p>
+        )}
+      </section>
+    </Layout>
   );
 };

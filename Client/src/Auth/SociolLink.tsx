@@ -13,6 +13,9 @@ interface SocialLinks {
   phoneNumber: number;
   email: string;
   address: string;
+  grievanceOfficerName: string;
+  grievanceOfficerNumber: number;
+  grievanceOfficerEmail: string;
 }
 
 const SocialUpdate: React.FC = () => {
@@ -23,6 +26,9 @@ const SocialUpdate: React.FC = () => {
 
   const [formData, setFormData] = useState<SocialLinks>({
     instagram: "",
+    grievanceOfficerEmail: "",
+    grievanceOfficerName: "",
+    grievanceOfficerNumber: 0,
     youtube: "",
     facebook: "",
     phoneNumber: 0,
@@ -42,6 +48,9 @@ const SocialUpdate: React.FC = () => {
         youtube: Data.youtube || "",
         facebook: Data.facebook || "",
         phoneNumber: Data.phoneNumber || 0,
+        grievanceOfficerNumber: Data?.grievanceOfficerNumber || 0,
+        grievanceOfficerEmail: Data?.grievanceOfficerEmail || "",
+        grievanceOfficerName: Data?.grievanceOfficerName || "",
         email: Data?.email || "",
         address: Data?.address || "",
       });
@@ -62,7 +71,9 @@ const SocialUpdate: React.FC = () => {
       !formData.instagram ||
       !formData.youtube ||
       !formData.facebook ||
-      !formData.phoneNumber ||
+      !formData.grievanceOfficerEmail ||
+      !formData.grievanceOfficerName ||
+      !formData.grievanceOfficerNumber ||
       !formData.email ||
       !formData.address
     ) {
@@ -104,6 +115,21 @@ const SocialUpdate: React.FC = () => {
             { label: "Phone Number", name: "phoneNumber", Type: "number" },
             { label: "Email ", name: "email", Type: "email" },
             { label: "address ", name: "address", Type: "text" },
+            {
+              label: "grievanceOfficerName ",
+              name: "grievanceOfficerName",
+              Type: "text",
+            },
+            {
+              label: "grievanceOfficerEmail ",
+              name: "grievanceOfficerEmail",
+              Type: "email",
+            },
+            {
+              label: "grievanceOfficerNumber ",
+              name: "grievanceOfficerNumber",
+              Type: "number",
+            },
           ].map(({ label, name, Type }) => (
             <div className="mb-4" key={name}>
               <label

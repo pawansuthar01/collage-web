@@ -277,7 +277,6 @@ export const DeleteEvent = createAsyncThunk(
 export const newDocument = createAsyncThunk(
   "/new/Document",
   async (data: any) => {
-    console.log(data);
     try {
       const response = await axiosInstance.post(
         "/collage/v5/admin/document",
@@ -298,6 +297,39 @@ export const DeleteDocument = createAsyncThunk(
     try {
       const response = await axiosInstance.delete(
         `/collage/v5/admin/document/${id}`
+      );
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
+//new Facilities//
+export const newFacilities = createAsyncThunk(
+  "/new/facilities",
+  async (data: any) => {
+    try {
+      const response = await axiosInstance.post(
+        "/collage/v5/admin/facilities",
+        data
+      );
+      return response?.data;
+    } catch (error: any) {
+      return (
+        error?.response?.data || error?.message || "Something went wrong..."
+      );
+    }
+  }
+);
+//Delete Facilities//
+export const DeleteFacilities = createAsyncThunk(
+  "/delete/facilities",
+  async (id: any) => {
+    try {
+      const response = await axiosInstance.delete(
+        `/collage/v5/admin/facilities/${id}`
       );
       return response?.data;
     } catch (error: any) {

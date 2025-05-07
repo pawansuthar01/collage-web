@@ -13,7 +13,7 @@ const AboutPage = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="pt-24 pb-16 px-4 sm:px-8 max-w-6xl mx-auto"
+        className="pt-24 pb-16 px-4 sm:px-8 relative max-w-6xl mx-auto"
       >
         <About />
 
@@ -148,7 +148,7 @@ const AboutPage = () => {
               </p>
             </div>
 
-            <p className="mt-4 text-[Var(--text-Secondary-color)] leading-relaxed text-justify">
+            <p className="mt-4 text-[Var(--text-Secondary-color)] leading-relaxed   text-justify">
               Setting a goal in life and achieving it are two different things.
               It is the achievement of the goal that requires single-minded
               devotion and dedication as well as literally burning the midnight
@@ -176,6 +176,9 @@ const AboutPage = () => {
               place for your career development because it’s our endeavour to
               create a workplace that will, ’Act Locally ,Think Globally’. I
               wish them fruitful years at MGKSS.
+            </p>
+            <p className="text-2xl font-bold text-[Var(--text-Secondary-color)] absolute right-0 px-4 sm:px-8 max-w-6xl">
+              Smt.Darshanpal kaur
             </p>
           </div>
           <div className="  rounded-xl  mb-10">

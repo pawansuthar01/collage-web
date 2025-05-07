@@ -16,6 +16,9 @@ type contactType = {
   phoneNumber: number;
   email: string;
   address: string;
+  grievanceOfficerEmail: string;
+  grievanceOfficerName: string;
+  grievanceOfficerNumber: string;
 };
 const ContactPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -106,6 +109,7 @@ const ContactPage = () => {
             <div>
               {!contactLoading ? (
                 <div className="space-y-6">
+                  {/* Contact Section */}
                   <motion.div
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -113,10 +117,10 @@ const ContactPage = () => {
                   >
                     <Phone className="h-6 w-6 text-[var(--icon-color)]" />
                     <span className="ml-3 text-gray-600">
-                      {" "}
                       {contact?.phoneNumber}
                     </span>
                   </motion.div>
+
                   <motion.div
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -126,6 +130,7 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6 text-[var(--icon-color)]" />
                     <span className="ml-3 text-gray-600">{contact?.email}</span>
                   </motion.div>
+
                   <motion.div
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -136,6 +141,29 @@ const ContactPage = () => {
                     <span className="ml-3 text-gray-600">
                       {contact?.address}
                     </span>
+                  </motion.div>
+
+                  {/* Grievance Redressal Officer Section */}
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="p-4 bg-gray-100 rounded-xl shadow-sm"
+                  >
+                    <h2 className="text-lg font-semibold mb-2 text-gray-800">
+                      Grievance Redressal Officer
+                    </h2>
+                    <p className="text-gray-700">
+                      <strong>Name:</strong> {contact?.grievanceOfficerName}
+                    </p>
+                    <p className="text-gray-700">
+                      <strong>Contact Number:</strong>{" "}
+                      {contact?.grievanceOfficerNumber}
+                    </p>
+                    <p className="text-gray-700">
+                      <strong>Email ID:</strong>{" "}
+                      {contact?.grievanceOfficerEmail}
+                    </p>
                   </motion.div>
                 </div>
               ) : (

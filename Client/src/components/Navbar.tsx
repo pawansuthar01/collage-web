@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Home, Phone, Users, Menu, X, Bell } from "lucide-react";
+import {
+  BookOpen,
+  Home,
+  Phone,
+  Users,
+  Menu,
+  X,
+  Bell,
+  User,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { GrDocumentUser } from "react-icons/gr";
+import { HiAcademicCap } from "react-icons/hi";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,6 +24,17 @@ const Navbar = () => {
     { name: "About", icon: Users, to: "/about" },
     { name: "Contact", icon: Phone, to: "/contact" },
     { name: "Document", icon: GrDocumentUser, to: "/documents" },
+    { name: "Facilities", icon: GrDocumentUser, to: "/facilities" },
+    {
+      name: "Faculty ",
+      icon: HiAcademicCap,
+      to: "/documents",
+    },
+    {
+      name: "Students ",
+      icon: User,
+      to: "/documents",
+    },
   ];
 
   return (
@@ -23,17 +44,17 @@ const Navbar = () => {
           <div className="">
             <Link to="/" className="flex items-center">
               <BookOpen className="h-8 w-8 max-[600px]:h-5" />
-              <span className="ml-2 max-[400px]:hidden  flex text-xl capitalize max-[600px]:text-sm font-bold">
-                Mata gujri khlasa shikshan sansthan
+              <span className="ml-2 max-[400px]:hidden  flex text-[15px] capitalize max-[600px]:text-sm font-bold">
+                Mata gujri khalsa shikshan sansthan
               </span>
               <span className="ml-2 text-xl   max-[400px]:flex hidden capitalize max-[600px]:text-sm font-bold">
-                Mata gujri khlasa shikshan
+                Mata gujri khalsa shikshan
               </span>
             </Link>
           </div>
 
           <div className="hidden lg:block">
-            <div className="ml-10 flex items-center space-x-4">
+            <div className="ml-10 flex items-center space-x-2">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
